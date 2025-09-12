@@ -1,0 +1,83 @@
+﻿@page "/editar_disciplina";
+<PageTitle>Disciplina</PageTitle>
+
+<div class="container mt-5">
+    <h3 class="mb-4">Editar Disciplina</h3>
+
+    <form class="bg-white p-4 rounded shadow-sm">
+        <div class="mb-3">
+            <label for="disciplina" class="form-label">Nome da disciplina</label>
+            <select class="form-select" id="disciplina">
+                <option selected>Selecione...</option>
+                <option>Matemática</option>
+                <option>Português</option>
+                <option>Ciências</option>
+                <option>Geografia</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="professor" class="form-label">Professor</label>
+            <select class="form-select" id="professor">
+                <option selected>Selecione...</option>
+                <option>Matheus Pedroso</option>
+                <option>Outro Professor</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="carga" class="form-label">Carga Horária</label>
+            <input type="text" class="form-control" id="carga" placeholder="Ex: 60 horas">
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="curso" class="form-label">Curso</label>
+                <select class="form-select" id="curso">
+                    <option selected>Selecione...</option>
+                    <option>Ensino Fundamental</option>
+                    <option>Ensino Médio</option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="serie" class="form-label">Série</label>
+                <select class="form-select" id="serie">
+                    <option selected>Selecione...</option>
+                    <option>6º Ano</option>
+                    <option>7º Ano</option>
+                    <option>8º Ano</option>
+                    <option>9º Ano</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="competencias" class="form-label">Competências</label>
+            <select class="form-select" id="competencias">
+                <option selected>Selecione...</option>
+                <option>Raciocínio lógico</option>
+                <option>Leitura crítica</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="avaliacao" class="form-label">Métodos de avaliação</label>
+            <select class="form-select" id="avaliacao">
+                <option selected>Selecione...</option>
+                <option>Prova escrita</option>
+                <option>Trabalho em grupo</option>
+                <option>Autoavaliação</option>
+            </select>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Excluir
+            </button>
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Salvar
+            </button>
+        </div>
+    </form>
+</div>
+

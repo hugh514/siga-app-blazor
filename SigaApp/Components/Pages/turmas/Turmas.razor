@@ -1,0 +1,49 @@
+﻿@page "/turmas";
+
+<div class="container py-5">
+    <h3 class="mb-4 fw-normal text-dark text-center">Turmas</h3>
+
+    <!-- Botão cadastrar -->
+    <div class="d-flex justify-content-end mb-3">
+        <a href="cadastrar_turma" class="btn btn-primary">
+            + Cadastrar Turma
+        </a>
+    </div>
+
+    <!-- Tabela de turmas -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Nome da Turma</th>
+                        <th scope="col">Ano/Série</th>
+                        <th scope="col">Professor Responsável</th>
+                        <th scope="col" class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Turma A</td>
+                        <td>1º Ano</td>
+                        <td>Prof. João</td>
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-outline-primary me-1" href="editar_turma">Editar</a>
+                            <a class="btn btn-sm btn-outline-danger" href="deletar_turma">Excluir</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Turma B</td>
+                        <td>2º Ano</td>
+                        <td>Prof. Maria</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-primary me-1">Editar</button>
+                            <button class="btn btn-sm btn-outline-danger">Excluir</button>
+                        </td>
+                    </tr>
+                    <!-- Outras turmas aqui -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

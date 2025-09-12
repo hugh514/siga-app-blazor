@@ -1,0 +1,42 @@
+﻿@inherits LayoutComponentBase
+
+<div class="d-flex" style="height:100vh;">
+    <!-- 🔹 Sidebar -->
+    <nav id="sidebar" class="sidebar text-white p-3 cor-fundo" style="width:220px;">
+        <img src="/assets/logo.png" alt="logo" class="d-block mx-auto"
+             style="filter: brightness(0) invert(1); height: 15%;" />
+        <hr />
+        <ul class="nav flex-column" id="menu">
+            <li>
+                <NavLink class="nav-link text-white" href="disciplina" Match="NavLinkMatch.All">
+                    Disciplina
+                </NavLink>
+            </li>
+            <li>
+                <NavLink class="nav-link text-white" href="turmas">
+                    Turma
+                </NavLink>
+            </li>
+            <li>
+                <NavLink class="nav-link text-white" href="diario">
+                    Diário
+                </NavLink>
+            </li>
+            <li>
+                <NavLink class="nav-link text-white" href="professores">
+                    Professores
+                </NavLink>
+            </li>
+            <li>
+                <NavLink class="nav-link text-white" href="" Match="NavLinkMatch.All">
+                    Home
+                </NavLink>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- 🔹 Conteúdo dinâmico -->
+    <main class="flex-fill p-4 bg-light">
+        @Body
+    </main>
+</div>

@@ -1,0 +1,66 @@
+﻿@page "/disciplina";
+<PageTitle>Disciplina</PageTitle>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Disciplina</h2>
+
+    <div class="d-flex justify-content-between mb-3">
+        <a class="btn btn-primary" href="cadastro_disciplina">Cadastrar</a>
+        <input type="text" class="form-control w-25" placeholder="Pesquisar...">
+    </div>
+
+    <table class="table table-bordered table-hover bg-white">
+        <thead class="table-secondary">
+            <tr>
+                <th>Nome</th>
+                <th>Carga Horária</th>
+                <th>Professor</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Matemática</td>
+                <td>120 horas</td>
+                <td>Matheus Pedroso</td>
+                <td>
+                    <button class="btn btn-sm btn-outline-info me-1"><i class="bi bi-eye"></i></button>
+                    <a class="btn btn-sm btn-outline-warning me-1" href="editar_disciplina">Editar</a>
+                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Português</td>
+                <td>120 horas</td>
+                <td>Matheus Pedroso</td>
+                <td>
+                    <button class="btn btn-sm btn-outline-info me-1"><i class="bi bi-eye"></i></button>
+                    <button class="btn btn-sm btn-outline-warning me-1">Editar</button>
+                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Ciências</td>
+                <td>60 horas</td>
+                <td>Matheus Pedroso</td>
+                <td>
+                    <button class="btn btn-sm btn-outline-info me-1"><i class="bi bi-eye"></i></button>
+                    <button class="btn btn-sm btn-outline-warning me-1">Editar</button>
+                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Geografia</td>
+                <td>60 horas</td>
+                <td>Matheus Pedroso</td>
+                <td>
+                    <button class="btn btn-sm btn-outline-info me-1"><i class="bi bi-eye"></i></button>
+                    <button class="btn btn-sm btn-outline-warning me-1">Editar</button>
+                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+

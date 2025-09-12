@@ -1,0 +1,26 @@
+﻿@page "/cadastrar_turma";
+
+<div class="container py-5">
+    <h3 class="mb-4 fw-normal text-dark text-center">Cadastrar Nova Turma</h3>
+    <div class="card shadow-sm border-0 p-4 mx-auto" style="max-width: 500px;">
+        <form id="form-cadastrar-turma">
+            <div class="mb-3">
+                <label for="nome_turma" class="form-label">Nome da Turma</label>
+                <input type="text" id="nome_turma" class="form-control" placeholder="Ex: Turma A" required>
+            </div>
+            <div class="mb-3">
+                <label for="ano_turma" class="form-label">Ano/Série</label>
+                <input type="text" id="ano_turma" class="form-control" placeholder="Ex: 1º Ano" required>
+            </div>
+            <div class="mb-3">
+                <label for="professor" class="form-label">Professor Responsável</label>
+                <input type="text" id="professor" class="form-control" placeholder="Ex: Prof. João" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Salvar</button>
+        </form>
+        <!-- Link para voltar -->
+        <p class="text-center mt-3 mb-0">
+            <a href="turmas" class="text-decoration-none">← Voltar para Turmas</a>
+        </p>
+    </div>
+</div>

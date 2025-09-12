@@ -1,0 +1,87 @@
+﻿@page "/editar_turma";
+
+<div class="container py-5">
+    <h3 class="mb-4 fw-normal text-dark text-center">Editar Turma</h3>
+    <div class="card shadow-sm border-0 p-4 mx-auto" style="max-width: 700px;">
+        <form id="form-editar-turma">
+            <!-- Período Letivo -->
+            <div class="mb-3">
+                <label for="periodo_letivo" class="form-label">Período Letivo</label>
+                <select id="periodo_letivo" class="form-select" required></select>
+            </div>
+            <!-- Curso -->
+            <div class="mb-3">
+                <label for="curso" class="form-label">Curso</label>
+                <input type="text" id="curso" class="form-control" placeholder="Ex: Informática" required>
+            </div>
+            <!-- Série -->
+            <div class="mb-3">
+                <label for="serie" class="form-label">Série</label>
+                <input type="text" id="serie" class="form-control" placeholder="Ex: 1º Ano" required>
+            </div>
+            <!-- Nome da turma -->
+            <div class="mb-3">
+                <label for="nome_turma" class="form-label">Nome da Turma</label>
+                <input type="text" id="nome_turma" class="form-control" placeholder="Ex: Turma A" required>
+            </div>
+            <!-- Tipo de Turma -->
+            <div class="mb-3">
+                <label for="tipo_turma" class="form-label">Tipo de Turma</label>
+                <select id="tipo_turma" class="form-select" required>
+                    <option value="Presencial">Presencial</option>
+                    <option value="EAD">EAD</option>
+                </select>
+            </div>
+            <!-- Quantidade de Vagas -->
+            <div class="mb-3">
+                <label for="vagas" class="form-label">Quantidade de Vagas</label>
+                <input type="number" id="vagas" class="form-control" min="1" placeholder="Ex: 40" required>
+            </div>
+
+            <!-- Horário de início e fim -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="hora_inicio" class="form-label">Horário de Início</label>
+                    <input type="time" id="hora_inicio" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="hora_fim" class="form-label">Horário de Término</label>
+                    <input type="time" id="hora_fim" class="form-control" required>
+                </div>
+            </div>
+
+            <!-- Selecionar Professores -->
+            <div class="mb-3">
+                <label for="professores" class="form-label">Professores</label>
+                <select id="professores" class="form-select" multiple required>
+                    <option>Prof. João</option>
+                    <option>Prof. Maria</option>
+                    <option>Prof. Ana</option>
+                    <option>Prof. Carlos</option>
+                </select>
+                <small class="text-muted">Segure CTRL (ou Command) para selecionar vários</small>
+            </div>
+            <!-- Observação -->
+            <div class="mb-3">
+                <label for="observacao" class="form-label">Observação</label>
+                <textarea id="observacao" class="form-control" rows="3" placeholder="Escreva observações sobre a turma..."></textarea>
+            </div>
+            <!-- Botões -->
+            <div class="d-flex justify-content-between">
+                <a href="turmas" class="btn btn-outline-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    // Preencher select de período letivo (2000 até o ano atual)
+    const anoAtual = new Date().getFullYear();
+    const selectAno = document.getElementById("periodo_letivo");
+    for (let ano = anoAtual; ano >= 2000; ano--) {
+    const option = document.createElement("option");
+    option.value = ano;
+    option.textContent = ano;
+    selectAno.appendChild(option);
+    }
+</script>

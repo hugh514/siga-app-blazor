@@ -1,0 +1,78 @@
+﻿@page "/cadastro_disciplina"
+<PageTitle>Disciplina</PageTitle>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Cadastro de Disciplina</h2>
+    <form>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="nome" class="form-label">Nome</label>
+                <select id="nome" class="form-select">
+                    <option selected>Selecione a disciplina</option>
+                    <option>Matemática</option>
+                    <option>Português</option>
+                    <option>Ciências</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="cargaHoraria" class="form-label">Carga Horária</label>
+                <select id="cargaHoraria" class="form-select">
+                    <option selected>Selecione</option>
+                    <option>40h</option>
+                    <option>60h</option>
+                    <option>80h</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="professor" class="form-label">Professor</label>
+            <select id="professor" class="form-select">
+                <option selected>Selecione o professor</option>
+                <option>João Silva</option>
+                <option>Maria Oliveira</option>
+            </select>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="curso" class="form-label">Curso</label>
+                <select id="curso" class="form-select">
+                    <option selected>Selecione o curso</option>
+                    <option>Informática</option>
+                    <option>Administração</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="serie" class="form-label">Série</label>
+                <select id="serie" class="form-select">
+                    <option selected>Selecione a série</option>
+                    <option>1º</option>
+                    <option>2º</option>
+                    <option>3º</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="competencias" class="form-label">Competências</label>
+            <select id="competencias" class="form-select">
+                <option selected>Selecione</option>
+                <option>Lógica</option>
+                <option>Comunicação</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="avaliacao" class="form-label">Métodos de avaliação</label>
+            <select id="avaliacao" class="form-select">
+                <option selected>Selecione</option>
+                <option>Prova</option>
+                <option>Trabalho</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+</div>
+
