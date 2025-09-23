@@ -3,12 +3,18 @@
 <div class="d-flex" style="height:100vh;">
     <!-- 🔹 Sidebar -->
     <nav id="sidebar" class="sidebar text-white p-3 cor-fundo" style="width:220px;">
-        <img src="/assets/logo.png" alt="logo" class="d-block mx-auto"
-             style="filter: brightness(0) invert(1); height: 15%;" />
+        <NavLink href=""><img src="/assets/logo.png" alt="logo" class="d-block mx-auto"
+                 style="filter: brightness(0) invert(1); height: 15%;" />
+        </NavLink>
         <hr />
-        <ul class="nav flex-column" id="menu">
+        <ul class="nav flex-column align-items-baseline" id="menu">
             <li>
-                <NavLink class="nav-link text-white" href="disciplina" Match="NavLinkMatch.All">
+                <NavLink class="nav-link text-white" href="" Match="NavLinkMatch.All">
+                    Painel
+                </NavLink>
+            </li>
+            <li>
+                <NavLink class="nav-link text-white" href="disciplina">
                     Disciplina
                 </NavLink>
             </li>
@@ -27,11 +33,7 @@
                     Professores
                 </NavLink>
             </li>
-            <li>
-                <NavLink class="nav-link text-white" href="" Match="NavLinkMatch.All">
-                    Home
-                </NavLink>
-            </li>
+           
         </ul>
     </nav>
 
