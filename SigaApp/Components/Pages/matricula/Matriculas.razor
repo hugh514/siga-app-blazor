@@ -1,0 +1,71 @@
+﻿@page "/matriculas"
+<PageTitle>Matriculas</PageTitle>
+
+<div class="container py-5">
+    <h3 class="mb-4 fw-normal text-dark">Matrículas</h3>
+    <!-- Filtros -->
+    <div class="card shadow-sm border-0 p-3 mb-4">
+        <form class="row g-3">
+            <div class="col-md-3">
+                <label for="periodo" class="form-label">Período Letivo</label>
+                <select id="periodo" class="form-select">
+                    <option>2025</option>
+                    <option>2024</option>
+                    <option>2023</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="curso" class="form-label">Curso</label>
+                <select id="curso" class="form-select">
+                    <option>Fundamental I</option>
+                    <option>Fundamental II</option>
+                    <option>Médio</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="serie" class="form-label">Série</label>
+                <select id="serie" class="form-select">
+                    <option>1º Ano</option>
+                    <option>2º Ano</option>
+                    <option>3º Ano</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="aluno" class="form-label">Nome da Turma</label>
+                <input type="text" id="aluno" class="form-control" placeholder="Pesquisar aluno">
+            </div>
+        </form>
+    </div>
+    <!-- Lista de matrículas -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Turma</th>
+                        <th>Série</th>
+                        <th>Curso</th>
+                        <th>Status</th>
+                        <th>Situação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Turma A</td>
+                        <td>1º Ano</td>
+                        <td>Fundamental I</td>
+                        <td>Ativa</td>
+                        <td>Criada</td>
+                    </tr>
+                    <tr>
+                        <td>Turma B</td>
+                        <td>2º Ano</td>
+                        <td>Fundamental I</td>
+                        <td>Ativa</td>
+                        <td>Criada</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

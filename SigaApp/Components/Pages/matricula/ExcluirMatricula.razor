@@ -1,5 +1,30 @@
-﻿<h3>ExcluirMatricula</h3>
+﻿@page "/excluir_matricula"
+<PageTitle>Matricula</PageTitle>
 
-@code {
-
-}
+<div class="container py-5">
+    <h3 class="mb-4 fw-normal text-dark text-center">Excluir Matrícula</h3>
+  
+    <div class="card shadow-sm border-0 p-4 mx-auto" style="max-width:700px;">
+      <div class="mb-3">
+        <label for="matriculaSelect" class="form-label">Selecione a matrícula que deseja excluir</label>
+        <select id="matriculaSelect" class="form-select">
+          <option>Carregando...</option>
+        </select>
+      </div>
+  
+      <div id="detalhesMatricula" class="mb-3 text-muted"></div>
+  
+      <div class="d-flex justify-content-center gap-3">
+        <button id="btnExcluir" class="btn btn-danger" disabled>Excluir Matrícula</button>
+        <a href="#menu_matriculas" class="btn btn-outline-secondary">Cancelar</a>
+      </div>
+    </div>
+  
+    <!-- Lista rápida de matrículas -->
+    <div class="card shadow-sm border-0 mt-4">
+      <div class="card-body">
+        <h5 class="mb-3">Matrículas Atuais</h5>
+        <ul id="listaMatriculas" class="list-group"></ul>
+      </div>
+    </div>
+  </div>
