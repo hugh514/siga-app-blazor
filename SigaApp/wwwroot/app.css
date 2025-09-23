@@ -117,3 +117,7 @@ a {
 #menu {
     color: #374894;
 }
+
+.nav-link:hover {
+    background-color: #509CDB;
+}
