@@ -1,21 +1,22 @@
 ﻿@page "/disciplina";
-<PageTitle>Disciplina</PageTitle>
+<PageTitle>Disciplinas</PageTitle>
 
 <div class="container mt-5">
-    <h2 class="mb-4">Disciplina</h2>
+    <h3>Disciplinas</h3>
 
-    <div class="d-flex justify-content-between mb-3">
-        <a class="btn btn-primary" href="cadastro_disciplina">Cadastrar</a>
-        <input type="text" class="form-control w-25" placeholder="Pesquisar...">
+    <!-- Botão Cadastrar -->
+    <div class="mb-3">
+        <a href="/cadastro_disciplina" class="btn btn-primary">Cadastrar</a>
     </div>
 
-    <table class="table table-bordered table-hover bg-white">
-        <thead class="table-secondary">
+    <!-- Tabela de Disciplinas -->
+    <table class="table table-bordered shadow-sm">
+        <thead class="table-light">
             <tr>
                 <th>Nome</th>
                 <th>Carga Horária</th>
                 <th>Professor</th>
-                <th>Ações</th>
+                <th style="width: 220px;">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -24,43 +25,82 @@
                 <td>120 horas</td>
                 <td>Matheus Pedroso</td>
                 <td>
-                    <button class="btn btn-sm btn-outline-info me-1"><i class="bi bi-eye"></i></button>
-                    <a class="btn btn-sm btn-outline-warning me-1" href="editar_disciplina">Editar</a>
-                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                    <div class="d-flex gap-2">
+                        <!-- Visualizar -->
+                        <a href="/visualizar_disciplina" class="btn btn-sm btn-info">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <!-- Editar -->
+                        <a href="/editar_disciplina" class="btn btn-sm btn-warning">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <!-- Excluir -->
+                        <a href="/excluir_disciplina" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
                 </td>
             </tr>
+
             <tr>
                 <td>Português</td>
                 <td>120 horas</td>
                 <td>Matheus Pedroso</td>
                 <td>
-                    <button class="btn btn-sm btn-outline-info me-1"><i class="bi bi-eye"></i></button>
-                    <button class="btn btn-sm btn-outline-warning me-1">Editar</button>
-                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                    <div class="d-flex gap-2">
+                        <a href="/visualizar_disciplina" class="btn btn-sm btn-info">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a href="/editar_disciplina" class="btn btn-sm btn-warning">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <a href="/excluir_disciplina" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
                 </td>
             </tr>
+
             <tr>
                 <td>Ciências</td>
                 <td>60 horas</td>
                 <td>Matheus Pedroso</td>
                 <td>
-                    <button class="btn btn-sm btn-outline-info me-1"><i class="bi bi-eye"></i></button>
-                    <button class="btn btn-sm btn-outline-warning me-1">Editar</button>
-                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                    <div class="d-flex gap-2">
+                        <a href="/visualizar_disciplina" class="btn btn-sm btn-info">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a href="/editar_disciplina" class="btn btn-sm btn-warning">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <a href="/excluir_disciplina" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
                 </td>
             </tr>
+
             <tr>
                 <td>Geografia</td>
                 <td>60 horas</td>
                 <td>Matheus Pedroso</td>
                 <td>
-                    <button class="btn btn-sm btn-outline-info me-1"><i class="bi bi-eye"></i></button>
-                    <button class="btn btn-sm btn-outline-warning me-1">Editar</button>
-                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                    <div class="d-flex gap-2">
+                        <a href="/visualizar_disciplina" class="btn btn-sm btn-info">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a href="/editar_disciplina" class="btn btn-sm btn-warning">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <a href="/excluir_disciplina" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
 
-
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
