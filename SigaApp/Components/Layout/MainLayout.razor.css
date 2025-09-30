@@ -45,35 +45,36 @@ main {
         margin-left: 0;
     }
 }
+.sidebar {
+    width: 200px;
+    transition: width 0.3s ease;
+}
 
-@media (min-width: 641px) {
-    .page {
-        flex-direction: row;
-    }
+.sidebar .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
+.sidebar .nav-text {
+    display: inline;
+}
+
+
+
+/* Quando a tela ficar pequena */
+@media (max-width: 300px) {
     .sidebar {
-        width: 250px;
-        height: 100vh;
-        position: sticky;
-        top: 0;
+        width: 60px; /* fica mais estreita */
     }
 
-    .top-row {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-    }
+        .sidebar .nav-text {
+            display: none; /* esconde o texto, deixando só o ícone */
+        }
 
-    .top-row.auth ::deep a:first-child {
-        flex: 1;
-        text-align: right;
-        width: 0;
-    }
-
-    .top-row, article {
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
-    }
+        .sidebar .nav-link {
+            justify-content: center; /* centraliza o ícone */
+        }
 }
 
 #blazor-error-ui {
