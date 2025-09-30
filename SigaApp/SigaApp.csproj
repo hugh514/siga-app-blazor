@@ -7,10 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Components\Pages\turmas\NovaPasta\**" />
-    <Content Remove="Components\Pages\turmas\NovaPasta\**" />
-    <EmbeddedResource Remove="Components\Pages\turmas\NovaPasta\**" />
-    <None Remove="Components\Pages\turmas\NovaPasta\**" />
+    <Compile Remove="Components\Pages\Turmas\NovaPasta\**" />
+    <Compile Remove="wwwroot\NovaPasta\**" />
+    <Content Remove="Components\Pages\Turmas\NovaPasta\**" />
+    <Content Remove="wwwroot\NovaPasta\**" />
+    <EmbeddedResource Remove="Components\Pages\Turmas\NovaPasta\**" />
+    <EmbeddedResource Remove="wwwroot\NovaPasta\**" />
+    <None Remove="Components\Pages\Turmas\NovaPasta\**" />
+    <None Remove="wwwroot\NovaPasta\**" />
   </ItemGroup>
 
   <ItemGroup>
