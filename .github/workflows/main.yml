@@ -2,32 +2,32 @@ name: Blazor CI/CD
 
 on:
   push:
-    branches: [ main ] # Aciona ao dar push na branch 'main'
+    branches: [ main ] # Executa quando fizer push na branch 'main'
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x' # Defina sua versão do .NET
+      - name: Checkout do código
+        uses: actions/checkout@v4
 
-    - name: Build and publish
-      run: |
-        dotnet publish BlazorApp.Server --configuration Release --output dist
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: website
-        path: dist # O nome da pasta onde a publicação é salva
+      - name: Build and publish
+        run: dotnet publish SigaApp/SigaApp.csproj -c Release -o dist
 
-    # Configure o seu deploy para o host desejado (aqui um exemplo para GitHub Pages)
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist # A pasta a ser publicada
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: github-pages
+          path: dist/wwwroot
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/wwwroot
