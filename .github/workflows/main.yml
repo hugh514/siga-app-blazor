@@ -2,34 +2,43 @@ name: Blazor CI/CD
 
 on:
   push:
-    branches: [ main ] # Executa quando fizer push na branch 'main'
+    branches: [ main ] # Aciona ao dar push na branch 'main'
+
+permissions:
+  contents: write  # Garante permissão para o GitHub Actions fazer push
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do código
-        uses: actions/checkout@v4
+      # 1️⃣ Baixa o código do repositório
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
+      # 2️⃣ Instala o SDK do .NET (ajuste a versão se necessário)
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
 
-      - name: Build and publish
-        run: dotnet publish SigaApp/SigaApp.csproj -c Release -o dist
+      # 3️⃣ Restaura pacotes NuGet
+      - name: Restore dependencies
+        run: dotnet restore
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: github-pages
-          path: dist/wwwroot
+      # 4️⃣ Build do projeto em Release
+      - name: Build project
+        run: dotnet build --configuration Release
 
+      # 5️⃣ Publica o projeto Blazor WebAssembly
+      - name: Publish project
+        run: dotnet publish -c Release -o ./publish
+
+      # 6️⃣ Deploy para GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/wwwroot
-          publish_branch: gh-pages
-          allow_empty_commit: true
+          publish_dir: ./publish/wwwroot
+          # optional: if you want to force orphan branch creation
+          # force_orphan: true
