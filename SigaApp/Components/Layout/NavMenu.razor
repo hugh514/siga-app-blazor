@@ -2,41 +2,40 @@
 
 <div class="d-flex" style="height:100vh;">
     <!-- 🔹 Sidebar -->
-    <nav id="sidebar" class="sidebar text-white p-3 cor-fundo" style="width:15vw;">
+    <nav id="sidebar" class="sidebar text-white p-3 cor-fundo">
         <NavLink href=""><img src="/assets/logo.png" alt="logo" class="d-block mx-auto"
                  style="filter: brightness(0) invert(1); height: 15%;" />
         </NavLink>
         <hr />
-        <ul class="nav flex-column align-items-baseline" id="menu">
-            <li>
-                <NavLink class="nav-link text-white " href="" Match="NavLinkMatch.All">
-                    <i class="bi bi-house-door-fill-nav-menu"></i>                    
+        <ul class="nav flex-column nav-pills w-100" id="menu">
+            <li class="w-100">
+                <NavLink class="nav-link text-white rounded text-start" href="/" Match="NavLinkMatch.All">                    
                     Painel
                 </NavLink>
             </li>
-            <li>
-                <NavLink class="nav-link text-white" href="disciplina">
+            <li class="w-100">
+                <NavLink class="nav-link text-white rounded text-start" href="/disciplina">
                     Disciplina
                 </NavLink>
             </li>
-            <li>
-                <NavLink class="nav-link text-white" href="turmas">
+            <li class="w-100">
+                <NavLink class="nav-link text-white rounded text-start" href="/turmas">
                     Turma
                 </NavLink>
             </li>
-            <li>
-                <NavLink class="nav-link text-white" href="diario">
+            <li class="w-100">
+                <NavLink class="nav-link text-white rounded text-start" href="/diario">
                     Diário
                 </NavLink>
             </li>
-            <li>
-                <NavLink class="nav-link text-white" href="professores">
+            <li class="w-100">
+                <NavLink class="nav-link text-white rounded text-start" href="/professores">
                     Professores
                 </NavLink>
             </li>
-            <li>
-                <NavLink class="nav-link text-white" href="menu_matriculas">
-                    Matriculas
+            <li class="w-100">
+                <NavLink class="nav-link text-white rounded text-start" href="/menu_matriculas">
+                    Matrículas
                 </NavLink>
             </li>
         </ul>

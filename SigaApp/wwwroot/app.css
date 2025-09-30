@@ -118,6 +118,10 @@ a {
 #menu {
     color: #374894;
 }
+.nav-pills .nav-link.active {
+    background-color: #509CDB !important;
+    color: #fff !important;
+}
 
 .nav-link:hover {
     background-color: #509CDB;
