@@ -1,0 +1,53 @@
+﻿@page "/editar_professor"
+<PageTitle>Professor</PageTitle>
+<div class="container py-5">
+    <!-- Título -->
+    <h2 class="fw-bold mb-4">Editar Professores</h2>
+
+    <!-- Formulário -->
+    <form class="bg-white p-4 shadow-sm rounded">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" placeholder="Digite o nome" value="Jefferson">
+            </div>
+            <div class="col-md-3">
+                <label for="cpf" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="cpf" placeholder="Digite o CPF" value="123.456.789-00">
+            </div>
+            <div class="col-md-3">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="email" placeholder="Digite o e-mail" value="jefferson@email.com">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label for="status" class="form-label">Status</label>
+                <select id="status" class="form-select">
+                    <option value="ativo" selected>Ativo</option>
+                    <option value="inativo">Inativo</option>
+                </select>
+            </div>
+            <div class="col-md-8">
+                <label for="disciplina" class="form-label">Disciplina</label>
+                <select id="disciplina" class="form-select">
+                    <option selected>Português</option>
+                    <option value="matematica">Matemática</option>
+                    <option value="geografia">Geografia</option>
+                    <option value="ciencias">Ciências</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label for="especialidade" class="form-label">Especialidade</label>
+            <textarea id="especialidade" rows="3" class="form-control">Gramática e interpretação de texto</textarea>
+        </div>
+
+        <!-- Botão -->
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+    </form>
+</div>
