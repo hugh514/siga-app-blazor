@@ -2,17 +2,17 @@ name: Blazor CI/CD
 
 on:
   push:
-    branches: [ main ] # Aciona ao dar push na branch 'main'
+    branches: [ main ]  # Aciona quando der push na branch 'main'
 
 permissions:
-  contents: write  # Garante permissão para o GitHub Actions fazer push
+  contents: write  # Necessário para o deploy no GitHub Pages
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Baixa o código do repositório
+      # 1️⃣ Faz checkout do repositório
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -22,17 +22,17 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      # 3️⃣ Restaura pacotes NuGet
+      # 3️⃣ Restaura pacotes NuGet (apontando para o .csproj correto)
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ./siga-app-blazor/siga-app-blazor.csproj
 
       # 4️⃣ Build do projeto em Release
       - name: Build project
-        run: dotnet build --configuration Release
+        run: dotnet build ./siga-app-blazor/siga-app-blazor.csproj --configuration Release
 
       # 5️⃣ Publica o projeto Blazor WebAssembly
       - name: Publish project
-        run: dotnet publish -c Release -o ./publish
+        run: dotnet publish ./siga-app-blazor/siga-app-blazor.csproj -c Release -o ./publish
 
       # 6️⃣ Deploy para GitHub Pages
       - name: Deploy to GitHub Pages
@@ -40,5 +40,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./publish/wwwroot
-          # optional: if you want to force orphan branch creation
-          # force_orphan: true
