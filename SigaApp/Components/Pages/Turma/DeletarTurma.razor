@@ -1,4 +1,4 @@
-﻿@page "/deletar_turma";
+﻿@page "/deletar_turma"
 <PageTitle>Turmas</PageTitle>
 
 <div class="container d-flex justify-content-center align-items-center vh-100">
@@ -8,8 +8,11 @@
         <p class="mb-4">Você deseja realmente deletar a turma <strong>Turma A</strong>?</p>
 
         <div class="d-flex justify-content-center gap-3">
-            <button class="btn btn-danger">Deletar</button>
-            <a href="turmas" class="btn btn-outline-secondary">Cancelar</a>
+            <!-- Botão Deletar -->
+            <a href="/turmas" class="btn btn-danger">Deletar</a>
+
+            <!-- Botão Cancelar -->
+            <a href="/turmas" class="btn btn-outline-secondary">Cancelar</a>
         </div>
     </div>
 </div>
