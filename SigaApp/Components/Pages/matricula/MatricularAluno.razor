@@ -1,56 +1,94 @@
 ﻿@page "/matricular_aluno"
 <PageTitle>Matricula</PageTitle>
 
-<div class="container py-5">
-    <h3 class="mb-4 fw-normal text-dark text-center">Matricular Aluno</h3>
-
-    <div class="card shadow-sm border-0 p-4 mx-auto" style="max-width:900px;">
-        <form id="form-matricular">
+<div class="card shadow-sm border-0 p-4 mb-4">
+        <form id="formMatricula">
             <div class="row g-3">
+                <!-- Período Letivo -->
+                <div class="col-md-4">
+                    <label for="periodoLetivo" class="form-label">Período Letivo *</label>
+                    <select id="periodoLetivo" class="form-select" required>
+                        <option value="">Selecione...</option>
+                        <option value="2025-1">2025/1</option>
+                        <option value="2025-2">2025/2</option>
+                    </select>
+                </div>
+
+                <!-- Curso -->
+                <div class="col-md-4">
+                    <label for="curso" class="form-label">Curso *</label>
+                    <select id="curso" class="form-select" required>
+                        <option value="">Selecione...</option>
+                        <option value="1">Informática</option>
+                        <option value="2">Administração</option>
+                    </select>
+                </div>
+
+                <!-- Série -->
+                <div class="col-md-4">
+                    <label for="serie" class="form-label">Série *</label>
+                    <select id="serie" class="form-select" required>
+                        <option value="">Selecione...</option>
+                        <option value="1">1ª Série</option>
+                        <option value="2">2ª Série</option>
+                        <option value="3">3ª Série</option>
+                    </select>
+                </div>
+
+                <!-- Turma -->
                 <div class="col-md-6">
-                    <label for="alunoSelect" class="form-label">Aluno</label>
-                    <select id="alunoSelect" class="form-select" required>
-                        <option value="">Carregando alunos...</option>
+                    <label for="turma" class="form-label">Turma *</label>
+                    <select id="turma" class="form-select" required>
+                        <option value="">Selecione...</option>
                     </select>
                 </div>
 
+                <!-- Aluno -->
                 <div class="col-md-6">
-                    <label for="turmaSelect" class="form-label">Turma</label>
-                    <select id="turmaSelect" class="form-select" required>
-                        <option value="">Carregando turmas...</option>
+                    <label for="aluno" class="form-label">Aluno *</label>
+                    <select id="aluno" class="form-select" required>
+                        <option value="">Selecione...</option>
                     </select>
                 </div>
 
-                <div class="col-md-3">
-                    <label for="anoSelect" class="form-label">Ano Letivo</label>
-                    <select id="anoSelect" class="form-select" required></select>
-                </div>
-
-                <div class="col-md-3">
-                    <label for="statusMatricula" class="form-label">Status</label>
-                    <select id="statusMatricula" class="form-select">
-                        <option value="Ativa">Ativa</option>
-                        <option value="Pendente">Pendente</option>
-                        <option value="Cancelada">Cancelada</option>
-                    </select>
-                </div>
-
-                <div class="col-md-6 align-self-end">
-                    <div class="d-flex justify-content-between">
-                        <a href="#menu_matriculas" class="btn btn-outline-secondary">Cancelar</a>
-                        <button type="submit" class="btn btn-primary">Matricular</button>
+                <!-- Retroativa + Botão -->
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="form-check form-switch me-3">
+                        <input class="form-check-input" type="checkbox" id="retroativa">
+                        <label class="form-check-label" for="retroativa">Retroativa?</label>
                     </div>
+                </div>
+
+                <!-- Card de Vagas -->
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <h6 class="mb-2">Vagas</h6>
+                            <p class="text-muted">Nenhuma turma selecionada</p>
+                            <div class="d-flex justify-content-between">
+                                <small>Total: --</small>
+                                <small>Ocupadas: --</small>
+                                <small>Especiais: --</small>
+                                <small>Disponíveis: --</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botão -->
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save"></i> Matricular
+                    </button>
                 </div>
             </div>
         </form>
     </div>
-
-    <!-- Lista de matrículas -->
     <div class="card shadow-sm border-0 mt-4">
         <div class="card-body">
             <h5 class="mb-3">Matrículas Cadastradas</h5>
             <div class="table-responsive">
-                <table class="table table-hover" id="matriculasTable">
+                <table class="table table-hover">
                     <thead class="table-light">
                         <tr>
                             <th>Aluno</th>
@@ -61,10 +99,12 @@
                             <th>Status</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                    
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
-</div>
+
 
