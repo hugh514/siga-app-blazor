@@ -1,4 +1,4 @@
-html, body {
+ï»¿html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: #fafafa;
 }
@@ -14,7 +14,7 @@ a, .btn-link {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 .content {
@@ -58,8 +58,8 @@ h1:focus {
 .sidebar-logo {
     display: block;
     margin: 0 auto 1rem auto;
-    height: 60px; 
-    width: auto; 
+    height: 60px;
+    width: auto;
     object-fit: contain;
     filter: brightness(0) invert(1);
 }
@@ -83,10 +83,11 @@ h1:focus {
 }
 
     .btn-sair:hover {
-    background-color: #155db2;
-    color: #fff;
-    text-decoration-line: none;
+        background-color: #155db2;
+        color: #fff;
+        text-decoration-line: none;
     }
+
 h3 {
     font-weight: 500;
 }
@@ -96,7 +97,7 @@ h3 {
 }
 
 .btn-primary {
-    background-color: #007bff; /* Azul padrão */
+    background-color: #007bff; /* Azul padrï¿½o */
     border: none;
 }
 
@@ -119,6 +120,5 @@ a {
 }
 
 .nav-link:hover {
-    width: 14vw;
     background-color: #509CDB;
 }
