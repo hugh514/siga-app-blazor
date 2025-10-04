@@ -1,26 +1,68 @@
-﻿@page "/cadastrar_turma";
-<PageTitle>Turmas</PageTitle>
+﻿@page "/cadastrar_turma"
+<PageTitle>Cadastrar Turma</PageTitle>
+
 <div class="container py-5">
-    <h3 class="mb-4 fw-normal text-dark text-center">Cadastrar Nova Turma</h3>
-    <div class="card shadow-sm border-0 p-4 mx-auto" style="max-width: 500px;">
-        <form id="form-cadastrar-turma">
-            <div class="mb-3">
-                <label for="nome_turma" class="form-label">Nome da Turma</label>
-                <input type="text" id="nome_turma" class="form-control" placeholder="Ex: Turma A" required>
-            </div>
-            <div class="mb-3">
-                <label for="ano_turma" class="form-label">Ano/Série</label>
-                <input type="text" id="ano_turma" class="form-control" placeholder="Ex: 1º Ano" required>
-            </div>
-            <div class="mb-3">
-                <label for="professor" class="form-label">Professor Responsável</label>
-                <input type="text" id="professor" class="form-control" placeholder="Ex: Prof. João" required>
-            </div>
-            <a href="/turmas" class="btn btn-primary w-100">Salvar</a>
-        </form>
-        <!-- Link para voltar -->
-        <p class="text-center mt-3 mb-0">
-            <a href="/turmas" style="color: #0d6efd; text-decoration: underline;">← Voltar para Turmas</a>
-        </p>
+    <div class="text-center mb-5">
+        <h2 class="fw-semibold text-dark mb-2">Cadastrar Nova Turma</h2>
+        <p class="text-muted">Preencha os dados abaixo para adicionar uma nova turma ao sistema</p>
+    </div>
+
+    <div class="card shadow-lg border-0 rounded-4 mx-auto" style="max-width: 600px;">
+        <div class="card-body p-4">
+            <form class="needs-validation" novalidate>
+                <!-- Nome -->
+                <div class="mb-3">
+                    <label class="form-label fw-medium">Nome da Turma</label>
+                    <input type="text" class="form-control form-control-lg" placeholder="Ex: Turma A" required>
+                </div>
+
+                <!-- Ano/Série -->
+                <div class="mb-3">
+                    <label class="form-label fw-medium">Ano/Série</label>
+                    <input type="text" class="form-control form-control-lg" placeholder="Ex: 1º Ano" required>
+                </div>
+
+                <!-- Curso -->
+                <div class="mb-3">
+                    <label class="form-label fw-medium">Curso Vinculado</label>
+                    <select class="form-select form-select-lg" required>
+                        <option selected disabled>Selecione o curso...</option>
+                        <option>Informática</option>
+                        <option>Administração</option>
+                        <option>Eletrotécnica</option>
+                    </select>
+                </div>
+
+                <!-- Professor -->
+                <div class="mb-3">
+                    <label class="form-label fw-medium">Professor Responsável</label>
+                    <input type="text" class="form-control form-control-lg" placeholder="Ex: Prof. João" required>
+                </div>
+
+                <!-- Turno -->
+                <div class="mb-4">
+                    <label class="form-label fw-medium">Turno</label>
+                    <select class="form-select form-select-lg" required>
+                        <option selected disabled>Selecione o turno...</option>
+                        <option>Matutino</option>
+                        <option>Vespertino</option>
+                        <option>Noturno</option>
+                    </select>
+                </div>
+
+                <!-- Botão -->
+                <div class="d-grid">
+                    <a href="/turmas" class="btn btn-primary btn-lg shadow-sm rounded-pill">
+                        <i class="bi bi-check-circle me-2"></i>Salvar Turma
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="/turmas" class="text-decoration-none text-primary fw-medium">
+            <i class="bi bi-arrow-left-circle me-1"></i>Voltar para Turmas
+        </a>
     </div>
 </div>

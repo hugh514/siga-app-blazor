@@ -1,0 +1,147 @@
+﻿@page "/diarios"
+
+<PageTitle>Diários</PageTitle>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+<div class="container py-5">
+    <h3 class="mb-4 fw-bold text-center text-dark">Gestão de Diários</h3>
+
+    <!--  Filtros -->
+    <div class="row g-3 mb-4 justify-content-center">
+        <div class="col-md-3">
+            <input type="text" class="form-control" placeholder="Pesquisar curso..." @bind="FiltroCurso">
+        </div>
+        <div class="col-md-3">
+            <select class="form-select" @bind="FiltroAno">
+                <option value="">Ano letivo...</option>
+                <option>2025</option>
+                <option>2024</option>
+                <option>2023</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-select" @bind="FiltroStatus">
+                <option value="">Status...</option>
+                <option>Em andamento</option>
+                <option>Finalizado</option>
+                <option>Pendente</option>
+            </select>
+        </div>
+        <div class="col-md-2 text-center">
+            <button class="btn btn-primary w-100" @onclick="Filtrar">
+                <i class="bi bi-funnel-fill me-1"></i>Filtrar
+            </button>
+        </div>
+    </div>
+
+    <!-- Tabela -->
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Turma</th>
+                        <th>Curso</th>
+                        <th>Ano</th>
+                        <th>Status</th>
+                        <th>Aulas</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var diario in DiariosFiltrados)
+                    {
+                        <tr>
+                            <td>@diario.NomeTurma</td>
+                            <td>@diario.Curso</td>
+                            <td>@diario.AnoLetivo</td>
+                            <td>
+                                @if (diario.Status == "Finalizado")
+                                {
+                                    <span class="badge bg-success">Finalizado</span>
+                                }
+                                else if (diario.Status == "Em andamento")
+                                {
+                                    <span class="badge bg-warning text-dark">Em andamento</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Pendente</span>
+                                }
+                            </td>
+                            <td>@diario.AulasLancadas / @diario.AulasPrevistas</td>
+                            <td class="text-center">
+                                <a href="/detalhe" class="btn btn-sm btn-outline-primary me-1">
+                                    <i class="bi bi-journal-text"></i> Abrir
+                                </a>
+                                <a href="/frequencia" class="btn btn-sm btn-outline-success me-1">
+                                    <i class="bi bi-people-fill"></i> Frequência
+                                </a>
+                                <a href="/exportar" class="btn btn-sm btn-outline-secondary">
+                                    <i class="bi bi-file-earmark-arrow-down"></i> Exportar
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    .card {
+        transition: all 0.2s ease-in-out;
+    }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: #f1f3f5;
+    }
+</style>
+
+@code {
+    private string? FiltroCurso;
+    private string? FiltroAno;
+    private string? FiltroStatus;
+
+    private List<DiarioModel> DiariosLista = new()
+    {
+        new DiarioModel { Id = 1, NomeTurma = "Turma A", Curso = "Informática", AnoLetivo = 2025, Status = "Em andamento", AulasLancadas = 12, AulasPrevistas = 40 },
+        new DiarioModel { Id = 2, NomeTurma = "Turma B", Curso = "Administração", AnoLetivo = 2025, Status = "Finalizado", AulasLancadas = 40, AulasPrevistas = 40 },
+        new DiarioModel { Id = 3, NomeTurma = "Turma C", Curso = "Química", AnoLetivo = 2024, Status = "Pendente", AulasLancadas = 0, AulasPrevistas = 38 }
+    };
+
+    private List<DiarioModel> DiariosFiltrados => DiariosLista
+        .Where(d => (string.IsNullOrEmpty(FiltroCurso) || d.Curso.Contains(FiltroCurso, StringComparison.OrdinalIgnoreCase))
+                 && (string.IsNullOrEmpty(FiltroAno) || d.AnoLetivo.ToString() == FiltroAno)
+                 && (string.IsNullOrEmpty(FiltroStatus) || d.Status == FiltroStatus))
+        .ToList();
+
+    private void Filtrar() { }
+
+    public class DiarioModel
+    {
+        public int Id { get; set; }
+        public string NomeTurma { get; set; } = string.Empty;
+        public string Curso { get; set; } = string.Empty;
+        public int AnoLetivo { get; set; }
+        public string Status { get; set; } = string.Empty;
+        public int AulasLancadas { get; set; }
+        public int AulasPrevistas { get; set; }
+    }
+}

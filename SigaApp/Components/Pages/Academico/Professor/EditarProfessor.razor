@@ -1,51 +1,71 @@
 ﻿@page "/editar_professor"
-<PageTitle>Professor</PageTitle>
+<PageTitle>Editar Professor</PageTitle>
 
-<div class="container py-5">
-    <h2 class="fw-bold mb-4">Editar Professores</h2>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">Editar Professor</h2>
+    <a class="btn btn-outline-secondary" href="/professores">Voltar</a>
+</div>
 
-    <form class="bg-white p-4 shadow-sm rounded">
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label for="nome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="nome" placeholder="Digite o nome" value="Jefferson">
-            </div>
-            <div class="col-md-3">
-                <label for="cpf" class="form-label">CPF</label>
-                <input type="text" class="form-control" id="cpf" placeholder="Digite o CPF" value="123.456.789-00">
-            </div>
-            <div class="col-md-3">
-                <label for="email" class="form-label">E-mail</label>
-                <input type="email" class="form-control" id="email" placeholder="Digite o e-mail" value="jefferson@email.com">
-            </div>
-        </div>
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form>
+            <div class="row g-3">
+                <div class="col-md-4 text-center">
+                    <div class="mb-3">
+                        <img src="https://via.placeholder.com/140" class="rounded-circle mb-2" style="width:140px;height:140px;object-fit:cover;" />
+                        <div>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Alterar foto</button>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <label for="status" class="form-label">Status</label>
-                <select id="status" class="form-select">
-                    <option value="ativo" selected>Ativo</option>
-                    <option value="inativo">Inativo</option>
-                </select>
-            </div>
-            <div class="col-md-8">
-                <label for="disciplina" class="form-label">Disciplina</label>
-                <select id="disciplina" class="form-select">
-                    <option selected>Português</option>
-                    <option value="matematica">Matemática</option>
-                    <option value="geografia">Geografia</option>
-                    <option value="ciencias">Ciências</option>
-                </select>
-            </div>
-        </div>
+                <div class="col-md-8">
+                    <div class="row g-2">
+                        <div class="col-md-8">
+                            <label class="form-label">Nome</label>
+                            <input class="form-control" value="Jefferson" />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">CPF</label>
+                            <input class="form-control" value="123.456.789-00" />
+                        </div>
 
-        <div class="mb-4">
-            <label for="especialidade" class="form-label">Especialidade</label>
-            <textarea id="especialidade" rows="3" class="form-control">Gramática e interpretação de texto</textarea>
-        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">E-mail</label>
+                            <input class="form-control" type="email" value="jefferson@email.com" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Telefone</label>
+                            <input class="form-control" value="(69) 99999-9999" />
+                        </div>
 
-        <div class="text-end">
-            <a href="/professores" class="btn btn-primary">Salvar</a>
-        </div>
-    </form>
+                        <div class="col-md-4">
+                            <label class="form-label">Status</label>
+                            <select class="form-select"><option selected>Ativo</option><option>Inativo</option></select>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label">Disciplina principal</label>
+                            <select class="form-select"><option selected>Português</option><option>Matemática</option></select>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Turmas vinculadas</label>
+                            <input class="form-control" value="1A, 2B" />
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Especialidade</label>
+                            <textarea class="form-control" rows="3">Gramática e interpretação de texto</textarea>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-end gap-2">
+                <a class="btn btn-outline-secondary" href="/professores">Cancelar</a>
+                <button class="btn btn-primary" type="button">Salvar</button>
+            </div>
+        </form>
+    </div>
 </div>

@@ -128,3 +128,11 @@ a {
 .nav-link:hover {
     background-color: #509CDB;
 }
+.card {
+    border-radius: 12px;
+}
+
+.navbar-brand {
+    font-size: 1.1rem;
+    letter-spacing: 0.4px;
+}

@@ -1,48 +1,80 @@
-﻿@page "/turmas";
+﻿@page "/turmas"
 <PageTitle>Turmas</PageTitle>
 
 <div class="container py-5">
     <h3 class="mb-4 fw-normal text-dark text-center">Turmas</h3>
 
-    <!-- Botão cadastrar -->
-    <div class="d-flex justify-content-end mb-3">
-        <a href="cadastrar_turma" class="btn btn-primary">
-            + Cadastrar Turma
-        </a>
+    <!-- Filtros -->
+    <div class="row mb-3">
+        <div class="col-md-5">
+            <select class="form-select">
+                <option selected>Filtrar por Curso</option>
+                <option>Informática</option>
+                <option>Administração</option>
+                <option>Eletrotécnica</option>
+            </select>
+        </div>
+        <div class="col-md-5">
+            <select class="form-select">
+                <option selected>Filtrar por Ano Letivo</option>
+                <option>2023</option>
+                <option>2024</option>
+                <option>2025</option>
+            </select>
+        </div>
+        <div class="col-md-2 d-grid">
+            <button class="btn btn-outline-primary">Filtrar</button>
+        </div>
     </div>
 
-    <!-- Tabela de turmas -->
+    <!-- Botões -->
+    <div class="d-flex justify-content-end mb-3 gap-2">
+        <a href="cadastrar_turma" class="btn btn-success">+ Cadastrar Turma</a>
+        <button class="btn btn-outline-secondary">📄 Relatórios</button>
+    </div>
+
+    <!-- Tabela -->
     <div class="card shadow-sm border-0">
         <div class="card-body">
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th scope="col">Nome da Turma</th>
-                        <th scope="col">Ano/Série</th>
-                        <th scope="col">Professor Responsável</th>
-                        <th scope="col" class="text-center">Ações</th>
+                        <th>Nome da Turma</th>
+                        <th>Ano/Série</th>
+                        <th>Curso</th>
+                        <th>Professor Responsável</th>
+                        <th>Turno</th>
+                        <th>Qtd. Alunos</th>
+                        <th class="text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>Turma A</td>
                         <td>1º Ano</td>
+                        <td>Informática</td>
                         <td>Prof. João</td>
+                        <td>Matutino</td>
+                        <td>32</td>
                         <td class="text-center">
-                            <a class="btn btn-sm btn-outline-primary me-1" href="editar_turma">Editar</a>
+                            <a class="btn btn-sm btn-outline-primary me-1" href="detalhes_turma">Detalhes</a>
+                            <a class="btn btn-sm btn-outline-success me-1" href="editar_turma">Editar</a>
                             <a class="btn btn-sm btn-outline-danger" href="deletar_turma">Excluir</a>
                         </td>
                     </tr>
                     <tr>
                         <td>Turma B</td>
                         <td>2º Ano</td>
+                        <td>Administração</td>
                         <td>Prof. Maria</td>
+                        <td>Vespertino</td>
+                        <td>28</td>
                         <td class="text-center">
-                            <button class="btn btn-sm btn-outline-primary me-1">Editar</button>
-                            <button class="btn btn-sm btn-outline-danger">Excluir</button>
+                            <a class="btn btn-sm btn-outline-primary me-1" href="detalhes_turma">Detalhes</a>
+                            <a class="btn btn-sm btn-outline-success me-1" href="editar_turma">Editar</a>
+                            <a class="btn btn-sm btn-outline-danger" href="deletar_turma">Excluir</a>
                         </td>
                     </tr>
-                    <!-- Outras turmas aqui -->
                 </tbody>
             </table>
         </div>

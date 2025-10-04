@@ -5,71 +5,63 @@
     <h3 class="mb-4 fw-normal text-dark text-center">Editar Turma</h3>
 
     <div class="card shadow-sm border-0 p-4 mx-auto" style="max-width: 700px;">
-        <form id="form-editar-turma">
-
-            <!-- Nome e Série -->
+        <form>
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label for="nome_turma" class="form-label">Nome da Turma</label>
-                    <input type="text" id="nome_turma" class="form-control" placeholder="Ex: Turma A" required>
+                    <label class="form-label">Nome da Turma</label>
+                    <input type="text" class="form-control" placeholder="Turma A">
                 </div>
                 <div class="col-md-6">
-                    <label for="serie" class="form-label">Série</label>
-                    <input type="text" id="serie" class="form-control" placeholder="Ex: 1º Ano" required>
+                    <label class="form-label">Série</label>
+                    <input type="text" class="form-control" placeholder="1º Ano">
                 </div>
             </div>
 
-            <!-- Curso e Tipo de Turma -->
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label for="curso" class="form-label">Curso</label>
-                    <input type="text" id="curso" class="form-control" placeholder="Ex: Informática" required>
+                    <label class="form-label">Curso</label>
+                    <input type="text" class="form-control" placeholder="Informática">
                 </div>
                 <div class="col-md-6">
-                    <label for="tipo_turma" class="form-label">Tipo de Turma</label>
-                    <select id="tipo_turma" class="form-select" required>
-                        <option value="Presencial">Presencial</option>
-                        <option value="EAD">EAD</option>
+                    <label class="form-label">Tipo</label>
+                    <select class="form-select">
+                        <option>Presencial</option>
+                        <option>EAD</option>
                     </select>
                 </div>
             </div>
 
-            <!-- Horário -->
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label for="hora_inicio" class="form-label">Horário de Início</label>
-                    <input type="time" id="hora_inicio" class="form-control" required>
+                    <label class="form-label">Início</label>
+                    <input type="time" class="form-control" value="07:30">
                 </div>
                 <div class="col-md-6">
-                    <label for="hora_fim" class="form-label">Horário de Término</label>
-                    <input type="time" id="hora_fim" class="form-control" required>
+                    <label class="form-label">Término</label>
+                    <input type="time" class="form-control" value="12:00">
                 </div>
             </div>
 
-            <!-- Professores -->
             <div class="mb-3">
-                <label for="professores" class="form-label">Professores</label>
-                <select id="professores" class="form-select" multiple required>
+                <label class="form-label">Professores</label>
+                <select multiple class="form-select">
                     <option>Prof. João</option>
                     <option>Prof. Maria</option>
                     <option>Prof. Ana</option>
                     <option>Prof. Carlos</option>
                 </select>
-                <small class="text-muted">Segure CTRL (ou Command) para selecionar vários</small>
+                <small class="text-muted">Segure CTRL para selecionar mais de um.</small>
             </div>
 
-            <!-- Observação -->
             <div class="mb-3">
-                <label for="observacao" class="form-label">Observação</label>
-                <textarea id="observacao" class="form-control" rows="3" placeholder="Escreva observações..."></textarea>
+                <label class="form-label">Observações</label>
+                <textarea class="form-control" rows="3" placeholder="Ex: Turma com atividades extras aos sábados"></textarea>
             </div>
 
-            <!-- Botões -->
             <div class="d-flex justify-content-between">
-                <a href="turmas" class="btn btn-outline-secondary">Cancelar</a>
-                <a href="turmas" class="btn btn-primary">Salvar Alterações</a>
+                <a href="/turmas" class="btn btn-outline-secondary">Cancelar</a>
+                <a href="/turmas" class="btn btn-primary">Salvar Alterações</a>
             </div>
-
         </form>
     </div>
 </div>
