@@ -1,7 +1,5 @@
 # SIGA - Sistema de Gerenciamento Acadêmico
 
-![SIGA Banner](https://via.placeholder.com/1200x300?text=SIGA+-+Sistema+de+Gerenciamento+Acad%C3%AAmico)
-
 **SIGA** é um sistema completo de gerenciamento acadêmico desenvolvido em **Blazor Server**, pensado para escolas e instituições de ensino. Centralize alunos, professores, turmas, diários, matrículas e relatórios em um único painel de administração.
 
 [🌐 Acesse o sistema no Render](https://siga-app-blazor.onrender.com)
