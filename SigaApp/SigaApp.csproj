@@ -7,17 +7,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Components\Pages\Turma\NovaPasta\**" />
+    <Compile Remove="Components\Pages\NovaPasta\**" />
+    <Compile Remove="Components\Pages\Academico\Turma\NovaPasta\**" />
     <Compile Remove="wwwroot\NovaPasta\**" />
-    <Content Remove="Components\Pages\Turma\NovaPasta\**" />
+    <Content Remove="Components\Pages\NovaPasta\**" />
+    <Content Remove="Components\Pages\Academico\Turma\NovaPasta\**" />
     <Content Remove="wwwroot\NovaPasta\**" />
-    <EmbeddedResource Remove="Components\Pages\Turma\NovaPasta\**" />
+    <EmbeddedResource Remove="Components\Pages\NovaPasta\**" />
+    <EmbeddedResource Remove="Components\Pages\Academico\Turma\NovaPasta\**" />
     <EmbeddedResource Remove="wwwroot\NovaPasta\**" />
-    <None Remove="Components\Pages\Turma\NovaPasta\**" />
+    <None Remove="Components\Pages\NovaPasta\**" />
+    <None Remove="Components\Pages\Academico\Turma\NovaPasta\**" />
     <None Remove="wwwroot\NovaPasta\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Components\Pages\Academico\Calendario\" />
+    <Folder Include="Components\Pages\Academico\Estudante\" />
+    <Folder Include="Components\Pages\Gestao\Documento\" />
+    <Folder Include="Components\Pages\Gestao\Usuario\" />
+    <Folder Include="Components\Pages\Gestao\Relatorio\" />
     <Folder Include="wwwroot\assets\" />
   </ItemGroup>
 

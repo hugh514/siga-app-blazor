@@ -6,20 +6,26 @@
         <!-- Logo -->
         <div class="text-center mb-3">
             <img src="/assets/logo.png" alt="logo"
-                 style="filter: brightness(0) invert(1); height: 13vh;" />
+                 style="filter: brightness(0) invert(1); height: 16vh;" />
         </div>
-        <p class="text-white fw-semibold text-center">Bem Vindo!</p>
+        <p class="text-white fw-semibold text-center">Bem-vindo!</p>
         <hr class="border-secondary" />
 
-        <!-- Menu -->
-        <ul class="nav nav-pills flex-column gap-1">
+        <!-- 🔹 Atalhos Rápidos -->
+        <small class="text-uppercase text-muted fw-bold mb-2">Atalhos</small>
+        <ul class="nav nav-pills flex-column gap-1 mb-3">
             <li>
                 <NavLink class="nav-link d-flex align-items-center" href="/" Match="NavLinkMatch.All">
-                    <i class="bi bi-house me-2"></i> <span>Painel</span>
+                    <i class="bi bi-house me-2"></i> <span>Painel inicial</span>
                 </NavLink>
             </li>
+        </ul>
+
+        <!-- 🔹 Acadêmico -->
+        <small class="text-uppercase text-muted fw-bold mb-2">Acadêmico</small>
+        <ul class="nav nav-pills flex-column gap-1 mb-3">
             <li>
-                <NavLink class="nav-link d-flex align-items-center" href="/diario">
+                <NavLink class="nav-link d-flex align-items-center" href="/diarios">
                     <i class="bi bi-journal-text me-2"></i> <span>Diários</span>
                 </NavLink>
             </li>
@@ -30,7 +36,7 @@
             </li>
             <li>
                 <NavLink class="nav-link d-flex align-items-center" href="/estudantes">
-                    <i class="bi bi-people me-2"></i> <span>Estudantes/ classes</span>
+                    <i class="bi bi-people me-2"></i> <span>Estudantes</span>
                 </NavLink>
             </li>
             <li>
@@ -45,20 +51,36 @@
             </li>
             <li>
                 <NavLink class="nav-link d-flex align-items-center" href="/calendario">
-                    <i class="bi bi-calendar-event me-2"></i> <span>Calendário acadêmico</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink class="nav-link d-flex align-items-center" href="/diario">
-                    <i class="bi bi-journal me-2"></i> <span>Diário</span>
+                    <i class="bi bi-calendar-event me-2"></i> <span>Calendário</span>
                 </NavLink>
             </li>
         </ul>
 
+        <!-- 🔹 Gestão/Administração -->
+        <small class="text-uppercase text-muted fw-bold mb-2">Gestão</small>
+        <ul class="nav nav-pills flex-column gap-1 mb-3">
+            <li>
+                <NavLink class="nav-link d-flex align-items-center" href="/relatorios">
+                    <i class="bi bi-graph-up me-2"></i> <span>Relatórios</span>
+                </NavLink>
+            </li>
+            <li>
+                <NavLink class="nav-link d-flex align-items-center" href="/documentos">
+                    <i class="bi bi-file-earmark-text me-2"></i> <span>Documentos</span>
+                </NavLink>
+            </li>
+            <li>
+                <NavLink class="nav-link d-flex align-items-center" href="/usuarios">
+                    <i class="bi bi-shield-lock me-2"></i> <span>Usuários/Admins</span>
+                </NavLink>
+            </li>
+        </ul>
+
+        <!-- Rodapé -->
         <div class="mt-auto">
             <hr class="border-secondary" />
             <NavLink class="nav-link d-flex align-items-center" href="/configuracoes">
-                <i class="bi bi-gear me-2"></i> <span>Configurações e perfil</span>
+                <i class="bi bi-gear me-2"></i> <span>Configurações</span>
             </NavLink>
         </div>
     </nav>
@@ -72,18 +94,28 @@
 <style>
     /* 🔹 Sidebar */
     #sidebar {
-        width: 30vw;
-        background-color: #152259; /* cor escura */
+        width: 20vw; 
+        max-width: 25vw;
+        min-width: 220px; 
+        background-color: #152259;
         color: #fff;
+        overflow-x: hidden; 
     }
+
+
+        /* 🔹 Cabeçalhos de seção */
+        #sidebar small {
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
 
         /* 🔹 Itens de menu */
         #sidebar .nav-link {
             color: #ffffff;
             border-radius: 0.4rem;
-            padding: 0.6rem 0.8rem;
+            padding: 0.55rem 0.8rem;
             font-weight: 500;
-            white-space: nowrap; /* não quebrar linha */
+            white-space: nowrap;
         }
 
             /* 🔹 Hover */
@@ -97,4 +129,13 @@
                 background-color: #0d6efd !important;
                 color: #fff !important;
             }
+
+            #sidebar .nav-link span {
+                white-space: nowrap;
+                text-overflow: ellipsis; 
+                overflow: hidden;
+                display: inline-block;
+                max-width: 160px;
+            }
+
 </style>

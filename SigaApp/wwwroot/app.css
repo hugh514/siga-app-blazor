@@ -1,6 +1,7 @@
 ﻿html, body {
     font-family: 'Poppins', sans-serif !important;
     background-color: #fafafa;
+    overflow-x: hidden;
 }
 
 a, .btn-link {
