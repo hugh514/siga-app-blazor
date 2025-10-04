@@ -1,0 +1,139 @@
+﻿@page "/"
+
+<PageTitle>Painel</PageTitle>
+
+<!-- Importa os ícones do Bootstrap -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+<div class="container py-5">
+    <!-- Cabeçalho -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">Bem-vindo ao Painel</h2>
+        <p class="text-muted">E-mail da escola</p>
+    </div>
+
+    <!-- Cards de resumo -->
+    <div class="row g-4 justify-content-center mb-5">
+        <div class="col-md-3 col-sm-6">
+            <div class="card shadow-sm border-0 rounded-4 text-center p-3">
+                <div class="text-primary fs-1 mb-2"><i class="bi bi-person-fill"></i></div>
+                <h5 class="fw-bold">Alunos</h5>
+                <p class="text-muted mb-0">@TotalAlunos matriculados</p>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card shadow-sm border-0 rounded-4 text-center p-3">
+                <div class="text-success fs-1 mb-2"><i class="bi bi-person-badge-fill"></i></div>
+                <h5 class="fw-bold">Professores</h5>
+                <p class="text-muted mb-0">@TotalProfessores ativos</p>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card shadow-sm border-0 rounded-4 text-center p-3">
+                <div class="text-warning fs-1 mb-2"><i class="bi bi-building"></i></div>
+                <h5 class="fw-bold">Turmas</h5>
+                <p class="text-muted mb-0">@TotalTurmas cadastradas</p>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card shadow-sm border-0 rounded-4 text-center p-3">
+                <div class="text-danger fs-1 mb-2"><i class="bi bi-exclamation-circle-fill"></i></div>
+                <h5 class="fw-bold">Matrículas Pendentes</h5>
+                <p class="text-muted mb-0">@MatriculasPendentes aguardando</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificações -->
+    <div class="card shadow-sm border-0 rounded-4 mb-4">
+        <div class="card-body">
+            <h5 class="fw-bold mb-3"><i class="bi bi-bell-fill text-primary me-2"></i>Notificações</h5>
+
+            @if (Notificacoes.Any())
+            {
+                <ul class="list-group list-group-flush">
+                    @foreach (var n in Notificacoes)
+                    {
+                        <li class="list-group-item border-0 ps-0">
+                            <i class="bi bi-dot text-primary fs-4"></i>@n
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">Nenhuma notificação no momento.</p>
+            }
+        </div>
+    </div>
+
+    <!-- Últimas ações -->
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body">
+            <h5 class="fw-bold mb-3"><i class="bi bi-clock-history text-success me-2"></i>Últimas ações</h5>
+
+            @if (UltimasAcoes.Any())
+            {
+                <ul class="list-group list-group-flush">
+                    @foreach (var acao in UltimasAcoes)
+                    {
+                        <li class="list-group-item border-0 ps-0">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>@acao
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">Nenhuma ação registrada recentemente.</p>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    h2 {
+        font-size: 1.9rem;
+    }
+
+    .card {
+        transition: all 0.2s ease-in-out;
+    }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    .list-group-item:hover {
+        background-color: #f8f9fa;
+    }
+</style>
+
+@code {
+    // Simulações de dados — depois você pode trocar por chamadas à API
+    private int TotalAlunos = 120;
+    private int TotalProfessores = 15;
+    private int TotalTurmas = 8;
+    private int MatriculasPendentes = 3;
+
+    private List<string> Notificacoes = new()
+    {
+        "Existem 3 matrículas pendentes de aprovação.",
+        "Diário da Turma A não foi preenchido."
+    };
+
+    private List<string> UltimasAcoes = new()
+    {
+        "Nova matrícula adicionada.",
+        "Turma B excluída.",
+        "Professor João atualizado."
+    };
+}

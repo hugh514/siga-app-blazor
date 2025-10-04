@@ -22,11 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\Pages\Academico\Calendario\" />
-    <Folder Include="Components\Pages\Academico\Estudante\" />
-    <Folder Include="Components\Pages\Gestao\Documento\" />
-    <Folder Include="Components\Pages\Gestao\Usuario\" />
-    <Folder Include="Components\Pages\Gestao\Relatorio\" />
     <Folder Include="wwwroot\assets\" />
   </ItemGroup>
 
