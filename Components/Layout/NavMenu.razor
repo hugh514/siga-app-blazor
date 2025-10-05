@@ -1,25 +1,26 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="d-flex" style="height:100vh;">
-    <!-- Sidebar -->
+<div class="d-flex" style="height: 100vh;">
+    <!-- 🔹 Sidebar -->
     <nav id="sidebar" class="sidebar d-flex flex-column p-3">
-        <!-- Logo melhorado -->
+
+        <!-- 🔸 Logo -->
         <div class="text-center mb-3">
             <div class="mx-auto d-inline-block p-2 rounded-circle border border-white" style="background-color: #152259;">
                 <img src="/assets/logo.png" alt="logo" class="img-fluid" style="max-height: 15vh; filter: brightness(0) invert(1);">
             </div>
         </div>
+
         <p class="text-white fw-semibold text-center">Bem-vindo!</p>
         <hr class="border-secondary" />
-
-
 
         <!-- 🔹 Atalhos Rápidos -->
         <small class="text-uppercase text-muted fw-bold mb-2">Atalhos</small>
         <ul class="nav nav-pills flex-column gap-1 mb-3">
             <li>
                 <NavLink class="nav-link d-flex align-items-center" href="/" Match="NavLinkMatch.All">
-                    <i class="bi bi-house me-2"></i> <span>Painel inicial</span>
+                    <i class="bi bi-house me-2"></i>
+                    <span>Painel inicial</span>
                 </NavLink>
             </li>
         </ul>
@@ -29,32 +30,38 @@
         <ul class="nav nav-pills flex-column gap-1 mb-3">
             <li>
                 <NavLink class="nav-link d-flex align-items-center" href="/diarios">
-                    <i class="bi bi-journal-text me-2"></i> <span>Diários</span>
+                    <i class="bi bi-journal-text me-2"></i>
+                    <span>Diários</span>
                 </NavLink>
             </li>
             <li>
                 <NavLink class="nav-link d-flex align-items-center" href="/professores">
-                    <i class="bi bi-person-badge me-2"></i> <span>Professores</span>
+                    <i class="bi bi-person-badge me-2"></i>
+                    <span>Professores</span>
                 </NavLink>
             </li>
             <li>
                 <NavLink class="nav-link d-flex align-items-center" href="/estudantes">
-                    <i class="bi bi-people me-2"></i> <span>Estudantes</span>
+                    <i class="bi bi-people me-2"></i>
+                    <span>Estudantes</span>
                 </NavLink>
             </li>
             <li>
                 <NavLink class="nav-link d-flex align-items-center" href="/turmas">
-                    <i class="bi bi-building me-2"></i> <span>Turmas</span>
+                    <i class="bi bi-building me-2"></i>
+                    <span>Turmas</span>
                 </NavLink>
             </li>
             <li>
                 <NavLink class="nav-link d-flex align-items-center" href="/menu_matriculas">
-                    <i class="bi bi-card-list me-2"></i> <span>Matrículas</span>
+                    <i class="bi bi-card-list me-2"></i>
+                    <span>Matrículas</span>
                 </NavLink>
             </li>
             <li>
                 <NavLink class="nav-link d-flex align-items-center" href="/calendario">
-                    <i class="bi bi-calendar-event me-2"></i> <span>Calendário</span>
+                    <i class="bi bi-calendar-event me-2"></i>
+                    <span>Calendário</span>
                 </NavLink>
             </li>
         </ul>
@@ -64,81 +71,86 @@
         <ul class="nav nav-pills flex-column gap-1 mb-3">
             <li>
                 <NavLink class="nav-link d-flex align-items-center" href="/relatorios">
-                    <i class="bi bi-graph-up me-2"></i> <span>Relatórios</span>
+                    <i class="bi bi-graph-up me-2"></i>
+                    <span>Relatórios</span>
                 </NavLink>
             </li>
             <li>
                 <NavLink class="nav-link d-flex align-items-center" href="/documentos">
-                    <i class="bi bi-file-earmark-text me-2"></i> <span>Documentos</span>
+                    <i class="bi bi-file-earmark-text me-2"></i>
+                    <span>Documentos</span>
                 </NavLink>
             </li>
             <li>
                 <NavLink class="nav-link d-flex align-items-center" href="/usuarios">
-                    <i class="bi bi-shield-lock me-2"></i> <span>Usuários/Admins</span>
+                    <i class="bi bi-shield-lock me-2"></i>
+                    <span>Usuários/Admins</span>
                 </NavLink>
             </li>
         </ul>
 
-        <!-- Rodapé -->
+        <!-- 🔹 Rodapé -->
         <div class="mt-auto">
             <hr class="border-secondary" />
             <NavLink class="nav-link d-flex align-items-center" href="/configuracoes">
-                <i class="bi bi-gear me-2"></i> <span>Configurações</span>
+                <i class="bi bi-gear me-2"></i>
+                <span>Configurações</span>
             </NavLink>
         </div>
     </nav>
 
-    <!-- Conteúdo -->
+    <!-- 🔹 Conteúdo Principal -->
     <main class="flex-fill p-4 bg-light">
         @Body
     </main>
 </div>
 
+<!-- 🔹 Estilos -->
 <style>
-    /* 🔹 Sidebar */
+    /* Sidebar */
     #sidebar {
-        width: 20vw; 
-        max-width: 25vw;
-        min-width: 220px; 
+        width: 300px;
         background-color: #152259;
-        color: #fff;
-        overflow-x: hidden; 
+        color: #ffffff;
+        overflow-x: hidden;
     }
 
-
-        /* 🔹 Cabeçalhos de seção */
+        /* Cabeçalhos de seção */
         #sidebar small {
             font-size: 0.75rem;
             letter-spacing: 1px;
         }
 
-        /* 🔹 Itens de menu */
-        #sidebar .nav-link {
-            color: #ffffff;
+        /* Itens de menu */
+        #sidebar .nav-link {            
+            color: #ffffff !important;
             border-radius: 0.4rem;
             padding: 0.55rem 0.8rem;
             font-weight: 500;
             white-space: nowrap;
+            transition: background-color 0.2s ease;
         }
 
-            /* 🔹 Hover */
+            /* Hover */
             #sidebar .nav-link:hover {
-                background-color: #2a2e38;
+                background-color: #0d6efd;
                 color: #fff;
             }
 
-            /* 🔹 Ativo */
+            /* Ativo */
             #sidebar .nav-link.active {
                 background-color: #0d6efd !important;
                 color: #fff !important;
             }
 
+            /* Texto dentro dos links */
             #sidebar .nav-link span {
                 white-space: nowrap;
-                text-overflow: ellipsis; 
+                text-overflow: ellipsis;
                 overflow: hidden;
                 display: inline-block;
                 max-width: 160px;
             }
 
 </style>
+
