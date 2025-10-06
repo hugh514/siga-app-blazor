@@ -1,8 +1,6 @@
 ﻿using SigaApp.Configs;
-using SigaApp.Models;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using MySql.Data.MySqlClient;
 
 namespace SigaApp.Models
@@ -18,12 +16,15 @@ namespace SigaApp.Models
 
         public void Inserir(Professor professor)
         {
-            try
+            using (var conn = _conexao.GetConnection())
             {
-                using (var comando = _conexao.CreateCommand(@"
+                conn.Open();
+
+                using (var comando = new MySqlCommand(@"
                     INSERT INTO professor 
-                    VALUES (null, @_nome, @_cpf, @_email, @_telefone, @_status, @_disciplina, @_turmas, @_especialidade, @_dataCadastro)
-                "))
+                    VALUES (NULL, @_nome, @_cpf, @_email, @_telefone, @_status, 
+                            @_disciplina, @_turmas, @_especialidade, @_dataCadastro)
+                ", conn))
                 {
                     comando.Parameters.AddWithValue("@_nome", professor.Nome);
                     comando.Parameters.AddWithValue("@_cpf", professor.Cpf);
@@ -38,37 +39,37 @@ namespace SigaApp.Models
                     comando.ExecuteNonQuery();
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Erro ao inserir professor: {ex.Message}");
-                throw;
-            }
         }
 
         public List<Professor> ListarTodos()
         {
             var lista = new List<Professor>();
 
-            using (var comando = _conexao.CreateCommand("SELECT * FROM professor"))
-            using (var leitor = comando.ExecuteReader())
+            using (var conn = _conexao.GetConnection())
             {
-                while (leitor.Read())
-                {
-                    var professor = new Professor
-                    {
-                        Id = leitor.GetInt32("id_prof"),
-                        Nome = leitor.GetString("nome_prof"),
-                        Cpf = leitor.GetString("cpf_prof"),
-                        Email = leitor.IsDBNull(leitor.GetOrdinal("email_prof")) ? "" : leitor.GetString("email_prof"),
-                        Telefone = leitor.IsDBNull(leitor.GetOrdinal("telefone_prof")) ? "" : leitor.GetString("telefone_prof"),
-                        Status = leitor.IsDBNull(leitor.GetOrdinal("status_prof")) ? "Ativo" : leitor.GetString("status_prof"),
-                        DisciplinaPrincipal = leitor.IsDBNull(leitor.GetOrdinal("disciplina_principal_prof")) ? "" : leitor.GetString("disciplina_principal_prof"),
-                        TurmasVinculadas = leitor.IsDBNull(leitor.GetOrdinal("turmas_vinculadas_prof")) ? "" : leitor.GetString("turmas_vinculadas_prof"),
-                        Especialidade = leitor.IsDBNull(leitor.GetOrdinal("especialidade_prof")) ? "" : leitor.GetString("especialidade_prof"),
-                        DataCadastro = leitor.GetDateTime("data_cadastro_prof")
-                    };
+                conn.Open();
 
-                    lista.Add(professor);
+                using (var comando = new MySqlCommand("SELECT * FROM professor", conn))
+                using (var leitor = comando.ExecuteReader())
+                {
+                    while (leitor.Read())
+                    {
+                        var professor = new Professor
+                        {
+                            Id = leitor.GetInt32("id_prof"),
+                            Nome = leitor.GetString("nome_prof"),
+                            Cpf = leitor.GetString("cpf_prof"),
+                            Email = leitor.IsDBNull(leitor.GetOrdinal("email_prof")) ? "" : leitor.GetString("email_prof"),
+                            Telefone = leitor.IsDBNull(leitor.GetOrdinal("telefone_prof")) ? "" : leitor.GetString("telefone_prof"),
+                            Status = leitor.IsDBNull(leitor.GetOrdinal("status_prof")) ? "Ativo" : leitor.GetString("status_prof"),
+                            DisciplinaPrincipal = leitor.IsDBNull(leitor.GetOrdinal("disciplina_principal_prof")) ? "" : leitor.GetString("disciplina_principal_prof"),
+                            TurmasVinculadas = leitor.IsDBNull(leitor.GetOrdinal("turmas_vinculadas_prof")) ? "" : leitor.GetString("turmas_vinculadas_prof"),
+                            Especialidade = leitor.IsDBNull(leitor.GetOrdinal("especialidade_prof")) ? "" : leitor.GetString("especialidade_prof"),
+                            DataCadastro = leitor.GetDateTime("data_cadastro_prof")
+                        };
+
+                        lista.Add(professor);
+                    }
                 }
             }
 
@@ -77,22 +78,15 @@ namespace SigaApp.Models
 
         public void Excluir(int id)
         {
-            try
+            using (var conn = _conexao.GetConnection())
             {
-                using (var comando = _conexao.CreateCommand(@"
-                    DELETE FROM professor
-                    WHERE id_prof = @_id
-                "))
+                conn.Open();
+
+                using (var comando = new MySqlCommand("DELETE FROM professor WHERE id_prof = @_id", conn))
                 {
                     comando.Parameters.AddWithValue("@_id", id);
                     comando.ExecuteNonQuery();
-                    Console.WriteLine($"Professor ID {id} excluído com sucesso!");
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Erro ao excluir professor: {ex.Message}");
-                throw;
             }
         }
     }
