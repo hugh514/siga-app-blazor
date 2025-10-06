@@ -14,17 +14,21 @@ namespace SigaApp.Models
             _conexao = conexao;
         }
 
+        // 🔹 Inserir professor
         public void Inserir(Professor professor)
         {
             using (var conn = _conexao.GetConnection())
             {
                 conn.Open();
 
-                using (var comando = new MySqlCommand(@"
+                string sql = @"
                     INSERT INTO professor 
-                    VALUES (NULL, @_nome, @_cpf, @_email, @_telefone, @_status, 
-                            @_disciplina, @_turmas, @_especialidade, @_dataCadastro)
-                ", conn))
+                    (nome_prof, cpf_prof, email_prof, telefone_prof, status_prof, 
+                     disciplina_principal_prof, turmas_vinculadas_prof, especialidade_prof, data_cadastro_prof)
+                    VALUES (@_nome, @_cpf, @_email, @_telefone, @_status, @_disciplina, @_turmas, @_especialidade, @_dataCadastro);
+                ";
+
+                using (var comando = new MySqlCommand(sql, conn))
                 {
                     comando.Parameters.AddWithValue("@_nome", professor.Nome);
                     comando.Parameters.AddWithValue("@_cpf", professor.Cpf);
@@ -41,6 +45,7 @@ namespace SigaApp.Models
             }
         }
 
+        // 🔹 Listar todos os professores
         public List<Professor> ListarTodos()
         {
             var lista = new List<Professor>();
@@ -49,7 +54,9 @@ namespace SigaApp.Models
             {
                 conn.Open();
 
-                using (var comando = new MySqlCommand("SELECT * FROM professor", conn))
+                string sql = "SELECT * FROM professor";
+
+                using (var comando = new MySqlCommand(sql, conn))
                 using (var leitor = comando.ExecuteReader())
                 {
                     while (leitor.Read())
@@ -76,13 +83,16 @@ namespace SigaApp.Models
             return lista;
         }
 
+        // 🔹 Excluir professor
         public void Excluir(int id)
         {
             using (var conn = _conexao.GetConnection())
             {
                 conn.Open();
 
-                using (var comando = new MySqlCommand("DELETE FROM professor WHERE id_prof = @_id", conn))
+                string sql = "DELETE FROM professor WHERE id_prof = @_id";
+
+                using (var comando = new MySqlCommand(sql, conn))
                 {
                     comando.Parameters.AddWithValue("@_id", id);
                     comando.ExecuteNonQuery();
@@ -91,3 +101,4 @@ namespace SigaApp.Models
         }
     }
 }
+    
