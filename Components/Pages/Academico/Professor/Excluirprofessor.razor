@@ -1,13 +1,105 @@
-﻿@page "/excluir_professor"
+﻿@page "/excluir_professor/{id:int}"
+@using SigaApp.Models
+@inject ProfessorDAO professorDAO
+@inject NavigationManager navManager
+@rendermode InteractiveServer
+
 <PageTitle>Excluir Professor</PageTitle>
 
-<div class="d-flex justify-content-center align-items-center vh-75">
-    <div class="card shadow-sm p-4 text-center" style="max-width:540px; width:100%;">
-        <h3 class="mb-3">Excluir Professor</h3>
-        <p class="mb-4">Você deseja realmente excluir o professor <strong>Jefferson</strong>?</p>
-        <div class="d-flex justify-content-center gap-3">
-            <a class="btn btn-danger" href="/professores">Excluir</a>
-            <a class="btn btn-outline-secondary" href="/professores">Cancelar</a>
+<div class="d-flex justify-content-center align-items-center min-vh-75 py-5 bg-light">
+    <div class="card border-0 shadow-lg p-4 text-center" style="max-width: 480px; width: 100%; border-radius: 1rem;">
+        <div class="mb-3">
+            <div class="rounded-circle bg-danger bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width:70px; height:70px;">
+                <i class="bi bi-exclamation-triangle-fill text-danger fs-2"></i>
+            </div>
+            <h4 class="fw-bold text-danger">Excluir Professor</h4>
         </div>
+
+        @if (isLoading)
+        {
+            <div class="text-muted my-4">
+                <div class="spinner-border text-secondary" role="status"></div>
+                <p class="mt-2">Carregando informações...</p>
+            </div>
+        }
+        else if (professor == null)
+        {
+            <p class="text-danger my-4">Professor não encontrado.</p>
+            <a class="btn btn-outline-secondary" href="/professores">Voltar</a>
+        }
+        else
+        {
+            <p class="mb-4 fs-6">
+                Tem certeza que deseja <strong class="text-danger">excluir</strong> o professor
+                <strong>@professor.Nome</strong>?<br />
+                <span class="text-muted small">Essa ação não poderá ser desfeita.</span>
+            </p>
+
+            <div class="d-flex justify-content-center gap-3">
+                <button type="button"
+                        class="btn btn-danger px-4"
+                        style="min-width:120px;"
+                        @onclick="ExcluirProfessor"
+                        disabled="@isDeleting">
+                    @if (isDeleting)
+                    {
+                        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                        <p>Excluindo...</p>
+                                }
+                    else
+                    {
+                        <i class="bi bi-trash me-2"></i>
+                       <p> Excluir </p>
+                                }
+                </button>
+
+                <a class="btn btn-outline-secondary px-4" href="/professores">
+                    <i class="bi bi-x-circle me-1"></i>Cancelar
+                </a>
+            </div>
+        }
     </div>
 </div>
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    private Professor? professor;
+    private bool isLoading = true;
+    private bool isDeleting = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            professor = await Task.Run(() => professorDAO.ListarTodos().FirstOrDefault(p => p.Id == id));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao carregar professor: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task ExcluirProfessor()
+    {
+        if (professor == null) return;
+
+        isDeleting = true;
+
+        try
+        {
+            await Task.Run(() => professorDAO.Excluir(professor.Id));
+            navManager.NavigateTo("/professores");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao excluir professor: {ex.Message}");
+            isDeleting = false;
+        }
+    }
+}
