@@ -1,78 +1,157 @@
 ﻿@page "/cadastro_professor"
+@rendermode InteractiveServer
+
+@using System.ComponentModel.DataAnnotations
+@using SigaApp.Models
+@inject ProfessorDAO professorDAO
+@inject NavigationManager Navigation
+
 <PageTitle>Novo Professor</PageTitle>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold">Cadastro de Professor</h2>
-    <a class="btn btn-outline-secondary" href="/professores">Voltar</a>
-</div>
+<h2 class="fw-bold mb-4">Cadastro de Professor</h2>
 
-<div class="card shadow-sm">
-    <div class="card-body">
-        <form>
-            <div class="row g-3">
-                <div class="col-md-4 text-center">
-                    <div class="mb-3">
-                        <img id="previewFoto" src="https://via.placeholder.com/140" class="rounded-circle mb-2" style="width:140px;height:140px;object-fit:cover;" />
-                        <div>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Alterar foto</button>
-                        </div>
-                    </div>
+
+<EditForm Model="_novoProfessor" OnValidSubmit="Salvar">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="row g-3">
+        <div class="col-md-8">
+            <div class="row g-2">
+                <div class="col-md-8">
+                    <label class="form-label">Nome</label>
+                    <InputText @bind-Value="_novoProfessor.Nome" class="form-control" />
+                    <ValidationMessage For="@(() => _novoProfessor.Nome)" />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">CPF</label>
+                    <InputCpf @bind-Value="_novoProfessor.Cpf" class="form-control" />
+                    <ValidationMessage For="@(() => _novoProfessor.Cpf)" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">E-mail</label>
+                    <InputText @bind-Value="_novoProfessor.Email" type="email" class="form-control" />
+                    <ValidationMessage For="@(() => _novoProfessor.Email)" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Telefone</label>
+                    <InputText @bind-Value="_novoProfessor.Telefone" class="form-control" />
+                    <ValidationMessage For="@(() => _novoProfessor.Telefone)" />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Status</label>
+                    <InputSelect @bind-Value="_novoProfessor.Status" class="form-select">
+                        <option value="">Selecione...</option>
+                        <option>Ativo</option>
+                        <option>Inativo</option>
+                    </InputSelect>
+                    <ValidationMessage For="@(() => _novoProfessor.Status)" />
                 </div>
 
                 <div class="col-md-8">
-                    <div class="row g-2">
-                        <div class="col-md-8">
-                            <label class="form-label">Nome</label>
-                            <input class="form-control" />
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">CPF</label>
-                            <input class="form-control" />
-                        </div>
+                    <label class="form-label">Disciplina principal</label>
+                    <InputSelect @bind-Value="_novoProfessor.DisciplinaPrincipal" class="form-select">
+                        <option value="">Selecione...</option>
+                        <option>Português</option>
+                        <option>Matemática</option>
+                        <option>História</option>
+                        <option>Geografia</option>
+                        <option>Física</option>
+                        <option>Química</option>
+                    </InputSelect>
+                    <ValidationMessage For="@(() => _novoProfessor.DisciplinaPrincipal)" />
+                </div>
 
-                        <div class="col-md-6">
-                            <label class="form-label">E-mail</label>
-                            <input class="form-control" type="email" />
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Telefone</label>
-                            <input class="form-control" />
-                        </div>
+                <div class="col-12">
+                    <label class="form-label">Turmas vinculadas (ex: 1A, 2B)</label>
+                    <InputText @bind-Value="_novoProfessor.TurmasVinculadas" class="form-control" />
+                    <ValidationMessage For="@(() => _novoProfessor.TurmasVinculadas)" />
+                </div>
 
-                        <div class="col-md-4">
-                            <label class="form-label">Status</label>
-                            <select class="form-select">
-                                <option>Ativo</option>
-                                <option>Inativo</option>
-                            </select>
-                        </div>
-                        <div class="col-md-8">
-                            <label class="form-label">Disciplina principal</label>
-                            <select class="form-select">
-                                <option>Selecione...</option>
-                                <option>Português</option>
-                                <option>Matemática</option>
-                            </select>
-                        </div>
-
-                        <div class="col-12">
-                            <label class="form-label">Turmas vinculadas (ex: 1A, 2B)</label>
-                            <input class="form-control" />
-                        </div>
-
-                        <div class="col-12">
-                            <label class="form-label">Especialidade</label>
-                            <textarea class="form-control" rows="3"></textarea>
-                        </div>
-
-                    </div>
+                <div class="col-12">
+                    <label class="form-label">Especialidade</label>
+                    <InputTextArea @bind-Value="_novoProfessor.Especialidade" class="form-control" rows="3" />
+                    <ValidationMessage For="@(() => _novoProfessor.Especialidade)" />
                 </div>
             </div>
-
-            <div class="mt-4 d-flex justify-content-end gap-2">
-                <a class="btn btn-outline-secondary" href="/professores">Cancelar</a>
-                <button class="btn btn-primary" type="button">Salvar</button>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+
+    <div class="mt-4 d-flex justify-content-end gap-2">
+        <a class="btn btn-outline-secondary" href="/professores">Cancelar</a>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+</EditForm>
+
+@code {
+    private string? erro = null;
+
+    private ProfessorViewModel _novoProfessor = new();
+
+    private void Salvar()
+    {
+        try
+        {
+            if (!ValidaCPF(_novoProfessor.Cpf))
+                throw new Exception("CPF inválido.");
+
+            professorDAO.Inserir(new Professor
+            {
+                Nome = _novoProfessor.Nome,
+                Cpf = _novoProfessor.Cpf,
+                Email = _novoProfessor.Email,
+                Telefone = _novoProfessor.Telefone,
+                Status = _novoProfessor.Status,
+                DisciplinaPrincipal = _novoProfessor.DisciplinaPrincipal,
+                TurmasVinculadas = _novoProfessor.TurmasVinculadas,
+                Especialidade = _novoProfessor.Especialidade
+            });
+
+            Navigation.NavigateTo("/professores");
+        }
+        catch (Exception ex)
+        {
+            erro = ex.Message;
+        }
+    }
+
+    private bool ValidaCPF(string cpf)
+    {
+        if (string.IsNullOrWhiteSpace(cpf))
+            return false;
+
+        cpf = new string(cpf.Where(char.IsDigit).ToArray());
+
+        if (cpf.Length != 11)
+            return false;
+
+        if (new string(cpf[0], 11) == cpf)
+            return false;
+
+        int[] mult1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+        int[] mult2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+
+        string tempCpf = cpf[..9];
+        int soma = 0;
+
+        for (int i = 0; i < 9; i++)
+            soma += int.Parse(tempCpf[i].ToString()) * mult1[i];
+
+        int resto = soma % 11;
+        int dig1 = resto < 2 ? 0 : 11 - resto;
+
+        tempCpf += dig1;
+        soma = 0;
+        for (int i = 0; i < 10; i++)
+            soma += int.Parse(tempCpf[i].ToString()) * mult2[i];
+
+        resto = soma % 11;
+        int dig2 = resto < 2 ? 0 : 11 - resto;
+
+        return cpf.EndsWith($"{dig1}{dig2}");
+    }
+}

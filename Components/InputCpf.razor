@@ -1,0 +1,31 @@
+﻿@inherits InputBase<string>
+
+<input @bind="CurrentValueAsString" class="@CssClass" @attributes="AdditionalAttributes" />
+
+@code {
+    protected override bool TryParseValueFromString(string? value, out string result, out string validationErrorMessage)
+    {
+        result = MascaraCpf(value);
+        validationErrorMessage = null;
+        return true;
+    }
+
+    private string MascaraCpf(string? valor)
+    {
+        if (string.IsNullOrWhiteSpace(valor))
+            return "";
+
+        var digitos = new string(valor.Where(char.IsDigit).ToArray());
+
+        if (digitos.Length > 11)
+            digitos = digitos.Substring(0, 11);
+
+        if (digitos.Length <= 3)
+            return digitos;
+        if (digitos.Length <= 6)
+            return $"{digitos[..3]}.{digitos[3..]}";
+        if (digitos.Length <= 9)
+            return $"{digitos[..3]}.{digitos[3..6]}.{digitos[6..]}";
+        return $"{digitos[..3]}.{digitos[3..6]}.{digitos[6..9]}-{digitos[9..]}";
+    }
+}
