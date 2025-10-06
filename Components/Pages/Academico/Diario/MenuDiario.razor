@@ -1,0 +1,106 @@
+﻿@page "/menu-diario"
+
+
+<div class="container-fluid px-4 py-4 menu-diario">
+    <!-- Cabeçalho -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-0">
+                Menu do Diário
+            </h3>
+            <p class="text-muted small mb-0">Turma: Educação Infantil A | Período: 2025</p>
+        </div>
+        <a class="btn btn-outline-secondary btn-sm" href="/diarios">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </a>
+    </div>
+
+    <!-- Informações -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="info-card">
+                <span class="text-muted small">Professor</span>
+                <p class="fw-semibold mb-0">Maria Santos</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="info-card">
+                <span class="text-muted small">Curso</span>
+                <p class="fw-semibold mb-0">Educação Infantil</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="info-card">
+                <span class="text-muted small">Período</span>
+                <p class="fw-semibold mb-0">2025</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="info-card">
+                <span class="text-muted small">Status</span>
+                <span class="badge bg-warning text-dark">Em andamento</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Módulos -->
+    <div class="card shadow-sm p-4 bg-light">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <a href="/alunos" class="modulo-card text-decoration-none d-block">
+                    <i class="bi bi-people fs-3 text-primary mb-2"></i>
+                    <p class="fw-semibold">Gerir Alunos</p>
+                    <span class="text-muted small">Visualizar e editar dados dos alunos</span>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="/plano-aula" class="modulo-card text-decoration-none d-block">
+                    <i class="bi bi-calendar2-check fs-3 text-primary mb-2"></i>
+                    <p class="fw-semibold">Plano de Aula</p>
+                    <span class="text-muted small">Planejamento semanal e diário</span>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="/conteudo" class="modulo-card text-decoration-none d-block">
+                    <i class="bi bi-book fs-3 text-primary mb-2"></i>
+                    <p class="fw-semibold">Conteúdo</p>
+                    <span class="text-muted small">Registrar conteúdos ministrados</span>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="/frequencia" class="modulo-card text-decoration-none d-block">
+                    <i class="bi bi-check2-square fs-3 text-primary mb-2"></i>
+                    <p class="fw-semibold">Frequência</p>
+                    <span class="text-muted small">Lançar presença dos alunos</span>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="/avaliacoes" class="modulo-card text-decoration-none d-block">
+                    <i class="bi bi-clipboard-check fs-3 text-primary mb-2"></i>
+                    <p class="fw-semibold">Avaliações</p>
+                    <span class="text-muted small">Registrar notas e avaliações</span>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="/ocorrencias" class="modulo-card text-decoration-none d-block">
+                    <i class="bi bi-exclamation-triangle fs-3 text-primary mb-2"></i>
+                    <p class="fw-semibold">Ocorrências</p>
+                    <span class="text-muted small">Registrar observações e eventos</span>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="/relatorios" class="modulo-card text-decoration-none d-block">
+                    <i class="bi bi-bar-chart fs-3 text-primary mb-2"></i>
+                    <p class="fw-semibold">Relatórios</p>
+                    <span class="text-muted small">Gerar relatórios da turma</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>

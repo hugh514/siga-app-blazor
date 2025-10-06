@@ -127,3 +127,75 @@ a {
     font-size: 1.1rem;
     letter-spacing: 0.4px;
 }
+
+.modulo-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    border: 1px solid transparent;
+    color: #152259;
+}
+
+    .modulo-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        border-color: #152259;
+    }
+
+    .modulo-card i {
+        display: block;
+    }
+
+    .modulo-card p {
+        margin-bottom: 0.25rem;
+        color: #152259;
+    }
+
+    .modulo-card span {
+        color: #6c757d;
+    }
+.gestao-diarios .filtros-card {
+    background-color: #ffffff;
+    border: none;
+    border-left: 4px solid var(--azul-primario);
+}
+
+.gestao-diarios table th {
+    background-color: #f8f9fa;
+}
+
+.gestao-diarios table tbody tr:hover {
+    background-color: #f1f5ff;
+}
+
+/* Menu do Diário */
+.info-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px 15px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.modulo-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+    .modulo-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .modulo-card p {
+        margin-bottom: 0;
+        color: var(--azul-primario);
+    }
