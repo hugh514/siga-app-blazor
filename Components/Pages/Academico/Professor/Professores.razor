@@ -1,5 +1,6 @@
 ﻿@page "/professores"
 @using SigaApp.Models
+@using Microsoft.AspNetCore.Components.Web
 @inject ProfessorDAO professorDAO
 
 <PageTitle>Professores</PageTitle>
@@ -15,9 +16,12 @@
 <!-- Filtros -->
 <div class="card mb-4 shadow-sm">
     <div class="card-body">
-        <form class="row g-2 align-items-center" @onsubmit="FiltrarProfessores">
+        <form class="row g-2 align-items-center">
             <div class="col-md-4">
-                <input class="form-control" @bind="filtroPesquisa" placeholder="Pesquisar por nome, CPF, e-mail..." />
+                <input class="form-control"
+                       @bind="filtroPesquisa"
+                       placeholder="Pesquisar por nome, CPF, e-mail..."
+                       @onkeydown="OnKeyDownPesquisar" />
             </div>
             <div class="col-md-3">
                 <select class="form-select" @bind="filtroDisciplina">
@@ -38,14 +42,14 @@
                 </select>
             </div>
             <div class="col-md-1 d-grid">
-                <button type="submit" class="btn btn-outline-primary">Filtrar</button>
+                <button type="button" class="btn btn-outline-primary" @onclick="FiltrarProfessores">Filtrar</button>
             </div>
         </form>
     </div>
 </div>
 
 <!-- Lista de professores -->
-<div class="row g-4 professores">
+<div class="row g-4">
     @if (listaFiltrada.Count == 0)
     {
         <div class="text-center text-muted mt-4">
@@ -103,7 +107,7 @@
 
     private void CarregarProfessores()
     {
-        listaProfessores = professorDAO.ListarTodos();
+        listaProfessores = professorDAO.ListarTodos() ?? new List<Professor>();
         AplicarFiltros();
     }
 
@@ -114,17 +118,33 @@
 
     private void AplicarFiltros()
     {
+        var pesquisa = (filtroPesquisa ?? "").Trim();
+
         listaFiltrada = listaProfessores
             .Where(p =>
-                (string.IsNullOrWhiteSpace(filtroPesquisa)
-                 || p.Nome.Contains(filtroPesquisa, StringComparison.OrdinalIgnoreCase)
-                 || p.Email.Contains(filtroPesquisa, StringComparison.OrdinalIgnoreCase)
-                 || p.Cpf.Contains(filtroPesquisa, StringComparison.OrdinalIgnoreCase))
+                (string.IsNullOrWhiteSpace(pesquisa)
+                 || p.Nome.Contains(pesquisa, StringComparison.OrdinalIgnoreCase)
+                 || (p.Email ?? "").Contains(pesquisa, StringComparison.OrdinalIgnoreCase)
+                 || (p.Cpf ?? "").Contains(pesquisa, StringComparison.OrdinalIgnoreCase))
                 && (string.IsNullOrWhiteSpace(filtroDisciplina)
-                    || p.DisciplinaPrincipal.Equals(filtroDisciplina, StringComparison.OrdinalIgnoreCase))
+                    || (p.DisciplinaPrincipal ?? "").Equals(filtroDisciplina, StringComparison.OrdinalIgnoreCase))
                 && (string.IsNullOrWhiteSpace(filtroStatus)
-                    || p.Status.Equals(filtroStatus, StringComparison.OrdinalIgnoreCase))
+                    || (p.Status ?? "").Equals(filtroStatus, StringComparison.OrdinalIgnoreCase))
             )
             .ToList();
     }
+
+    private void OnKeyDownPesquisar(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            AplicarFiltros();
+        }
+    }
 }
+
+<style>
+    *{
+    overflow-y: visible !important;
+    }
+</style>

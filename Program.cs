@@ -8,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddSingleton<Conexao>(); // Conexao única para toda a aplicação
-builder.Services.AddScoped<ProfessorDAO>(); // DAO com escopo por requisição/interação
+builder.Services.AddSingleton<Conexao>();
+builder.Services.AddScoped<ProfessorDAO>();
 
 var app = builder.Build();
 
