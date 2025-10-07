@@ -1,110 +1,202 @@
 ﻿@page "/matricular_aluno"
-<PageTitle>Matricula</PageTitle>
+<PageTitle>Matrícula</PageTitle>
 
-<div class="card shadow-sm border-0 p-4 mb-4">
-        <form id="formMatricula">
-            <div class="row g-3">
-                <!-- Período Letivo -->
-                <div class="col-md-4">
-                    <label for="periodoLetivo" class="form-label">Período Letivo *</label>
-                    <select id="periodoLetivo" class="form-select" required>
-                        <option value="">Selecione...</option>
-                        <option value="2025-1">2025/1</option>
-                        <option value="2025-2">2025/2</option>
-                    </select>
-                </div>
+<!-- Formulário alinhado ao início (igual à referência: começo da tabela) -->
+<div class="container py-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="h3 fw-bold mb-4">Cadastro de Matrícula</h1>
+        </div>
 
-                <!-- Curso -->
-                <div class="col-md-4">
-                    <label for="curso" class="form-label">Curso *</label>
-                    <select id="curso" class="form-select" required>
-                        <option value="">Selecione...</option>
-                        <option value="1">Informática</option>
-                        <option value="2">Administração</option>
-                    </select>
-                </div>
+        <div class="col-12" style="max-width:1100px;">
+            <div class="card shadow-sm border-0 p-4 mb-4">
+                <EditForm Model="@newMatricula" OnValidSubmit="HandleValidSubmit">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
 
-                <!-- Série -->
-                <div class="col-md-4">
-                    <label for="serie" class="form-label">Série *</label>
-                    <select id="serie" class="form-select" required>
-                        <option value="">Selecione...</option>
-                        <option value="1">1ª Série</option>
-                        <option value="2">2ª Série</option>
-                        <option value="3">3ª Série</option>
-                    </select>
-                </div>
+                    <div class="row g-3">
+                        <!-- Período Letivo -->
+                        <div class="col-md-4">
+                            <label for="periodoLetivo" class="form-label">Período Letivo *</label>
+                            <InputSelect id="periodoLetivo" class="form-select" @bind-Value="newMatricula.PeriodoLetivo">
+                                <option value="">Selecione...</option>
+                                @foreach (var p in Periodos)
+                                {
+                                    <option value="@p">@p</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="() => newMatricula.PeriodoLetivo" />
+                        </div>
 
-                <!-- Turma -->
-                <div class="col-md-6">
-                    <label for="turma" class="form-label">Turma *</label>
-                    <select id="turma" class="form-select" required>
-                        <option value="">Selecione...</option>
-                    </select>
-                </div>
+                        <!-- Curso -->
+                        <div class="col-md-4">
+                            <label for="curso" class="form-label">Curso *</label>
+                            <InputSelect id="curso" class="form-select" @bind-Value="newMatricula.Curso" @onchange="OnCursoChanged">
+                                <option value="">Selecione...</option>
+                                @foreach (var c in Cursos)
+                                {
+                                    <option value="@c.Id">@c.Nome</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="() => newMatricula.Curso" />
+                        </div>
 
-                <!-- Aluno -->
-                <div class="col-md-6">
-                    <label for="aluno" class="form-label">Aluno *</label>
-                    <select id="aluno" class="form-select" required>
-                        <option value="">Selecione...</option>
-                    </select>
-                </div>
+                        <!-- Série -->
+                        <div class="col-md-4">
+                            <label for="serie" class="form-label">Série *</label>
+                            <InputSelect id="serie" class="form-select" @bind-Value="newMatricula.Serie">
+                                <option value="">Selecione...</option>
+                                @foreach (var s in Series)
+                                {
+                                    <option value="@s">@s</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="() => newMatricula.Serie" />
+                        </div>
 
-                <!-- Retroativa + Botão -->
-                <div class="col-md-6 d-flex align-items-center">
-                    <div class="form-check form-switch me-3">
-                        <input class="form-check-input" type="checkbox" id="retroativa">
-                        <label class="form-check-label" for="retroativa">Retroativa?</label>
-                    </div>
-                </div>
+                        <!-- Turma -->
+                        <div class="col-md-6">
+                            <label for="turma" class="form-label">Turma *</label>
+                            <InputSelect id="turma" class="form-select" @bind-Value="newMatricula.Turma">
+                                <option value="">Selecione...</option>
+                                @foreach (var t in TurmasFiltered)
+                                {
+                                    <option value="@t">@t</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="() => newMatricula.Turma" />
+                        </div>
 
-                <!-- Card de Vagas -->
-                <div class="col-md-6">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-body text-center">
-                            <h6 class="mb-2">Vagas</h6>
-                            <p class="text-muted">Nenhuma turma selecionada</p>
-                            <div class="d-flex justify-content-between">
-                                <small>Total: --</small>
-                                <small>Ocupadas: --</small>
-                                <small>Especiais: --</small>
-                                <small>Disponíveis: --</small>
+                        <!-- Aluno -->
+                        <div class="col-md-6">
+                            <label for="aluno" class="form-label">Aluno *</label>
+                            <InputSelect id="aluno" class="form-select" @bind-Value="newMatricula.AlunoId">
+                                <option value="">Selecione...</option>
+                                @foreach (var a in Alunos)
+                                {
+                                    <option value="@a.Id">@a.Nome</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="() => newMatricula.AlunoId" />
+                        </div>
+
+                        <!-- Data Matrícula + Retroativa ao lado -->
+                        <div class="col-md-6">
+                            <label class="form-label">Data Matrícula *</label>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="flex-grow-1">
+                                    <InputDate class="form-control" @bind-Value="newMatricula.DataMatricula" />
+                                    <ValidationMessage For="() => newMatricula.DataMatricula" />
+                                </div>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="form-check form-switch mb-0">
+                                        <InputCheckbox class="form-check-input" id="retroativa" @bind-Value="newMatricula.Retroativa" />
+                                        <label class="form-check-label ms-2" for="retroativa">Retroativa?</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Botão -->
-                <div class="col-12 text-end">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-save"></i> Matricular
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="card shadow-sm border-0 mt-4">
-        <div class="card-body">
-            <h5 class="mb-3">Matrículas Cadastradas</h5>
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Aluno</th>
-                            <th>Turma</th>
-                            <th>Ano</th>
-                            <th>Série</th>
-                            <th>Turno</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    
-                    </tbody>
-                </table>
+                        <div class="col-md-6">
+                            <label class="form-label">Turno</label>
+                            <InputSelect class="form-select" @bind-Value="newMatricula.Turno">
+                                <option value="">Selecione...</option>
+                                <option>Manhã</option>
+                                <option>Tarde</option>
+                                <option>Noite</option>
+                            </InputSelect>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="col-md-6">
+                            <label class="form-label">Status</label>
+                            <InputSelect class="form-select" @bind-Value="newMatricula.Status">
+                                <option>Ativa</option>
+                                <option>Pendente</option>
+                                <option>Cancelada</option>
+                            </InputSelect>
+                        </div>
+
+                        <!-- Documento / Turmas vinculadas -->
+                        <div class="col-md-6">
+                            <label class="form-label">CPF</label>
+                            <InputText class="form-control" @bind-Value="newMatricula.Documento" />
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Observações</label>
+                            <InputTextArea class="form-control" rows="3" @bind-Value="newMatricula.Observacoes" />
+                        </div>
+
+                        <!-- Botões -->
+                        <div class="col-12 text-end">
+                            <button type="submit" class="btn btn-primary me-2">
+                                <i class="bi bi-save"></i> Matricular
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" @onclick="ResetForm">Voltar</button>
+                        </div>
+                    </div>
+                </EditForm>
             </div>
         </div>
     </div>
+</div>
 
+@code {
+    // modelos simples para preencher selects — troque pelas suas chamadas ao back-end
+    private List<string> Periodos = new() { "2025/1", "2025/2" };
+    private List<string> Series = new() { "1ª Série", "2ª Série", "3ª Série" };
 
+    private List<(string Id, string Nome)> Cursos = new()
+    {
+        ("1", "Informática"),
+        ("2", "Administração")
+    };
+
+    private List<string> Turmas = new() { "Turma A", "Turma B", "Turma C" };
+    private IEnumerable<string> TurmasFiltered => Turmas; // aqui você pode filtrar por curso/serie
+
+    private List<(string Id, string Nome)> Alunos = new()
+    {
+        ("100","João Silva"),
+        ("101","Maria Souza")
+    };
+
+    private MatriculaModel newMatricula = new();
+
+    private void OnCursoChanged(ChangeEventArgs e)
+    {
+        // exemplo: quando trocar o curso, você pode carregar turmas específicas
+        // string cursoId = e.Value?.ToString();
+    }
+
+    private void HandleValidSubmit()
+    {
+        // aqui você normalmente enviaria para o back-end via HttpClient
+        Console.WriteLine($"Matrícula solicitada: {newMatricula.AlunoId} em {newMatricula.Turma}");
+        ResetForm();
+    }
+
+    private void ResetForm()
+    {
+        newMatricula = new MatriculaModel();
+        StateHasChanged();
+    }
+
+    public class MatriculaModel
+    {
+        public string PeriodoLetivo { get; set; } = string.Empty;
+        public string Curso { get; set; } = string.Empty;
+        public string Serie { get; set; } = string.Empty;
+        public string Turma { get; set; } = string.Empty;
+        public string AlunoId { get; set; } = string.Empty;
+        public DateTime? DataMatricula { get; set; }
+        public string Turno { get; set; } = string.Empty;
+        public string Status { get; set; } = string.Empty;
+        public bool Retroativa { get; set; }
+        public string Documento { get; set; } = string.Empty;
+        public string TurmasVinculadas { get; set; } = string.Empty;
+        public string Observacoes { get; set; } = string.Empty;
+    }
+}
