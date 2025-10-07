@@ -1,0 +1,111 @@
+﻿@page "/estudante_cadastrar"
+<PageTitle>Cadastrar Estudante</PageTitle>
+
+<div class="container-fluid py-5">
+    <div class="card shadow-sm border-0 p-5 mx-auto" style="max-width: 1000px;">
+        <div class="text-center mb-4">
+            <i class="bi bi-person-plus-fill text-primary" style="font-size: 3rem;"></i>
+            <h4 class="mt-3 mb-2 text-dark">Cadastrar Novo Estudante</h4>
+            <p class="text-muted">Preencha as informações abaixo para adicionar um novo estudante.</p>
+        </div>
+
+        <div class="text-start">
+
+            <div class="mb-3">
+                <label class="form-label">Nome do Aluno</label>
+                <input type="text" class="form-control" placeholder="Nome completo">
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Data de Nascimento</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Idade</label>
+                    <input type="number" class="form-control" placeholder="Idade">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Sexo</label>
+                    <select class="form-select">
+                        <option>Masculino</option>
+                        <option>Feminino</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Cidade</label>
+                    <input type="text" class="form-control" placeholder="Cidade">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">UF</label>
+                    <input type="text" class="form-control" placeholder="UF">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Telefone</label>
+                    <input type="text" class="form-control" placeholder="(xx) xxxx-xxxx">
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Responsável</label>
+                    <input type="text" class="form-control" placeholder="Nome do responsável">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Tipo de Responsável</label>
+                    <select class="form-select">
+                        <option>Pai</option>
+                        <option>Mãe</option>
+                        <option>Outro</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Situação</label>
+                    <select class="form-select">
+                        <option>Cursando</option>
+                        <option>Transferido</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Endereço</label>
+                    <input type="text" class="form-control" placeholder="Rua, número">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Bairro</label>
+                    <input type="text" class="form-control" placeholder="Bairro">
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Turno</label>
+                    <select class="form-select">
+                        <option>Matutino</option>
+                        <option>Vespertino</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">CPF</label>
+                    <input type="text" class="form-control" placeholder="000.000.000-00">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Cartão SUS</label>
+                    <input type="text" class="form-control" placeholder="Número do SUS">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-4 text-center">
+            <a href="/estudantes" class="btn btn-secondary me-2">Cancelar</a>
+            <button class="btn btn-primary">Cadastrar</button>
+        </div>
+    </div>
+</div>

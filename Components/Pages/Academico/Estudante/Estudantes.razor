@@ -1,3 +1,299 @@
 ﻿@page "/estudantes"
 <PageTitle>Estudantes</PageTitle>
-<Desenvolvendo />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estudantes - SIGA</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .content {
+        padding: 30px;
+    }
+
+    .student-info h6 {
+        margin-bottom: 4px;
+        font-weight: 600;
+    }
+
+    .student-info p {
+        margin-bottom: 2px;
+        font-size: 0.9rem;
+    }
+
+    .student-actions button {
+        margin-left: 6px;
+    }
+
+    .filters-card {
+        border-radius: 10px;
+    }
+
+</style>
+
+<body>
+    <div class="content container-fluid">
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+            <h2 class="mb-3 mb-md-0">Estudantes</h2>
+            <a href="/estudante_cadastrar" class="btn btn-primary">
+                <i class="bi bi-person-plus-fill me-2"></i>Novo estudante
+            </a>
+
+        </div>
+
+        <!-- Filtros -->
+        <div class="card p-3 mb-4 shadow-sm filters-card">
+            <div class="row g-3">
+                <div class="col-md-5">
+                    <input type="text" class="form-control" placeholder="Pesquisar por nome, CPF, e-mail...">
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select">
+                        <option>Todas as turmas</option>
+                        <option>1º Ano A</option>
+                        <option>2º Ano B</option>
+                        <option>3º Ano C</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select">
+                        <option>Status</option>
+                        <option>Ativo</option>
+                        <option>Inativo</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-outline-primary w-100">
+                        <i class="bi bi-funnel"></i> Filtrar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Lista de Estudantes -->
+        <div class="student-list">
+
+            <!-- Estudante 1 -->
+            <div class="student-row d-flex justify-content-between align-items-center" style="padding:10px 15px; margin-bottom:8px; border-radius:5px; background:#fff;">
+                <div class="student-main d-flex flex-column" style="width:70%;">
+                    <span style="font-weight:600;">Vitor Lima</span>
+                    <span>Turma: 3º B Informática</span>
+                </div>
+                <div class="student-status d-flex flex-column align-items-start" style="margin-left:15px; min-width:60px;">
+                    <span class="badge bg-success">Ativo</span>
+                </div>
+                <div class="student-actions d-flex gap-2 ms-3">
+                    <a class="btn btn-outline-primary btn-sm" href="/estudante_editar">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <a class="btn btn-outline-danger btn-sm" href="/estudante_excluir">
+                        <i class="bi bi-trash"></i> Excluir
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Estudante 2 -->
+            <div class="student-row d-flex justify-content-between align-items-center" style="padding:10px 15px; margin-bottom:8px; border-radius:5px; background:#fff;">
+                <div class="student-main d-flex flex-column" style="width:70%;">
+                    <span style="font-weight:600;">Ana Souza</span>
+                    <span>Turma: 2º A Redes</span>
+                </div>
+                <div class="student-status d-flex flex-column align-items-start" style="margin-left:15px; min-width:60px;">
+                    <span class="badge bg-success">Ativo</span>
+                </div>
+                <div class="student-actions d-flex gap-2 ms-3">
+                    <a class="btn btn-outline-primary btn-sm" href="/estudante_editar">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <a class="btn btn-outline-danger btn-sm" href="/estudante_excluir">
+                        <i class="bi bi-trash"></i> Excluir
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Estudante 3 -->
+            <div class="student-row d-flex justify-content-between align-items-center" style="padding:10px 15px; margin-bottom:8px; border-radius:5px; background:#fff;">
+                <div class="student-main d-flex flex-column" style="width:70%;">
+                    <span style="font-weight:600;">Carlos Lima</span>
+                    <span>Turma: 1º C Mecatrônica</span>
+                </div>
+                <div class="student-status d-flex flex-column align-items-start" style="margin-left:15px; min-width:60px;">
+                    <span class="badge bg-secondary">Inativo</span>
+                </div>
+                <div class="student-actions d-flex gap-2 ms-3">
+                    <a class="btn btn-outline-primary btn-sm" href="/estudante_editar">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <a class="btn btn-outline-danger btn-sm" href="/estudante_excluir">
+                        <i class="bi bi-trash"></i> Excluir
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Estudante 4 -->
+            <div class="student-row d-flex justify-content-between align-items-center" style="padding:10px 15px; margin-bottom:8px; border-radius:5px; background:#fff;">
+                <div class="student-main d-flex flex-column" style="width:70%;">
+                    <span style="font-weight:600;">Mariana Alves</span>
+                    <span>Turma: 1º A Informática</span>
+                </div>
+                <div class="student-status d-flex flex-column align-items-start" style="margin-left:15px; min-width:60px;">
+                    <span class="badge bg-success">Ativo</span>
+                </div>
+                <div class="student-actions d-flex gap-2 ms-3">
+                    <a class="btn btn-outline-primary btn-sm" href="/estudante_editar">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <a class="btn btn-outline-danger btn-sm" href="/estudante_excluir">
+                        <i class="bi bi-trash"></i> Excluir
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Estudante 5 -->
+            <div class="student-row d-flex justify-content-between align-items-center" style="padding:10px 15px; margin-bottom:8px; border-radius:5px; background:#fff;">
+                <div class="student-main d-flex flex-column" style="width:70%;">
+                    <span style="font-weight:600;">Felipe Santos</span>
+                    <span>Turma: 2º B Redes</span>
+                </div>
+                <div class="student-status d-flex flex-column align-items-start" style="margin-left:15px; min-width:60px;">
+                    <span class="badge bg-success">Ativo</span>
+                </div>
+                <div class="student-actions d-flex gap-2 ms-3">
+                    <a class="btn btn-outline-primary btn-sm" href="/estudante_editar">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <a class="btn btn-outline-danger btn-sm" href="/estudante_excluir">
+                        <i class="bi bi-trash"></i> Excluir
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Estudante 6 -->
+            <div class="student-row d-flex justify-content-between align-items-center" style="padding:10px 15px; margin-bottom:8px; border-radius:5px; background:#fff;">
+                <div class="student-main d-flex flex-column" style="width:70%;">
+                    <span style="font-weight:600;">Laura Ribeiro</span>
+                    <span>Turma: 3º C Informática</span>
+                </div>
+                <div class="student-status d-flex flex-column align-items-start" style="margin-left:15px; min-width:60px;">
+                    <span class="badge bg-success">Ativo</span>
+                </div>
+                <div class="student-actions d-flex gap-2 ms-3">
+                    <a class="btn btn-outline-primary btn-sm" href="/estudante_editar">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <a class="btn btn-outline-danger btn-sm" href="/estudante_excluir">
+                        <i class="bi bi-trash"></i> Excluir
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Estudante 7 -->
+            <div class="student-row d-flex justify-content-between align-items-center" style="padding:10px 15px; margin-bottom:8px; border-radius:5px; background:#fff;">
+                <div class="student-main d-flex flex-column" style="width:70%;">
+                    <span style="font-weight:600;">Rafael Costa</span>
+                    <span>Turma: 1º B Mecatrônica</span>
+                </div>
+                <div class="student-status d-flex flex-column align-items-start" style="margin-left:15px; min-width:60px;">
+                    <span class="badge bg-secondary">Inativo</span>
+                </div>
+                <div class="student-actions d-flex gap-2 ms-3">
+                    <a class="btn btn-outline-primary btn-sm" href="/estudante_editar">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <a class="btn btn-outline-danger btn-sm" href="/estudante_excluir">
+                        <i class="bi bi-trash"></i> Excluir
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Estudante 8 -->
+            <div class="student-row d-flex justify-content-between align-items-center" style="padding:10px 15px; margin-bottom:8px; border-radius:5px; background:#fff;">
+                <div class="student-main d-flex flex-column" style="width:70%;">
+                    <span style="font-weight:600;">Juliana Mendes</span>
+                    <span>Turma: 2º C Informática</span>
+                </div>
+                <div class="student-status d-flex flex-column align-items-start" style="margin-left:15px; min-width:60px;">
+                    <span class="badge bg-success">Ativo</span>
+                </div>
+                <div class="student-actions d-flex gap-2 ms-3">
+                    <a class="btn btn-outline-primary btn-sm" href="/estudante_editar">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <a class="btn btn-outline-danger btn-sm" href="/estudante_excluir">
+                        <i class="bi bi-trash"></i> Excluir
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Estudante 9 -->
+            <div class="student-row d-flex justify-content-between align-items-center" style="padding:10px 15px; margin-bottom:8px; border-radius:5px; background:#fff;">
+                <div class="student-main d-flex flex-column" style="width:70%;">
+                    <span style="font-weight:600;">Gabriel Ferreira</span>
+                    <span>Turma: 1º A Redes</span>
+                </div>
+                <div class="student-status d-flex flex-column align-items-start" style="margin-left:15px; min-width:60px;">
+                    <span class="badge bg-success">Ativo</span>
+                </div>
+                <div class="student-actions d-flex gap-2 ms-3">
+                    <a class="btn btn-outline-primary btn-sm" href="/estudante_editar">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <a class="btn btn-outline-danger btn-sm" href="/estudante_excluir">
+                        <i class="bi bi-trash"></i> Excluir
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Estudante 10 -->
+            <div class="student-row d-flex justify-content-between align-items-center" style="padding:10px 15px; margin-bottom:8px; border-radius:5px; background:#fff;">
+                <div class="student-main d-flex flex-column" style="width:70%;">
+                    <span style="font-weight:600;">Beatriz Lima</span>
+                    <span>Turma: 3º B Mecatrônica</span>
+                </div>
+                <div class="student-status d-flex flex-column align-items-start" style="margin-left:15px; min-width:60px;">
+                    <span class="badge bg-success">Ativo</span>
+                </div>
+                <div class="student-actions d-flex gap-2 ms-3">
+                    <a class="btn btn-outline-primary btn-sm" href="/estudante_editar">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <a class="btn btn-outline-danger btn-sm" href="/estudante_excluir">
+                        <i class="bi bi-trash"></i> Excluir
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+      
+
+
+    
+   
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
