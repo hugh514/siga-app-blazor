@@ -2,67 +2,84 @@
 <PageTitle>Cadastrar Turma</PageTitle>
 
 <div class="container py-5">
-    <div class="text-center mb-5">
-        <h2 class="fw-semibold text-dark mb-2">Cadastrar Nova Turma</h2>
-        <p class="text-muted">Preencha os dados abaixo para adicionar uma nova turma ao sistema</p>
-    </div>
+    <h3 class="mb-4 fw-semibold text-dark">Cadastrar Nova Turma</h3>
 
-    <div class="card shadow-lg border-0 rounded-4 mx-auto" style="max-width: 600px;">
-        <div class="card-body p-4">
-            <form class="needs-validation" novalidate>
-                <!-- Nome -->
-                <div class="mb-3">
-                    <label class="form-label fw-medium">Nome da Turma</label>
-                    <input type="text" class="form-control form-control-lg" placeholder="Ex: Turma A" required>
-                </div>
+    <div class="card shadow-sm border-0 p-4 rounded-4">
+        <form class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label fw-semibold text-secondary">Nome da Turma</label>
+                <input type="text" class="form-control shadow-sm" placeholder="Ex: Turma A">
+            </div>
 
-                <!-- Ano/Série -->
-                <div class="mb-3">
-                    <label class="form-label fw-medium">Ano/Série</label>
-                    <input type="text" class="form-control form-control-lg" placeholder="Ex: 1º Ano" required>
-                </div>
+            <div class="col-md-3">
+                <label class="form-label fw-semibold text-secondary">Ano/Série</label>
+                <select class="form-select shadow-sm">
+                    <option selected disabled>Selecione...</option>
+                    <option>1º Ano</option>
+                    <option>2º Ano</option>
+                    <option>3º Ano</option>
+                </select>
+            </div>
 
-                <!-- Curso -->
-                <div class="mb-3">
-                    <label class="form-label fw-medium">Curso Vinculado</label>
-                    <select class="form-select form-select-lg" required>
-                        <option selected disabled>Selecione o curso...</option>
-                        <option>Informática</option>
-                        <option>Administração</option>
-                        <option>Eletrotécnica</option>
-                    </select>
-                </div>
+            <div class="col-md-3">
+                <label class="form-label fw-semibold text-secondary">Turno</label>
+                <select class="form-select shadow-sm">
+                    <option selected disabled>Selecione...</option>
+                    <option>Matutino</option>
+                    <option>Vespertino</option>
+                    <option>Noturno</option>
+                </select>
+            </div>
 
-                <!-- Professor -->
-                <div class="mb-3">
-                    <label class="form-label fw-medium">Professor Responsável</label>
-                    <input type="text" class="form-control form-control-lg" placeholder="Ex: Prof. João" required>
-                </div>
+            <div class="col-md-6">
+                <label class="form-label fw-semibold text-secondary">Professor(es) Responsável(is)</label>
+                <select class="form-select shadow-sm" multiple>
+                    <option>Prof. João</option>
+                    <option>Prof. Maria</option>
+                    <option>Prof. Carla</option>
+                </select>
+                <small class="text-muted">Segure CTRL para selecionar mais de um.</small>
+            </div>
 
-                <!-- Turno -->
-                <div class="mb-4">
-                    <label class="form-label fw-medium">Turno</label>
-                    <select class="form-select form-select-lg" required>
-                        <option selected disabled>Selecione o turno...</option>
-                        <option>Matutino</option>
-                        <option>Vespertino</option>
-                        <option>Noturno</option>
-                    </select>
-                </div>
+            <div class="col-md-6">
+                <label class="form-label fw-semibold text-secondary">Disciplina(s)</label>
+                <select class="form-select shadow-sm" multiple>
+                    <option>Matemática</option>
+                    <option>História</option>
+                    <option>Português</option>
+                    <option>Física</option>
+                    <option>Química</option>
+                </select>
+                <small class="text-muted">Segure CTRL para selecionar múltiplas disciplinas.</small>
+            </div>
 
-                <!-- Botão -->
-                <div class="d-grid">
-                    <a href="/turmas" class="btn btn-primary btn-lg shadow-sm rounded-pill">
-                        <i class="bi bi-check-circle me-2"></i>Salvar Turma
-                    </a>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="text-center mt-4">
-        <a href="/turmas" class="text-decoration-none text-primary fw-medium">
-            <i class="bi bi-arrow-left-circle me-1"></i>Voltar para Turmas
-        </a>
+            <div class="col-12 text-center mt-4">
+                <a href="turmas" class="btn btn-secondary px-4 me-2">Cancelar</a>
+                <a href="turmas" class="btn btn-primary px-4">Salvar Turma</a> <!-- Alterado para azul -->
+            </div>
+        </form>
     </div>
 </div>
+
+<style>
+    h3 {
+        text-align: left;
+        border-left: 5px solid #0d6efd;
+        padding-left: 10px;
+    }
+
+    .card {
+        background-color: #fafafa;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    select:focus, input:focus {
+        border-color: #198754;
+        box-shadow: 0 0 0 0.15rem rgba(25, 135, 84, 0.25);
+    }
+</style>

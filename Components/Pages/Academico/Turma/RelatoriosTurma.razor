@@ -1,0 +1,63 @@
+﻿@page "/relatorios_turma"
+
+<PageTitle>Relatórios</PageTitle>
+
+<div class="container-fluid px-4 py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Relatórios</h2>
+        <a class="btn btn-outline-secondary" href="/turmas">Voltar</a>
+    </div>
+
+    <div class="row g-4">
+        <!-- Listagem geral -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="fw-semibold mb-2">Listagem geral</h5>
+                    <p class="text-muted mb-4">Gere uma listagem completa de turmas (front-end estático).</p>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-primary">Exportar PDF</button>
+                        <button class="btn btn-outline-primary">Exportar CSV</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Turmas por curso -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="fw-semibold mb-2">Turmas por curso</h5>
+                    <p class="text-muted mb-4">Filtro por curso e turno para gerar relatório.</p>
+                    <div class="d-flex align-items-center gap-2">
+                        <select class="form-select" style="max-width: 250px;">
+                            <option>Todos os cursos</option>
+                            <option>Informática</option>
+                            <option>Administração</option>
+                            <option>Eletrotécnica</option>
+                        </select>
+                        <button class="btn btn-primary">Gerar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    h2 {
+        color: #1b1b1b;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .btn {
+        border-radius: 8px;
+    }
+</style>

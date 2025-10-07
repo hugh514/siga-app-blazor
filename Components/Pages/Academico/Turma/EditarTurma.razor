@@ -4,63 +4,52 @@
 <div class="container py-5">
     <h3 class="mb-4 fw-normal text-dark text-center">Editar Turma</h3>
 
-    <div class="card shadow-sm border-0 p-4 mx-auto" style="max-width: 700px;">
-        <form>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label class="form-label">Nome da Turma</label>
-                    <input type="text" class="form-control" placeholder="Turma A">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Série</label>
-                    <input type="text" class="form-control" placeholder="1º Ano">
-                </div>
+    <div class="card shadow-sm border-0 p-4">
+        <form class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Nome da Turma</label>
+                <input type="text" class="form-control" value="Turma A">
             </div>
 
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label class="form-label">Curso</label>
-                    <input type="text" class="form-control" placeholder="Informática">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Tipo</label>
-                    <select class="form-select">
-                        <option>Presencial</option>
-                        <option>EAD</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label class="form-label">Início</label>
-                    <input type="time" class="form-control" value="07:30">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Término</label>
-                    <input type="time" class="form-control" value="12:00">
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Professores</label>
-                <select multiple class="form-select">
-                    <option>Prof. João</option>
-                    <option>Prof. Maria</option>
-                    <option>Prof. Ana</option>
-                    <option>Prof. Carlos</option>
+            <div class="col-md-3">
+                <label class="form-label">Ano/Série</label>
+                <select class="form-select">
+                    <option selected>1º Ano</option>
+                    <option>2º Ano</option>
+                    <option>3º Ano</option>
                 </select>
-                <small class="text-muted">Segure CTRL para selecionar mais de um.</small>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Observações</label>
-                <textarea class="form-control" rows="3" placeholder="Ex: Turma com atividades extras aos sábados"></textarea>
+            <div class="col-md-3">
+                <label class="form-label">Turno</label>
+                <select class="form-select" multiple>
+                    <option selected>Matutino</option>
+                    <option>Vespertino</option>
+                    <option>Noturno</option>
+                </select>
             </div>
 
-            <div class="d-flex justify-content-between">
-                <a href="/turmas" class="btn btn-outline-secondary">Cancelar</a>
-                <a href="/turmas" class="btn btn-primary">Salvar Alterações</a>
+            <div class="col-md-6">
+                <label class="form-label">Professor(es) Responsável(is)</label>
+                <select class="form-select" multiple>
+                    <option selected>Prof. João</option>
+                    <option>Prof. Maria</option>
+                    <option>Prof. Carla</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Disciplina(s)</label>
+                <select class="form-select" multiple>
+                    <option selected>Matemática</option>
+                    <option>História</option>
+                    <option>Física</option>
+                </select>
+            </div>
+
+            <div class="col-12 text-center mt-4">
+                <a href="turmas" class="btn btn-secondary me-2">Cancelar</a>
+                <a href="turmas" class="btn btn-success">Salvar Alterações</a>
             </div>
         </form>
     </div>
