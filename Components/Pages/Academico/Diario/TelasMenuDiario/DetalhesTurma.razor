@@ -1,0 +1,43 @@
+﻿@page "/detalhes_turma"
+<PageTitle>Detalhes da Turma</PageTitle>
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-semibold text-dark">Detalhes da Turma</h4>
+        <a href="/turmas" class="btn btn-outline-secondary btn-sm">Voltar</a>
+    </div>
+
+    <div class="card border-0 shadow-sm p-4 mb-4">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <p class="mb-1 text-muted">Nome da Turma</p>
+                <h6>Turma A</h6>
+            </div>
+
+            <div class="col-md-3">
+                <p class="mb-1 text-muted">Ano/Série</p>
+                <h6>1º Ano</h6>
+            </div>
+
+            <div class="col-md-3">
+                <p class="mb-1 text-muted">Turno</p>
+                <h6>Vespertino</h6>
+            </div>
+
+            <div class="col-md-6">
+                <p class="mb-1 text-muted">Professor(es)</p>
+                <h6>Prof. João, Prof. Maria</h6>
+            </div>
+
+            <div class="col-md-6">
+                <p class="mb-1 text-muted">Disciplinas</p>
+                <h6>Português, Matemática</h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <a href="/editar_turma" class="btn btn-primary me-2">Editar</a>
+        <a href="/deletar_turma" class="btn btn-danger">Excluir</a>
+    </div>
+</div>

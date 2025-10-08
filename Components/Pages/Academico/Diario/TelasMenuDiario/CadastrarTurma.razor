@@ -1,0 +1,69 @@
+﻿@page "/cadastrar_turma"
+<PageTitle>Cadastrar Turma</PageTitle>
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-semibold text-dark">Cadastrar Turma</h4>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 small">
+                <li class="breadcrumb-item"><a href="/painel" class="text-decoration-none text-secondary">Painel</a></li>
+                <li class="breadcrumb-item"><a href="/turmas" class="text-decoration-none text-secondary">Turmas</a></li>
+                <li class="breadcrumb-item active text-dark" aria-current="page">Cadastrar</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="card border-0 shadow-sm p-4">
+        <form class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Nome da Turma</label>
+                <input type="text" class="form-control" placeholder="Ex: Turma A">
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Ano/Série</label>
+                <select class="form-select">
+                    <option>1º Ano</option>
+                    <option>2º Ano</option>
+                    <option>3º Ano</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Turno</label>
+                <select class="form-select">
+                    <option>Matutino</option>
+                    <option>Vespertino</option>
+                    <option>Noturno</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Professor(es) Responsável(is)</label>
+                <select class="form-select" multiple>
+                    <option>Prof. João</option>
+                    <option>Prof. Maria</option>
+                    <option>Prof. Carla</option>
+                </select>
+                <small class="text-muted">Segure CTRL para selecionar mais de um.</small>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Disciplina(s)</label>
+                <select class="form-select" multiple>
+                    <option>Matemática</option>
+                    <option>História</option>
+                    <option>Português</option>
+                    <option>Física</option>
+                    <option>Química</option>
+                </select>
+                <small class="text-muted">Segure CTRL para selecionar múltiplas disciplinas.</small>
+            </div>
+
+            <div class="col-12 text-end mt-4">
+                <a href="/turmas" class="btn btn-secondary me-2">Cancelar</a>
+                <button type="submit" class="btn btn-success">Salvar Turma</button>
+            </div>
+        </form>
+    </div>
+</div>
