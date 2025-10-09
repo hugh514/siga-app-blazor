@@ -1,4 +1,4 @@
-﻿@page "/matricular_aluno"
+﻿@page "/matricula/aluno"
 <PageTitle>Matrícula</PageTitle>
 
 <!-- Formulário alinhado ao início (igual à referência: começo da tabela) -->
@@ -134,7 +134,7 @@
                             <button type="submit" class="btn btn-primary me-2">
                                 <i class="bi bi-save"></i> Matricular
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" @onclick="ResetForm">Voltar</button>
+                            <a type="button" class="btn btn-outline-secondary" href="/matricula" @onclick="ResetForm">Voltar</a>
                         </div>
                     </div>
                 </EditForm>
