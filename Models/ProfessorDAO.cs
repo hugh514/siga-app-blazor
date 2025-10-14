@@ -36,7 +36,7 @@ namespace SigaApp.Models
                     comando.Parameters.AddWithValue("@_email", professor.Email ?? "");
                     comando.Parameters.AddWithValue("@_telefone", professor.Telefone ?? "");
                     comando.Parameters.AddWithValue("@_disciplina", professor.Disciplina ?? "");
-                    comando.Parameters.AddWithValue("@_status", professor.Status ?? "ativo");
+                    comando.Parameters.AddWithValue("@_status", professor.Status ?? "Ativo");
                     comando.Parameters.AddWithValue("@_dataCadastro", professor.DataCadastro);
                     comando.Parameters.AddWithValue("@_especialidade", professor.Especialidade ?? "");
 
