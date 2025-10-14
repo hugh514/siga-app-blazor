@@ -23,11 +23,11 @@ namespace SigaApp.Models
 
                 string sql = @"
                     INSERT INTO professor 
-                    (nome_prof, cpf_prof, email_prof, telefone_prof, status_prof, 
-                     disciplina_principal_prof, turmas_vinculadas_prof, especialidade_prof, data_cadastro_prof)
+                    (nome_pro, cpf_pro, email_pro, telefone_pro, status_pro, 
+                     disciplina_principal_pro, turmas_vinculadas_pro, especialidade_pro, data_cadastro_pro)
                     VALUES (@_nome, @_cpf, @_email, @_telefone, @_status, @_disciplina, @_turmas, @_especialidade, @_dataCadastro);
                 ";
-
+                
                 using (var comando = new MySqlCommand(sql, conn))
                 {
                     comando.Parameters.AddWithValue("@_nome", professor.Nome);
@@ -41,6 +41,7 @@ namespace SigaApp.Models
                     comando.Parameters.AddWithValue("@_dataCadastro", professor.DataCadastro);
 
                     comando.ExecuteNonQuery();
+                    Console.WriteLine("TEste");
                 }
             }
         }
