@@ -68,7 +68,7 @@
                             <div class="d-flex justify-content-between align-items-start">
                                 <div>
                                     <h5 class="mb-1">@professor.Nome</h5>
-                                    <small class="text-muted">Professor de @professor.DisciplinaPrincipal</small>
+                                    <small class="text-muted">Professor de @professor.Disciplina</small>
                                 </div>
                                 <span class="badge @(professor.Status == "Ativo" ? "bg-success" : "bg-secondary")">@professor.Status</span>
                             </div>
@@ -127,7 +127,7 @@
                  || (p.Email ?? "").Contains(pesquisa, StringComparison.OrdinalIgnoreCase)
                  || (p.Cpf ?? "").Contains(pesquisa, StringComparison.OrdinalIgnoreCase))
                 && (string.IsNullOrWhiteSpace(filtroDisciplina)
-                    || (p.DisciplinaPrincipal ?? "").Equals(filtroDisciplina, StringComparison.OrdinalIgnoreCase))
+                    || (p.Disciplina ?? "").Equals(filtroDisciplina, StringComparison.OrdinalIgnoreCase))
                 && (string.IsNullOrWhiteSpace(filtroStatus)
                     || (p.Status ?? "").Equals(filtroStatus, StringComparison.OrdinalIgnoreCase))
             )

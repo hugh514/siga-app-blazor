@@ -10,7 +10,6 @@
 
 <h2 class="fw-bold mb-4">Cadastro de Professor</h2>
 
-
 <EditForm Model="_novoProfessor" OnValidSubmit="Salvar">
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -87,9 +86,13 @@
     </div>
 </EditForm>
 
+@if (!string.IsNullOrEmpty(erro))
+{
+    <div class="alert alert-danger mt-3">@erro</div>
+}
+
 @code {
     private string? erro = null;
-
     private ProfessorViewModel _novoProfessor = new();
 
     private void Salvar()
@@ -99,23 +102,25 @@
             if (!ValidaCPF(_novoProfessor.Cpf))
                 throw new Exception("CPF inválido.");
 
-            professorDAO.Inserir(new Professor
+            var professor = new Professor
             {
                 Nome = _novoProfessor.Nome,
                 Cpf = _novoProfessor.Cpf,
                 Email = _novoProfessor.Email,
                 Telefone = _novoProfessor.Telefone,
-                Status = _novoProfessor.Status,
-                DisciplinaPrincipal = _novoProfessor.DisciplinaPrincipal,
-                TurmasVinculadas = _novoProfessor.TurmasVinculadas,
-                Especialidade = _novoProfessor.Especialidade
-            });
+                Status = _novoProfessor.Status ?? "Ativo",
+                Disciplina = _novoProfessor.DisciplinaPrincipal,
+                Especialidade = _novoProfessor.Especialidade,
+                DataCadastro = DateTime.Now
+            };
+
+            professorDAO.Inserir(professor);
 
             Navigation.NavigateTo("/professores");
         }
         catch (Exception ex)
         {
-            erro = ex.Message;
+            erro = $"Erro ao salvar: {ex.Message}";
         }
     }
 
@@ -126,10 +131,7 @@
 
         cpf = new string(cpf.Where(char.IsDigit).ToArray());
 
-        if (cpf.Length != 11)
-            return false;
-
-        if (new string(cpf[0], 11) == cpf)
+        if (cpf.Length != 11 || new string(cpf[0], 11) == cpf)
             return false;
 
         int[] mult1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -146,6 +148,7 @@
 
         tempCpf += dig1;
         soma = 0;
+
         for (int i = 0; i < 10; i++)
             soma += int.Parse(tempCpf[i].ToString()) * mult2[i];
 
