@@ -1,4 +1,151 @@
 ﻿@page "/relatorios"
 <PageTitle>Estudantes</PageTitle>
 
-<Desenvolvendo/>
+<div class="container py-5">
+    <h2 class="fw-bold mb-2">Menu de Relatórios</h2>
+    <p class="text-muted mb-4">Acesse relatórios detalhados do sistema.</p>
+
+    <div class="row g-4">
+        <!-- MATRÍCULAS -->
+        <div class="col-md-4">
+            <a href="/relatorio_matriculas" class="text-decoration-none">
+                <div class="card shadow-sm border-0 text-center p-4 h-100 card-hover">
+                    <i class="bi bi-journal-check display-5 mb-3 icon-hover"></i>
+                    <h5 class="fw-semibold mb-2 text-dark">Matrículas</h5>
+                    <p class="text-muted">Consultar relatórios de matrículas.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- TRANSFERÊNCIAS -->
+        <div class="col-md-4">
+            <a href="/relatorio_transferencias" class="text-decoration-none">
+                <div class="card shadow-sm border-0 text-center p-4 h-100 card-hover">
+                    <i class="bi bi-arrow-left-right display-5 mb-3 icon-hover"></i>
+                    <h5 class="fw-semibold mb-2 text-dark">Transferências</h5>
+                    <p class="text-muted">Relatórios de alunos transferidos.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- DECL BOLSA -->
+        <div class="col-md-4">
+            <a href="/relatorio_decl_bolsa" class="text-decoration-none">
+                <div class="card shadow-sm border-0 text-center p-4 h-100 card-hover">
+                    <i class="bi bi-cash-stack display-5 mb-3 icon-hover"></i>
+                    <h5 class="fw-semibold mb-2 text-dark">Decl. Bolsa</h5>
+                    <p class="text-muted">Relatórios de bolsas e benefícios.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- DECL TRANSF -->
+        <div class="col-md-4">
+            <a href="/relatorio_decl_transf" class="text-decoration-none">
+                <div class="card shadow-sm border-0 text-center p-4 h-100 card-hover">
+                    <i class="bi bi-file-earmark-arrow-up display-5 mb-3 icon-hover"></i>
+                    <h5 class="fw-semibold mb-2 text-dark">Decl. Transferência</h5>
+                    <p class="text-muted">Emitir relatórios de transferência.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- FICHA IND -->
+        <div class="col-md-4">
+            <a href="/relatorio_ficha_ind" class="text-decoration-none">
+                <div class="card shadow-sm border-0 text-center p-4 h-100 card-hover">
+                    <i class="bi bi-person-vcard display-5 mb-3 icon-hover"></i>
+                    <h5 class="fw-semibold mb-2 text-dark">Ficha Individual</h5>
+                    <p class="text-muted">Ver dados individuais de alunos.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- BOLETIM -->
+        <div class="col-md-4">
+            <a href="/relatorio_boletim" class="text-decoration-none">
+                <div class="card shadow-sm border-0 text-center p-4 h-100 card-hover">
+                    <i class="bi bi-book display-5 mb-3 icon-hover"></i>
+                    <h5 class="fw-semibold mb-2 text-dark">Boletim</h5>
+                    <p class="text-muted">Relatórios de desempenho escolar.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- ATA FINAL -->
+        <div class="col-md-4">
+            <a href="/relatorio_ata_final" class="text-decoration-none">
+                <div class="card shadow-sm border-0 text-center p-4 h-100 card-hover">
+                    <i class="bi bi-file-text display-5 mb-3 icon-hover"></i>
+                    <h5 class="fw-semibold mb-2 text-dark">Ata Final</h5>
+                    <p class="text-muted">Emitir ata final de turmas.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- RELAÇÃO DE ALUNOS -->
+        <div class="col-md-4">
+            <a href="/relatorio_relacao_alunos" class="text-decoration-none">
+                <div class="card shadow-sm border-0 text-center p-4 h-100 card-hover">
+                    <i class="bi bi-people display-5 mb-3 icon-hover"></i>
+                    <h5 class="fw-semibold mb-2 text-dark">Relação de Alunos</h5>
+                    <p class="text-muted">Listar alunos por turma ou série.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- CONTROLE DE NOTAS -->
+        <div class="col-md-4">
+            <a href="/relatorio_cont_notas" class="text-decoration-none">
+                <div class="card shadow-sm border-0 text-center p-4 h-100 card-hover">
+                    <i class="bi bi-bar-chart-line display-5 mb-3 icon-hover"></i>
+                    <h5 class="fw-semibold mb-2 text-dark">Cont. de Notas</h5>
+                    <p class="text-muted">Relatórios de notas e médias.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- DIÁRIO -->
+        <div class="col-md-4">
+            <a href="/relatorio_diario" class="text-decoration-none">
+                <div class="card shadow-sm border-0 text-center p-4 h-100 card-hover">
+                    <i class="bi bi-calendar-check display-5 mb-3 icon-hover"></i>
+                    <h5 class="fw-semibold mb-2 text-dark">Diário</h5>
+                    <p class="text-muted">Acompanhar frequência e registros.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- CARTAZ -->
+        <div class="col-md-4">
+            <a href="/relatorio_cartaz_acontecimentos" class="text-decoration-none">
+                <div class="card shadow-sm border-0 text-center p-4 h-100 card-hover">
+                    <i class="bi bi-megaphone display-5 mb-3 icon-hover"></i>
+                    <h5 class="fw-semibold mb-2 text-dark">Cartaz de Acontecimentos</h5>
+                    <p class="text-muted">Relatórios de eventos escolares.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card-hover {
+        transition: all 0.3s ease;
+    }
+
+        .card-hover:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    .icon-hover {
+        color: #6c757d;
+        transition: color 0.3s ease;
+    }
+
+    .card-hover:hover .icon-hover {
+        color: #007bff;
+    }
+</style>

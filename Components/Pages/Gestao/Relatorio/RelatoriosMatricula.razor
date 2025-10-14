@@ -1,0 +1,91 @@
+﻿@page "/relatorios/relatorio"
+<PageTitle>Estudantes</PageTitle>
+
+
+<div class="container py-5">
+    <h3 class="mb-4 fw-normal text-dark">Transferência de Aluno</h3>
+
+    <div class="card shadow-sm border-0 p-4">
+        <form>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Nome do Aluno</label>
+                    <input type="text" class="form-control" placeholder="Digite o nome completo" />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Data de Nascimento</label>
+                    <input type="date" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Cidade / UF</label>
+                    <input type="text" class="form-control" placeholder="Ex: Ji-Paraná / RO" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Nome do Pai</label>
+                    <input type="text" class="form-control" placeholder="Digite o nome do pai" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Nome da Mãe</label>
+                    <input type="text" class="form-control" placeholder="Digite o nome da mãe" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Escola de Origem</label>
+                    <input type="text" class="form-control" placeholder="Digite o nome da escola de origem" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Escola de Destino</label>
+                    <input type="text" class="form-control" placeholder="Digite o nome da escola de destino" />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Data da Transferência</label>
+                    <input type="date" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Situação</label>
+                    <select class="form-select">
+                        <option selected disabled>Selecione</option>
+                        <option>Aprovado</option>
+                        <option>Reprovado</option>
+                        <option>Transferido</option>
+                    </select>
+                </div>
+
+                <div class="col-md-12">
+                    <label class="form-label fw-semibold">Observações</label>
+                    <textarea class="form-control" rows="3" placeholder="Digite alguma observação"></textarea>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end mt-4 gap-2">
+                <button type="button" class="btn btn-secondary px-4" @onclick="VoltarPainel">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Voltar
+                </button>
+                <button type="submit" class="btn btn-primary px-4" @onclick="SalvarTransferencia">
+                    <i class="bi bi-save2 me-1"></i> Salvar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@code {
+    private void VoltarPainel()
+    {
+        NavigationManager.NavigateTo("/painel");
+    }
+
+    private void SalvarTransferencia()
+    {
+        // Aqui tu pode colocar a lógica pra salvar no banco
+        // Exemplo: chamar um serviço de API ou método local
+        Console.WriteLine("Transferência salva com sucesso!");
+    }
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+}
+
+
