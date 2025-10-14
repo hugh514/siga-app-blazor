@@ -1,51 +1,55 @@
-﻿@page "/alunos"
+﻿@page "/gerir_alunos"
 <PageTitle>Gerir Alunos</PageTitle>
 
-<div class="container py-5">
-    <h3 class="mb-4 fw-normal text-dark text-center">Gerenciamento de Alunos - 3B Informática</h3>
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">Gerenciar Estudantes - TURMA A</h3>
+        <div class="d-flex gap-2">
+            <a href="diarios/menu" class="btn btn-outline-secondary">Voltar</a>
+        </div>
+    </div>
 
     <div class="card shadow-sm border-0 p-4">
         <div class="d-flex justify-content-between mb-3">
-            <input type="text" class="form-control w-50" placeholder="Pesquisar aluno...">
-            <a href="diarios/menu" class="btn btn-secondary">Voltar</a>
+            <input class="form-control w-50" placeholder="Pesquisar aluno..." />
+            <a href="/estudantes" class="btn btn-success">Adicionar Novo Aluno</a>
         </div>
 
-        <table class="table table-hover align-middle">
-            <thead class="table-light">
-                <tr>
-                    <th>#</th>
-                    <th>Nome</th>
-                    <th>CPF</th>
-                    <th>Situação</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>01</td>
-                    <td>Emilly Souza</td>
-                    <td>123.456.789-00</td>
-                    <td><span class="badge bg-success">Ativo</span></td>
-                    <td>
-                        <button class="btn btn-outline-primary btn-sm me-1">Editar</button>
-                        <button class="btn btn-outline-danger btn-sm">Remover</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>02</td>
-                    <td>João Lima</td>
-                    <td>987.654.321-00</td>
-                    <td><span class="badge bg-warning text-dark">Trancado</span></td>
-                    <td>
-                        <button class="btn btn-outline-primary btn-sm me-1">Editar</button>
-                        <button class="btn btn-outline-danger btn-sm">Remover</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Situação</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>01</td>
+                        <td>Emilly Souza</td>
+                        <td>123.456.789-00</td>
+                        <td><span class="badge bg-success">Ativo</span></td>
+                        <td class="text-end">
+                            <a href="/estudante_editar" class="btn btn-sm btn-outline-primary me-1">Editar</a>
+                            <a href="estudante_excluir" class="btn btn-sm btn-outline-danger">Remover</a>
+                        </td>
+                    </tr>
 
-        <div class="text-center mt-4">
-            <button class="btn btn-success">Adicionar Novo Aluno</button>
+                    <tr>
+                        <td>02</td>
+                        <td>João Lima</td>
+                        <td>987.654.321-00</td>
+                        <td><span class="badge bg-warning text-dark">Trancado</span></td>
+                        <td class="text-end">
+                            <a href="/estudante_editar" class="btn btn-sm btn-outline-primary me-1">Editar</a>
+                            <a href="estudante_excluir" class="btn btn-sm btn-outline-danger">Remover</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

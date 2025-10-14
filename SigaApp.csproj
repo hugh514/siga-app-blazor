@@ -27,6 +27,7 @@
     <Content Remove="Components\Pages\Academico\Diario\TelasMenuDiario\DetalhesTurma.razor" />
     <Content Remove="Components\Pages\Academico\Diario\TelasMenuDiario\EditarTurma.razor" />
     <Content Remove="Components\Pages\Academico\Diario\TelasMenuDiario\RelatorioDiario.razor" />
+    <Content Remove="Components\Pages\Academico\Diario\TelasMenuDiario\RelatoriosDiario.razor" />
   </ItemGroup>
 
   <ItemGroup>

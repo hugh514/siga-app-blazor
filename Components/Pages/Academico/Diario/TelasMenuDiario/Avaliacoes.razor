@@ -1,0 +1,56 @@
+﻿@page "/avaliacoes"
+<PageTitle>Avaliações</PageTitle>
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">Avaliações - TURMA A</h3>
+        <a href="/diarios/menu" class="btn btn-outline-secondary">Voltar</a>
+    </div>
+
+    <div class="card shadow-sm border-0 p-4">
+        <div class="row g-3 mb-3">
+            <div class="col-md-4"><select class="form-select"><option>Matemática</option></select></div>
+            <div class="col-md-4"><select class="form-select"><option>2º Bimestre</option></select></div>
+            <div class="col-md-4 d-grid"><button class="btn btn-primary">Listar</button></div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th style="min-width:260px">Nome</th>
+                        <th>Atividade 1<br /><small>25/06/2025 - Nota:5,0</small></th>
+                        <th>Atividade 2<br /><small>08/07/2025 - Nota:3,0</small></th>
+                        <th>Atividade 3<br /><small>08/07/2025 - Nota:2,0</small></th>
+                        <th>Nota Final</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ANA CLARA GULARTE FAGUNDES <span class="badge bg-secondary ms-2">Transferido</span></td>
+                        <td><input class="form-control" value="3,5" /></td>
+                        <td><input class="form-control" value="3,0" /></td>
+                        <td><input class="form-control" value="1,5" /></td>
+                        <td><input class="form-control" value="8,0" readonly /></td>
+                        <td><span class="badge bg-success">Registrado</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>ANA GABRIELLI MONTEIRO FRANCISCO</td>
+                        <td><input class="form-control" value="4,0" /></td>
+                        <td><input class="form-control" value="3,0" /></td>
+                        <td><input class="form-control" value="1,5" /></td>
+                        <td><input class="form-control" value="8,5" readonly /></td>
+                        <td><span class="badge bg-success">Registrado</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-end mt-3">
+            <a href="/diarios/menu" class="btn btn-secondary me-2">Cancelar</a>
+            <a href="/avaliacoes" class="btn btn-primary">Salvar Notas</a>
+        </div>
+    </div>
+</div>

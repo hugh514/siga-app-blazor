@@ -1,0 +1,40 @@
+﻿@page "/adicionar_conteudo"
+<PageTitle>Novo Conteúdo</PageTitle>
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">Adicionar Conteúdo Ministrado</h3>
+    </div>
+
+    <div class="card shadow-sm border-0 p-4">
+        <form class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label">Data</label>
+                <input type="date" class="form-control" />
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Disciplina</label>
+                <select class="form-select">
+                    <option>Redes</option>
+                    <option>Português</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Professor</label>
+                <input class="form-control" placeholder="Prof. João" />
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Conteúdo ministrado</label>
+                <textarea class="form-control" rows="4"></textarea>
+            </div>
+
+            <div class="col-12 text-end">
+                <a href="/conteudos" class="btn btn-secondary me-2">Cancelar</a>
+                <a href="/conteudos" class="btn btn-primary">Salvar Conteúdo</a>
+            </div>
+        </form>
+    </div>
+</div>

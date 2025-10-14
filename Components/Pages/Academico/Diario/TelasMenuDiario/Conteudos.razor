@@ -1,0 +1,52 @@
+﻿@page "/conteudos"
+<PageTitle>Conteúdos Ministrados</PageTitle>
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">Conteúdos Ministrados - TURMA A</h3>
+        <div class="d-flex gap-2">
+            <a href="/planos_aula" class="btn btn-outline-secondary">Voltar</a>
+            <a href="/adicionar_conteudo" class="btn btn-primary">+ Novo Conteúdo</a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0 p-4">
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Data</th>
+                        <th>Disciplina</th>
+                        <th>Conteúdo</th>
+                        <th>Professor</th>
+                        <th>Presenças</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>07/10/2025</td>
+                        <td>Redes</td>
+                        <td>Sub-redes IPv4</td>
+                        <td>Prof. João</td>
+                        <td>28/30</td>
+                        <td class="text-end">
+                            <a href="/adicionar_conteudo" class="btn btn-sm btn-outline-primary me-1">Editar</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>06/10/2025</td>
+                        <td>Português</td>
+                        <td>Concordância Verbal</td>
+                        <td>Prof. Maria</td>
+                        <td>30/30</td>
+                        <td class="text-end">
+                            <a href="/adicionar_conteudo" class="btn btn-sm btn-outline-primary me-1">Editar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

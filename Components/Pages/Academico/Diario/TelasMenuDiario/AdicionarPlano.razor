@@ -1,0 +1,61 @@
+﻿@page "/adicionar_plano"
+<PageTitle>Novo Plano de Aula</PageTitle>
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">Adicionar / Editar Plano de Aula</h3>
+    </div>
+
+    <div class="card shadow-sm border-0 p-4">
+        <form class="row g-3">
+            <div class="col-md-3">
+                <label class="form-label">Data</label>
+                <input type="date" class="form-control" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Disciplina</label>
+                <select class="form-select">
+                    <option>Redes</option>
+                    <option>Português</option>
+                    <option>Matemática</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Professor</label>
+                <input class="form-control" placeholder="Prof. João" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Tipo</label>
+                <select class="form-select">
+                    <option>Aula</option>
+                    <option>Recuperação</option>
+                    <option>Atividade</option>
+                </select>
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Tema</label>
+                <input class="form-control" placeholder="Título do plano" />
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Objetivos</label>
+                <textarea class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Conteúdo ministrado (resumo)</label>
+                <textarea class="form-control" rows="4"></textarea>
+            </div>
+
+            <div class="col-12 text-end">
+                <a href="/planos_aula" class="btn btn-secondary me-2">Cancelar</a>
+                <a href="/planos_aula" class="btn btn-primary">Salvar</a>
+
+            </div>
+        </form>
+    </div>
+</div>

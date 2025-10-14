@@ -1,0 +1,39 @@
+﻿@page "/remover-ocorrencia"
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-sm border-0 rounded-4 p-5 text-center" style="max-width: 480px;">
+        <i class="bi bi-exclamation-triangle text-danger" style="font-size: 3rem;"></i>
+        <h5 class="mt-3 fw-semibold text-dark">
+            Tem certeza que deseja excluir esta ocorrência?
+        </h5>
+        <p class="text-muted mb-4">
+            Esta ação não poderá ser desfeita.
+        </p>
+
+        <div class="d-flex justify-content-center gap-3">
+            <a href="/ocorrencias" class="btn btn-secondary px-4 rounded-3">
+                Cancelar
+            </a>
+            <a href="/ocorrencias" class="btn btn-danger px-4 rounded-3">
+                Excluir
+            </a>
+        </div>
+
+        </div>
+    </div>
+
+@code {
+    private void Cancelar()
+    {
+        NavigationManager.NavigateTo("/ocorrencias");
+    }
+
+    private void Excluir()
+    {
+        // Simula a exclusão da ocorrência
+        NavigationManager.NavigateTo("/ocorrencias");
+    }
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+}

@@ -1,41 +1,58 @@
 ﻿@page "/ocorrencias"
 <PageTitle>Ocorrências</PageTitle>
 
-<div class="container py-5">
-    <h3 class="mb-4 fw-normal text-dark text-center">Ocorrências Disciplinares - 3B Informática</h3>
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">Ocorrências - TURMA A</h3>
+        <div class="d-flex gap-2">
+            <a href="/diarios/menu" class="btn btn-outline-secondary">Voltar</a>
+            <a href="/nova_ocorrencia" class="btn btn-primary">+ Nova Ocorrência</a>
+        </div>
+    </div>
 
     <div class="card shadow-sm border-0 p-4">
-        <div class="d-flex justify-content-between mb-3">
-            <a href="diarios/menu" class="btn btn-secondary">Voltar</a>
-            <button class="btn btn-success">Nova Ocorrência</button>
+        <div class="mb-3">
+            <input class="form-control" placeholder="Pesquisar por aluno, tipo, data..." />
         </div>
 
-        <table class="table table-striped align-middle">
-            <thead class="table-light">
-                <tr>
-                    <th>Data</th>
-                    <th>Aluno</th>
-                    <th>Tipo</th>
-                    <th>Descrição</th>
-                    <th>Responsável</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>07/10/2025</td>
-                    <td>Lucas Pereira</td>
-                    <td><span class="badge bg-danger">Grave</span></td>
-                    <td>Discussão em sala de aula</td>
-                    <td>Prof. João</td>
-                </tr>
-                <tr>
-                    <td>05/10/2025</td>
-                    <td>Maria Oliveira</td>
-                    <td><span class="badge bg-warning text-dark">Leve</span></td>
-                    <td>Atraso recorrente</td>
-                    <td>Prof. Carla</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Data</th>
+                        <th>Aluno</th>
+                        <th>Tipo</th>
+                        <th>Descrição</th>
+                        <th>Professor</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>07/10/2025</td>
+                        <td>Lucas Pereira</td>
+                        <td><span class="badge bg-danger">Grave</span></td>
+                        <td>Discussão em sala</td>
+                        <td>Prof. João</td>
+                        <td class="text-end">
+                            <a href="/nova_ocorrencia" class="btn btn-sm btn-outline-primary me-1">Editar</a>
+                            <a href="/remover-ocorrencia" class="btn btn-sm btn-outline-danger">Remover</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>05/10/2025</td>
+                        <td>Maria Oliveira</td>
+                        <td><span class="badge bg-warning text-dark">Leve</span></td>
+                        <td>Atraso recorrente</td>
+                        <td>Prof. Carla</td>
+                        <td class="text-end">
+                            <a href="/nova_ocorrencia" class="btn btn-sm btn-outline-primary me-1">Editar</a>
+                            <a href="/remover-ocorrencia" class="btn btn-sm btn-outline-danger">Remover</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

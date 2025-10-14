@@ -1,0 +1,108 @@
+﻿@page "/frequencia_diarios"
+@inject NavigationManager Navigation
+<PageTitle>Frequência</PageTitle>
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold">Frequência - TURMA A</h3>
+        <a href="/diarios/menu" class="btn btn-outline-secondary">Voltar</a>
+    </div>
+
+    <div class="card shadow-sm border-0 p-4 mb-4">
+        <div class="row g-3 mb-3">
+            <div class="col-md-2"><input class="form-control" value="2025" readonly /></div>
+            <div class="col-md-3"><input class="form-control" value="Ensino Fundamental I" readonly /></div>
+            <div class="col-md-2"><input class="form-control" value="3º Ano" readonly /></div>
+            <div class="col-md-3"><input class="form-control" value="TURMA A" readonly /></div>
+            <div class="col-md-2"><input class="form-control" value="3º ANO A" readonly /></div>
+        </div>
+
+        <!-- Controles -->
+        <div class="row g-3 align-items-center mb-4">
+            <div class="col-md-4">
+                <select class="form-select">
+                    <option>2º Bimestre</option>
+                    <option>1º Bimestre</option>
+                </select>
+            </div>
+            <div class="col-md-3"><input type="date" class="form-control" /></div>
+            <div class="col-md-3"><input type="date" class="form-control" /></div>
+            <div class="col-md-2 d-grid"><button class="btn btn-primary">Listar</button></div>
+        </div>
+
+        <!-- Tabela de Frequência -->
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th style="min-width:260px">Nome</th>
+                        <th class="text-center">Aula 49<br /><small>08/07/2025</small></th>
+                        <th class="text-center">Aula 48<br /><small>07/07/2025</small></th>
+                        <th class="text-center">Aula 47<br /><small>04/07/2025</small></th>
+                        <th class="text-center">Aula 46<br /><small>03/07/2025</small></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var aluno in alunos)
+                    {
+                        <tr>
+                            <td>
+                                @aluno.Nome
+                                @if (!string.IsNullOrEmpty(aluno.Status))
+                                {
+                                    <span class="badge bg-secondary ms-2">@aluno.Status</span>
+                                }
+                            </td>
+                            @for (int i = 0; i < aluno.Presencas.Count; i++)
+                            {
+                                <td class="text-center">
+                                    <input type="checkbox" class="form-check-input" @bind="aluno.Presencas[i]" />
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between mt-3">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="compress" checked />
+                <label class="form-check-label" for="compress">Comprimir tabela</label>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <select class="form-select form-select-sm" style="width:110px">
+                    <option>5</option>
+                    <option selected>10</option>
+                    <option>20</option>
+                </select>
+
+                <button class="btn btn-primary px-4" @onclick="SalvarFrequencia">
+                    Salvar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<Aluno> alunos = new()
+    {
+        new Aluno { Nome = "1 - ANA CLARA GULARTE FAGUNDES", Status = "Transferido", Presencas = new() { true, true, true, false } },
+        new Aluno { Nome = "2 - ANA GABRIELLI MONTEIRO FRANCISCO", Presencas = new() { true, true, true, true } },
+        new Aluno { Nome = "3 - ANNA LÚCIA WAJURU TUPARÍ", Presencas = new() { true, false, true, true } }
+    };
+
+    private void SalvarFrequencia()
+    {
+        Navigation.NavigateTo("/frequencia", true); // recarrega a página
+    }
+
+    public class Aluno
+    {
+        public string Nome { get; set; } = string.Empty;
+        public string? Status { get; set; }
+        public List<bool> Presencas { get; set; } = new();
+    }
+}
