@@ -64,15 +64,15 @@ namespace SigaApp.Models
                     {
                         var professor = new Professor
                         {
-                            Id = leitor.GetInt32("id_prof"),
-                            Nome = leitor.GetString("nome_prof"),
-                            Cpf = leitor.GetString("cpf_prof"),
-                            Email = leitor.IsDBNull(leitor.GetOrdinal("email_prof")) ? "" : leitor.GetString("email_prof"),
-                            Telefone = leitor.IsDBNull(leitor.GetOrdinal("telefone_prof")) ? "" : leitor.GetString("telefone_prof"),
-                            Status = leitor.IsDBNull(leitor.GetOrdinal("status_prof")) ? "Ativo" : leitor.GetString("status_prof"),
-                            DisciplinaPrincipal = leitor.IsDBNull(leitor.GetOrdinal("disciplina_principal_prof")) ? "" : leitor.GetString("disciplina_principal_prof"),
-                            TurmasVinculadas = leitor.IsDBNull(leitor.GetOrdinal("turmas_vinculadas_prof")) ? "" : leitor.GetString("turmas_vinculadas_prof"),
-                            Especialidade = leitor.IsDBNull(leitor.GetOrdinal("especialidade_prof")) ? "" : leitor.GetString("especialidade_prof"),
+                            Id = leitor.GetInt32("id_pro"),
+                            Nome = leitor.GetString("nome_pro"),
+                            Cpf = leitor.GetString("cpf_pro"),
+                            Email = leitor.IsDBNull(leitor.GetOrdinal("email_pro")) ? "" : leitor.GetString("email_pro"),
+                            Telefone = leitor.IsDBNull(leitor.GetOrdinal("telefone_pro")) ? "" : leitor.GetString("telefone_pro"),
+                            Status = leitor.IsDBNull(leitor.GetOrdinal("status_pro")) ? "Ativo" : leitor.GetString("status_pro"),
+                            DisciplinaPrincipal = leitor.IsDBNull(leitor.GetOrdinal("disciplina_principal_pro")) ? "" : leitor.GetString("disciplina_principal_pro"),
+                            TurmasVinculadas = leitor.IsDBNull(leitor.GetOrdinal("turmas_vinculadas_pro")) ? "" : leitor.GetString("turmas_vinculadas_pro"),
+                            Especialidade = leitor.IsDBNull(leitor.GetOrdinal("especialidade_pro")) ? "" : leitor.GetString("especialidade_prof"),
                             DataCadastro = leitor.GetDateTime("data_cadastro_prof")
                         };
 
