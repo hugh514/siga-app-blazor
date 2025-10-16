@@ -28,6 +28,7 @@
     <Content Remove="Components\Pages\Academico\Diario\TelasMenuDiario\EditarTurma.razor" />
     <Content Remove="Components\Pages\Academico\Diario\TelasMenuDiario\RelatorioDiario.razor" />
     <Content Remove="Components\Pages\Academico\Diario\TelasMenuDiario\RelatoriosDiario.razor" />
+    <Content Remove="Components\Pages\Configuracao\NovoPeriodo.razor" />
   </ItemGroup>
 
   <ItemGroup>

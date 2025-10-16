@@ -1,0 +1,35 @@
+﻿@page "/configuracoes/periodo-letivo/novo"
+
+<PageTitle>Novo Período Letivo</PageTitle>
+
+<div class="container-fluid px-4 py-4">
+    <h3 class="fw-bold mb-4">Cadastrar Novo Período Letivo</h3>
+
+    <div class="card shadow-sm p-4">
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Ano de Referência *</label>
+            <input type="number" class="form-control" placeholder="Ex: 2025" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Nome *</label>
+            <input type="text" class="form-control" placeholder="Ex: Período Letivo 2025" />
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">Data Inicial *</label>
+                <input type="date" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">Data Final *</label>
+                <input type="date" class="form-control" />
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end mt-4 gap-2">
+            <a href="/configuracoes/periodo-letivo" class="btn btn-outline-secondary">Cancelar</a>
+            <button class="btn btn-primary">Salvar</button>
+        </div>
+    </div>
+</div>

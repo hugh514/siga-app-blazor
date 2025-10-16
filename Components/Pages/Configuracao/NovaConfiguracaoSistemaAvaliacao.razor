@@ -1,0 +1,90 @@
+﻿@page "/configuracoes/sistema-avaliacoes/nova"
+
+<PageTitle>Nova Configuração de Sistema de Avaliação</PageTitle>
+
+<div class="container-fluid px-4 py-4">
+    <h3 class="fw-bold mb-4">Cadastrar Configuração de Sistema de Avaliação</h3>
+
+    <div class="card shadow-sm p-4 mb-4">
+        <h5 class="fw-semibold mb-3"><i class="bi bi-info-circle me-2"></i>Informações Gerais</h5>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Nome *</label>
+            <input type="text" class="form-control" placeholder="Ex: Sistema Padrão" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Descrição</label>
+            <textarea class="form-control" rows="2"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Tipo *</label>
+            <select class="form-select">
+                <option>Selecione...</option>
+                <option>Bimestral</option>
+                <option>Trimestral</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="card shadow-sm p-4">
+        <h5 class="fw-semibold mb-3">Configuração de Etapas</h5>
+
+        <div class="row g-3 align-items-end mb-3">
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Nome *</label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label fw-semibold">Sigla *</label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" />
+                    <label class="form-check-label">Etapa?</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" />
+                    <label class="form-check-label">Ativar Fórmula</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100">
+                    <i class="bi bi-plus-lg"></i> Adicionar
+                </button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Sigla</th>
+                        <th>Etapa</th>
+                        <th>Fórmula</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1º Bimestre</td>
+                        <td>B1</td>
+                        <td><input type="checkbox" checked disabled /></td>
+                        <td></td>
+                        <td class="text-center"><button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-4 gap-2">
+        <a href="/configuracoes/sistema-avaliacoes" class="btn btn-outline-secondary">Cancelar</a>
+        <button class="btn btn-primary">Salvar</button>
+    </div>
+</div>

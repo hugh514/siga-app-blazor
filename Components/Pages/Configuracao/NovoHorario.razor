@@ -1,0 +1,70 @@
+﻿@page "/configuracoes/configuracoes-horario/novo"
+
+<PageTitle>Novo Horário</PageTitle>
+
+<div class="container-fluid px-4 py-4">
+    <h3 class="fw-bold mb-4">Adicionar Novo Horário</h3>
+
+    <div class="card shadow-sm p-4">
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Nome *</label>
+            <input type="text" class="form-control" placeholder="Ex: 1º Horário" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Disciplina *</label>
+            <select class="form-select">
+                <option>Selecione...</option>
+                <option>Matemática</option>
+                <option>Português</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold d-block">Turno *</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label">Matutino</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label">Vespertino</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label">Integral</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label class="form-label fw-semibold">Horário Inicial *</label>
+                <input type="time" class="form-control" />
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label fw-semibold">Número de Aulas *</label>
+                <input type="number" class="form-control" />
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label fw-semibold">Tempo de Aula (min)</label>
+                <input type="number" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">Tempo de Intervalo (min)</label>
+                <input type="number" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">Horário Pós Intervalo</label>
+                <input type="time" class="form-control" />
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end mt-4 gap-2">
+            <a href="/configuracoes/configuracoes-horario" class="btn btn-outline-secondary">Cancelar</a>
+            <button class="btn btn-primary">Salvar</button>
+        </div>
+    </div>
+</div>

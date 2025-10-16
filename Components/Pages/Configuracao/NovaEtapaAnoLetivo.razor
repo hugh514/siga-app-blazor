@@ -1,0 +1,32 @@
+﻿@page "/configuracoes/etapas-ano-letivo/nova"
+
+<PageTitle>Nova Etapa</PageTitle>
+
+<div class="container-fluid px-4 py-4">
+    <h3 class="fw-bold mb-4">Nova Configuração de Etapa</h3>
+
+    <div class="card shadow-sm p-4">
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Período Letivo *</label>
+            <select class="form-select">
+                <option>Selecione...</option>
+                <option>2025</option>
+                <option>2026</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Sistema de Avaliação *</label>
+            <select class="form-select">
+                <option>Selecione...</option>
+                <option>Sistema Padrão</option>
+                <option>Sistema Alternativo</option>
+            </select>
+        </div>
+
+        <div class="d-flex justify-content-end mt-4 gap-2">
+            <a href="/configuracoes/etapas-ano-letivo" class="btn btn-outline-secondary">Cancelar</a>
+            <button class="btn btn-primary">Salvar</button>
+        </div>
+    </div>
+</div>

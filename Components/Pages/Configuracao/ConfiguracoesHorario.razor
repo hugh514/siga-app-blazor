@@ -1,0 +1,44 @@
+﻿@page "/configuracoes/configuracoes-horario"
+
+<PageTitle>Configurações de Horário</PageTitle>
+
+    <h3 class="fw-bold mb-4">Configurações de Horário</h3>
+
+    <div class="alert alert-info shadow-sm small mb-4">
+        <i class="bi bi-info-circle me-1"></i>
+        Defina as configurações de horários das aulas e turnos.
+    </div>
+
+    <div class="card shadow-sm p-3 mb-4 filtros-card">
+        <div class="d-flex align-items-center gap-3">
+            <input type="text" class="form-control form-control-sm" placeholder="Nome do Horário" style="width: 250px;">
+            <button class="btn btn-sm btn-primary"><i class="bi bi-search"></i> Buscar</button>
+            <a href="/configuracoes/configuracoes-horario/novo" class="btn btn-sm btn-success ms-auto"><i class="bi bi-plus-lg"></i> Novo Horário</a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Turno</th>
+                        <th>Início</th>
+                        <th>Término</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Matutino</td>
+                        <td>07:30</td>
+                        <td>12:00</td>
+                        <td class="text-center">
+                            <button class="btn btn-outline-primary btn-sm me-1"><i class="bi bi-pencil"></i> Editar</button>
+                            <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i> Excluir</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
