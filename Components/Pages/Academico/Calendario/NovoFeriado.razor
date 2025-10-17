@@ -1,0 +1,40 @@
+﻿@page "/calendario/feriado/novo"
+
+<PageTitle>Novo Feriado</PageTitle>
+
+<div class="container-fluid px-4 py-4">
+    <h3 class="fw-bold mb-4">Cadastrar Feriado</h3>
+
+    <div class="card shadow-sm p-4">
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Data do Feriado *</label>
+            <input type="date" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Nome do Feriado *</label>
+            <input type="text" class="form-control" placeholder="Ex: Independência do Brasil" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold d-block">Período *</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="periodo" value="manhã">
+                <label class="form-check-label">Manhã</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="periodo" value="tarde">
+                <label class="form-check-label">Tarde</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="periodo" value="integral" checked>
+                <label class="form-check-label">Integral</label>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end mt-4 gap-2">
+            <a href="/calendario" class="btn btn-outline-secondary">Cancelar</a>
+            <button class="btn btn-primary">Salvar</button>
+        </div>
+    </div>
+</div>

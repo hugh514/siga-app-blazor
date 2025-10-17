@@ -1,3 +1,135 @@
 ﻿@page "/calendario"
-<PageTitle>Calendario</PageTitle>
-<Desenvolvendo />
+
+@using System.Globalization
+
+<PageTitle>Calendário Acadêmico</PageTitle>
+
+<div class="container-fluid px-4 py-4">
+    <!-- Cabeçalho -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold mb-0">Calendário Acadêmico</h3>
+        <div class="d-flex gap-2">
+            <a href="/calendario/feriado/novo" class="btn btn-primary">
+                <i class="bi bi-calendar-plus me-1"></i> Adicionar Feriado
+            </a>
+            <a href="/calendario-academico/importar" class="btn btn-outline-secondary">
+                <i class="bi bi-upload"></i> Importar Calendário
+            </a>
+            <a href="/calendario-academico/imprimir" class="btn btn-outline-secondary">
+                <i class="bi bi-printer"></i> Imprimir Calendário
+            </a>
+        </div>
+    </div>
+
+    <!-- Cards resumo -->
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-md-4">
+            <div class="card shadow-sm text-center p-3 bg-primary text-white">
+                <div class="display-6 fw-bold">86</div>
+                <div>Dias Letivos 1º Semestre</div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="card shadow-sm text-center p-3 bg-primary text-white">
+                <div class="display-6 fw-bold">00</div>
+                <div>Dias Letivos 2º Semestre</div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="card shadow-sm text-center p-3 bg-primary text-white">
+                <div class="display-6 fw-bold">86</div>
+                <div>Dias Letivos Total</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Selecionar ano -->
+    <div class="d-flex align-items-center mb-3 gap-2">
+        <button class="btn btn-outline-secondary btn-sm" @onclick="AnoAnterior">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <h4 class="fw-bold mb-0">@AnoSelecionado</h4>
+        <button class="btn btn-outline-secondary btn-sm" @onclick="ProximoAno">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+
+        <select class="form-select ms-3" style="width: 250px;">
+            <option>Calendário Acadêmico</option>
+        </select>
+    </div>
+
+    <!-- Alerta caso não tenha calendário -->
+    <div class="alert alert-warning small shadow-sm">
+        <i class="bi bi-exclamation-triangle me-1"></i>
+        Não há calendários cadastrados para o ano de @AnoSelecionado.
+        <a href="/calendario-academico/novo" class="alert-link">Clique aqui</a> para adicionar um calendário para este ano.
+    </div>
+
+    <!-- Grid de meses -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+        @foreach (var mes in Enumerable.Range(1, 12))
+        {
+            var diasDoMes = Enumerable.Range(1, DateTime.DaysInMonth(AnoSelecionado, mes)).ToList();
+            var primeiroDiaSemana = (int)new DateTime(AnoSelecionado, mes, 1).DayOfWeek;
+            if (primeiroDiaSemana == 0) primeiroDiaSemana = 7; // Ajusta domingo
+
+            <div class="col">
+                <div class="card shadow-sm p-3 h-100">
+                    <h5 class="fw-semibold mb-3">@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(mes)</h5>
+                    <table class="table table-borderless text-center small mb-0">
+                        <thead>
+                            <tr>
+                                <th>Dom</th>
+                                <th>Seg</th>
+                                <th>Ter</th>
+                                <th>Qua</th>
+                                <th>Qui</th>
+                                <th>Sex</th>
+                                <th>Sáb</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int contador = 1;
+                                int totalDias = diasDoMes.Count;
+                                for (int semana = 0; semana < 6 && contador <= totalDias; semana++)
+                                {
+                                    <tr>
+                                        @for (int diaSemana = 1; diaSemana <= 7; diaSemana++)
+                                        {
+                                            int posicao = (semana * 7) + diaSemana;
+                                            if (posicao < primeiroDiaSemana || contador > totalDias)
+                                            {
+                                                <td class="text-muted"></td>
+                                            }
+                                            else
+                                            {
+                                                <td>@contador</td>
+                                                contador++;
+                                            }
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-outline-secondary w-100 dropdown-toggle" data-bs-toggle="dropdown">
+                            Eventos
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><span class="dropdown-item text-muted small">Nenhum evento</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private int AnoSelecionado = DateTime.Now.Year;
+
+    void AnoAnterior() => AnoSelecionado--;
+    void ProximoAno() => AnoSelecionado++;
+}

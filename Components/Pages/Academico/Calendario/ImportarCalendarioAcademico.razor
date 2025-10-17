@@ -1,0 +1,24 @@
+﻿@page "/calendario-academico/importar"
+
+<PageTitle>Importar Calendário</PageTitle>
+
+<div class="container-fluid px-4 py-4">
+    <h3 class="fw-bold mb-4">Importar Calendário Acadêmico</h3>
+
+    <div class="card shadow-sm p-4">
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Selecione um arquivo (.csv ou .xlsx)</label>
+            <input type="file" class="form-control" />
+        </div>
+
+        <div class="alert alert-info small">
+            <i class="bi bi-info-circle me-1"></i>
+            O arquivo deve conter as datas e eventos correspondentes.
+        </div>
+
+        <div class="d-flex justify-content-end gap-2 mt-4">
+            <a href="/calendario" class="btn btn-outline-secondary">Cancelar</a>
+            <button class="btn btn-primary">Importar</button>
+        </div>
+    </div>
+</div>
