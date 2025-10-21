@@ -13,7 +13,7 @@ CREATE TABLE professor (
     email_pro VARCHAR(120),
     telefone_pro VARCHAR(20),
     disciplina_pro varchar(100),
-    status_pro VARCHAR(100) default 'ativo',   
+    status_pro VARCHAR(100) default 'Ativo',   
     data_cadastro_pro DATE,
     especialidade_pro VARCHAR(100)  
 );

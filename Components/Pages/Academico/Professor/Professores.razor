@@ -70,7 +70,7 @@
                                     <h5 class="mb-1">@professor.Nome</h5>
                                     <small class="text-muted">Professor de @professor.Disciplina</small>
                                 </div>
-                                <span class="badge @(professor.Status == "Ativo" ? "bg-success" : "bg-secondary")">@professor.Status</span>
+                                <span class="badge @(professor.Status.ToUpper() == "ATIVO" ? "bg-success" : "bg-secondary")">@professor.Status</span>
                             </div>
 
                             <div class="mt-2 small text-muted">
