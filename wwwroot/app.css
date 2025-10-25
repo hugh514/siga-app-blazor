@@ -1,7 +1,10 @@
 ﻿html, body {
     font-family: 'Poppins', sans-serif !important;
     background-color: #fafafa;
-    overflow-x: hidden;
+    overflow-x: hidden;  
+    height: 100%;
+    margin: 0;
+    overflow-y: auto; /* scroll global */
 }
 
 a, .btn-link {

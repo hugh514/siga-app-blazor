@@ -1,12 +1,42 @@
+
 .page {
-    position: relative;
     display: flex;
-    flex-direction: row;
+    align-items: stretch;
+    min-height: 100vh;
 }
 
+/* Sidebar */
+.menubar {
+    width: 300px;
+    background-color: #152259;
+    color: white;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2rem;
+    position: relative;
+}
+
+    /* Faz o fundo do sidebar cobrir tudo, mesmo que o conteúdo seja menor */
+    .menubar::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 300px;
+        background-color: #152259;
+        z-index: -1;
+    }
+
+/* Conteúdo principal */
 main {
-    height:100vh;
     flex: 1;
+    background-color: #f8f9fa;
+}
+
+.content {
+    padding: 1rem;
 }
 
 .top-row {
@@ -50,7 +80,6 @@ main {
 
     .menubar {       
         width: 300px;
-        height: 100vh;
         position: sticky;
         top: 0;
     }
