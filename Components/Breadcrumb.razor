@@ -1,0 +1,74 @@
+﻿@inject NavigationManager NavigationManager
+@implements IDisposable
+
+<nav aria-label="breadcrumb" class="mb-3 breadcrumb-container">
+    <ol class="breadcrumb custom-breadcrumb">
+        @foreach (var item in BreadcrumbItems)
+        {
+            if (item.IsActive)
+            {
+                <li class="breadcrumb-item active" aria-current="page">@item.Title</li>
+            }
+            else
+            {
+                <li class="breadcrumb-item">
+                    <a href="@item.Url" class="breadcrumb-link">@item.Title</a>
+                </li>
+            }
+        }
+    </ol>
+</nav>
+
+@code {
+    private List<BreadcrumbItem> BreadcrumbItems = new();
+
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += OnLocationChanged;
+        BuildBreadcrumb();
+    }
+
+    private void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    {
+        BuildBreadcrumb();
+        StateHasChanged();
+    }
+    private void BuildBreadcrumb()
+    {
+        BreadcrumbItems.Clear();
+
+        var uri = NavigationManager.Uri.Replace(NavigationManager.BaseUri, "");
+        var segments = uri.Split('/', StringSplitOptions.RemoveEmptyEntries);
+
+        string currentPath = NavigationManager.BaseUri;
+
+        for (int i = 0; i < segments.Length; i++)
+        {
+            currentPath += segments[i] + "/";
+            bool isLast = (i == segments.Length - 1);
+
+            BreadcrumbItems.Add(new BreadcrumbItem(
+                Title: Capitalize(segments[i]),
+                Url: isLast ? "#" : currentPath,
+                IsActive: isLast
+            ));
+        }
+    }
+
+    private string Capitalize(string text)
+    {
+        if (string.IsNullOrEmpty(text)) return text;
+
+        // Substitui "_" por espaço e capitaliza a primeira letra de cada palavra
+        var clean = text.Replace("_", " ");
+        return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(clean);
+    }
+
+    private record BreadcrumbItem(string Title, string Url, bool IsActive = false);
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+
+}
