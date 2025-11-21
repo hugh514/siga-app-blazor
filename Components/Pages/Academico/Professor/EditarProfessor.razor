@@ -1,4 +1,4 @@
-﻿@page "/editar_professor"
+﻿@page "/editar_professor/{id:int}"
 <PageTitle>Editar Professor</PageTitle>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -60,3 +60,22 @@
         </form>
     </div>
 </div>
+
+@code{
+  [Parameter]
+    public int id { get; set; }
+
+    private Professor professor = new();
+
+    protected override void OnInitialized()
+    {
+        professor = professorDAO.BuscarPorId(id) ?? new Professor();
+    }
+
+    private void Salvar()
+    {
+        professorDAO.Atualizar(professor);
+        // redirecionar para lista
+        NavigationManager.NavigateTo("/professores");
+    }
+}
