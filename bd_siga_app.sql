@@ -1,29 +1,25 @@
 create database siga_app;
 use siga_app;
 
-
-desc professor;
-
-create database siga_app;
-use siga_app;
-CREATE TABLE professor (
-    id_pro INT AUTO_INCREMENT PRIMARY KEY,
-    nome_pro VARCHAR(150) NOT NULL,
-    cpf_pro VARCHAR(14) UNIQUE,
-    email_pro VARCHAR(120),
-    telefone_pro VARCHAR(20),
+create table professor (
+    id_pro int auto_increment primary key,
+    nome_pro varchar(150) not null,
+    cpf_pro varchar(14) unique,
+    email_pro varchar(120),
+    telefone_pro varchar(20),
     disciplina_pro varchar(100),
-    status_pro VARCHAR(100) default 'Ativo',   
+    status_pro varchar(100) default 'Ativo',   
     data_cadastro_pro DATE,
-    especialidade_pro VARCHAR(100)  
+    especialidade_pro varchar(100)  
 );
 
 
 
-CREATE TABLE turma (
-    id_tur INT AUTO_INCREMENT PRIMARY KEY,
+create table turma (
+    id_tur int auto_increment primary key,
     nome_tur varchar(100),
     ano_tur varchar(100),    
+    turno_tur varchar(50),
     capacidade_maxima_tur int
 );
 
@@ -37,9 +33,9 @@ create table professor_turma(
     foreign key (id_tur_fk) references turma(id_tur)
 );
 
-INSERT INTO professor 
+insert into professor 
 (nome_pro, cpf_pro, email_pro, telefone_pro, disciplina_pro, status_pro, data_cadastro_pro, especialidade_pro)
-VALUES
+values
 ('Carlos Henrique Silva', '123.456.789-00', 'carlos.silva@ifro.edu.br', '(69) 99912-3344', 'Matemática', 'Ativo', '2025-10-14', 'Geometria Analítica'),
 
 ('Fernanda Costa Oliveira', '987.654.321-00', 'fernanda.oliveira@ifro.edu.br', '(69) 99213-4455', 'Português', 'Ativo', '2025-10-14', 'Gramática e Redação'),
