@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SigaApp.Models
+namespace SigaApp.Models.Professor
 {
     public class ProfessorViewModel
     {

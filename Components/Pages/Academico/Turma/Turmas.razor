@@ -1,4 +1,16 @@
 ﻿@page "/turmas"
+@using SigaApp.Models.Turma
+@inject TurmaDAO turmaDAO;
+
+
+@code{
+    private List<Turma> turmas = new();
+
+    protected override void OnInitialized()
+    {
+        turmas = turmaDAO.ListarTodos();
+    }
+}
 
 <PageTitle>Turmas</PageTitle>
 
@@ -6,7 +18,7 @@
     <h2 class="fw-bold">Turmas</h2>
     <div class="d-flex gap-2">
         <a class="btn btn-outline-secondary" href="/relatorios_turma">Relatórios</a>
-        <a class="btn btn-primary" href="/cadastrar_turma">+ Nova turma</a>
+        <a class="btn btn-primary" href="/turmas/cadastrar_turma">+ Nova turma</a>
     </div>
 </div>
 

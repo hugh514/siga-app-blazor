@@ -1,0 +1,144 @@
+﻿@page "/estudantes/editar_estudante/{id:int}"
+@using SigaApp.Models.Estudante
+@inject EstudanteDAO estudanteDAO
+@inject NavigationManager nav
+
+<PageTitle>Editar Estudante</PageTitle>
+
+@if (_estudanteCarregado == false)
+{
+    <p>Carregando...</p>
+    @code { } <!-- Evita erro visual -->
+}
+else
+{
+    <h2 class="fw-bold mb-4">Editar Estudante</h2>
+
+    <EditForm Model="_estudanteEdicao" OnValidSubmit="SalvarEdicao">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="row g-3">
+            <div class="col-md-8">
+                <div class="row g-2">
+                    <div class="col-md-6">
+                        <label class="form-label">Nome do Aluno</label>
+                        <InputText @bind-Value="_estudanteEdicao.Nome" class="form-control" />
+                        <ValidationMessage For="@(() => _estudanteEdicao.Nome)" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Data de Nascimento</label>
+                        <InputDate @bind-Value="_estudanteEdicao.DataNasc" class="form-control" />
+                        <ValidationMessage For="@(() => _estudanteEdicao.DataNasc)" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Idade</label>
+                        <InputNumber @bind-Value="_estudanteEdicao.Idade" class="form-control" />
+                        <ValidationMessage For="@(() => _estudanteEdicao.Idade)" />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Cidade</label>
+                        <InputText @bind-Value="_estudanteEdicao.Endereco.Cidade" class="form-control" />
+                        <ValidationMessage For="@(() => _estudanteEdicao.Endereco.Cidade)" />
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label">UF</label>
+                        <InputText @bind-Value="_estudanteEdicao.Endereco.Uf" class="form-control" maxlength="2" />
+                        <ValidationMessage For="@(() => _estudanteEdicao.Endereco.Uf)" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Sexo</label>
+                        <InputSelect @bind-Value="_estudanteEdicao.Sexo" class="form-select">
+                            <option value="">Selecione...</option>
+                            <option value="masculino">Masculino</option>
+                            <option  value="feminino">Feminino</option>
+                        </InputSelect>
+                        <ValidationMessage For="@(() => _estudanteEdicao.Sexo)" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Telefone</label>
+                        <InputText @bind-Value="_estudanteEdicao.Telefone" class="form-control" />
+                        <ValidationMessage For="@(() => _estudanteEdicao.Telefone)" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Nome do Pai</label>
+                        <InputText @bind-Value="_estudanteEdicao.NomeResp" class="form-control" />
+                        <ValidationMessage For="@(() => _estudanteEdicao.NomeResp)" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Nome da Mãe</label>
+                        <InputText @bind-Value="_estudanteEdicao.NomeMae" class="form-control" />
+                        <ValidationMessage For="@(() => _estudanteEdicao.NomeMae)" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Rua</label>
+                        <InputText @bind-Value="_estudanteEdicao.Endereco.Rua" class="form-control" />
+                        <ValidationMessage For="@(() => _estudanteEdicao.Endereco.Rua)" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Bairro</label>
+                        <InputText @bind-Value="_estudanteEdicao.Endereco.Bairro" class="form-control" />
+                        <ValidationMessage For="@(() => _estudanteEdicao.Endereco.Bairro)" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Situação</label>
+                        <InputSelect @bind-Value="_estudanteEdicao.Situacao" class="form-select">
+                            <option value="">Selecione...</option>
+                            <option value="cursando">Cursando</option>
+                            <option value="transferido">Transferido</option>
+                        </InputSelect>
+                        <ValidationMessage For="@(() => _estudanteEdicao.Situacao)" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-end gap-2">
+            <a class="btn btn-outline-secondary" href="/estudantes">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        </div>
+    </EditForm>
+
+    @if (!string.IsNullOrEmpty(erro))
+    {
+        <div class="alert alert-danger mt-3">@erro</div>
+    }
+}
+
+@code {
+    [Parameter] public int id { get; set; }
+
+    private Estudante? _estudanteEdicao;
+    private bool _estudanteCarregado = false;
+    private string? erro;
+
+    protected override void OnInitialized()
+    {
+        _estudanteEdicao = estudanteDAO.BuscarPorId(id);
+        _estudanteCarregado = _estudanteEdicao != null;
+    }
+
+    private void SalvarEdicao()
+    {
+        try
+        {
+            // estudanteDAO.Atualizar(_estudanteEdicao);
+            nav.NavigateTo("/estudantes");
+        }
+        catch (Exception ex)
+        {
+            erro = $"Erro ao salvar alterações: {ex.Message}";
+        }
+    }
+}

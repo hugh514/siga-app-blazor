@@ -1,6 +1,8 @@
 using SigaApp.Components;
-using SigaApp.Models;
 using SigaApp.Configs;
+using SigaApp.Models.Estudante;
+using SigaApp.Models.Professor;
+using SigaApp.Models.Turma;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,8 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddSingleton<Conexao>();
 builder.Services.AddScoped<ProfessorDAO>();
+builder.Services.AddScoped<TurmaDAO>();
+builder.Services.AddScoped<EstudanteDAO>();
 
 var app = builder.Build();
 

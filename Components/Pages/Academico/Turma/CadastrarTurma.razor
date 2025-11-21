@@ -1,5 +1,24 @@
-﻿@page "/cadastrar_turma"
+﻿@page "/turmas/cadastrar_turma"
+
+@using System.ComponentModel.DataAnnotations
+@using SigaApp.Models
+@using SigaApp.Models.Professor
+ 
+@inject ProfessorDAO professorDAO
+
+@rendermode InteractiveServer
+
+@code {
+    private List<Professor> Professores = new();
+
+    protected override void OnInitialized()
+    {
+        Professores = professorDAO.ListarTodos();
+    }
+}
+
 <PageTitle>Cadastrar Turma</PageTitle>
+
 
 <div class="container py-5">
     <h3 class="mb-4 fw-semibold text-dark">Cadastrar Nova Turma</h3>
@@ -26,17 +45,31 @@
                 <select class="form-select shadow-sm">
                     <option selected disabled>Selecione...</option>
                     <option>Matutino</option>
+
                     <option>Vespertino</option>
                     <option>Noturno</option>
                 </select>
             </div>
 
+            @* capacidade centralizada *@
+            <div class="col-12">
+                <div class="w-50">
+                    <label class="form-label fw-semibold text-secondary">Capacidade Máxima</label>
+                    <div class="text-center">
+                        <input type="number" class="form-control shadow-sm mx-auto" placeholder="Ex: 40" min="1">
+                    </div>
+                </div>
+               
+            </div>
+
+            @* professores e disciplinas na mesma linha *@
             <div class="col-md-6">
                 <label class="form-label fw-semibold text-secondary">Professor(es) Responsável(is)</label>
                 <select class="form-select shadow-sm" multiple>
-                    <option>Prof. João</option>
-                    <option>Prof. Maria</option>
-                    <option>Prof. Carla</option>
+                    @foreach (var prof in Professores)
+                    {
+                        <option value="@prof.Id">@prof.Nome</option>
+                    }
                 </select>
                 <small class="text-muted">Segure CTRL para selecionar mais de um.</small>
             </div>
@@ -55,7 +88,7 @@
 
             <div class="col-12 text-center mt-4">
                 <a href="turmas" class="btn btn-secondary px-4 me-2">Cancelar</a>
-                <a href="turmas" class="btn btn-primary px-4">Salvar Turma</a> <!-- Alterado para azul -->
+                <a href="turmas" class="btn btn-primary px-4">Salvar Turma</a>
             </div>
         </form>
     </div>
@@ -72,12 +105,7 @@
         background-color: #fafafa;
         transition: all 0.2s ease-in-out;
     }
-
-    .card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    }
-
+ 
     select:focus, input:focus {
         border-color: #198754;
         box-shadow: 0 0 0 0.15rem rgba(25, 135, 84, 0.25);

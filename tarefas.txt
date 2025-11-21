@@ -1,0 +1,37 @@
+* implementar breadcrumb em todas as telas e retirar todos os botões de voltar. --ok
+
+* Tirar a coluna de professores da tela Diário, o menu do diário deve mostrar todos os professores referente a turma , o card de status deve estar padronizado.
+
+* Mudar todos os Alunos para Estudantes.
+
+* Tela de gerir Alunos remover a coluna de ações, mudar o nome de gerir alunos para listar estudantes, não deve ter a opção de adicionar novo aluno, a tela deve ser apenas de listagem de alunos vinculados do diário. 
+
+* No plano de aula dever haver o horário das aulas também, deve ser removido o botão de ocorrência e deve ser linkado a ocorrência do aluno se for em sala e em qual matéria, corrigir tela de cadastro e editar .
+
+* Tirar a função de conteúdo
+
+* Modal em ver.
+
+* Criar a função de cadastro de diário com filtragem.
+
+* Em frequência tirar o comprimir tabela e paginação.
+
+* Colocar as atividades que vai ter durante o bimestre na tela de avaliação.
+
+* Tirar a função de relatórios do diário, turmas e professores.
+
+*  Adicionar na tela de professores Endereço, Rg, formação acadêmica, data de nascimento, data de admissão, retirar as turmas vinculadas e retirar foto da telas de professores  e  retirar o botão de ver turmas.
+
+* Em relatórios deve haver a opção de ocorrência.
+
+* Botão de visualizar em estudantes.
+
+* Em turmas poder visualizar todos os alunos vinculados a ela.--
+
+* Padronizar as cores(ex:. botão de salvar ou criar sempre azul, os botões de editar devem ser amarelos).
+
+* Em matriculas retirar a função de exportar cvs e de importar, retirar o pesquisar .
+
+* Em cadastro de matricula deve retira status, cpf e observações.
+
+*

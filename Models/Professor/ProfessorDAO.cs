@@ -1,9 +1,7 @@
 ﻿using SigaApp.Configs;
-using System;
-using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace SigaApp.Models
+namespace SigaApp.Models.Professor
 {
     public class ProfessorDAO
     {

@@ -1,14 +1,13 @@
 ﻿@page "/professores"
-@using SigaApp.Models
 @using Microsoft.AspNetCore.Components.Web
+@using SigaApp.Models.Professor
 @inject ProfessorDAO professorDAO
 
 <PageTitle>Professores</PageTitle>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="fw-bold">Professores</h2>
-    <div class="d-flex gap-2">
-        <a class="btn btn-outline-secondary" href="/professor/relatorios">Relatórios</a>
+    <div class="d-flex gap-2">        
         <a class="btn btn-primary" href="/cadastro_professor">+ Novo professor</a>
     </div>
 </div>

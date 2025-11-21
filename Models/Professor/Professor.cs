@@ -1,6 +1,5 @@
-﻿using System;
-
-namespace SigaApp.Models
+﻿
+namespace SigaApp.Models.Professor
 {
     public class Professor
     {
