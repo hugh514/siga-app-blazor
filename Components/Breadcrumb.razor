@@ -42,18 +42,26 @@
 
         string currentPath = NavigationManager.BaseUri;
 
-        for (int i = 0; i < segments.Length; i++)
+        // 🔥 Lista auxiliar somente com segmentos válidos (não numéricos)
+        var validSegments = segments
+            .Where(s => !int.TryParse(s, out _)) // ignora números
+            .ToList();
+
+        for (int i = 0; i < validSegments.Count; i++)
         {
-            currentPath += segments[i] + "/";
-            bool isLast = (i == segments.Length - 1);
+            string segment = validSegments[i];
+            currentPath += segment + "/";
+
+            bool isLast = (i == validSegments.Count - 1);
 
             BreadcrumbItems.Add(new BreadcrumbItem(
-                Title: Capitalize(segments[i]),
+                Title: Capitalize(segment),
                 Url: isLast ? "#" : currentPath,
                 IsActive: isLast
             ));
         }
     }
+
 
     private string Capitalize(string text)
     {

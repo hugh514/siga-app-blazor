@@ -13,5 +13,6 @@ namespace SigaApp.Models
         public string Disciplina { get; set; } 
         public string Especialidade { get; set; }
         public DateTime DataCadastro { get; set; }
+        public string TurmasVinculadas { get; set; }
     }
 }
