@@ -50,8 +50,8 @@ create table estudante(
     sexo_est varchar(20),
     data_nasc_est date,    
     telefone_est varchar(50),
-    nome_pai_ou_resp_est varchar(300) not null,
-    nome_mae_est varchar(300),
+    nome_resp_1 varchar(300) not null,
+    nome_resp_2 varchar(300),
     situacao_est varchar(50) default 'cursando',
     id_end_fk int,
     id_tur_fk int,
@@ -90,9 +90,9 @@ insert into endereco (cidade_end, uf_end, rua_end, numero_end, bairro_end)
 values ('ji-paraná', 'ro', 'av. brasil', '456', 'nova brasília');
 
 -- estudante
-insert into estudante (nome_est, idade_est, sexo_est, data_nasc_est, telefone_est, nome_pai_ou_resp_est, nome_mae_est, id_end_fk, id_tur_fk)
+insert into estudante (nome_est, idade_est, sexo_est, data_nasc_est, telefone_est, nome_resp_1, nome_resp_2, id_end_fk, id_tur_fk)
 values ('carlos pereira', 15, 'masculino', '2010-05-20', '(69) 97777-3333', 'josé pereira', 'ana pereira', 1, 1);
 
-insert into estudante (nome_est, idade_est, sexo_est, data_nasc_est, telefone_est, nome_pai_ou_resp_est, nome_mae_est, id_end_fk, id_tur_fk)
+insert into estudante (nome_est, idade_est, sexo_est, data_nasc_est, telefone_est, nome_resp_1, nome_resp_2, id_end_fk, id_tur_fk)
 values ('fernanda lima', 16, 'feminino', '2009-08-14', '(69) 96666-4444', 'roberto lima', 'cláudia lima', 2, 2);
 

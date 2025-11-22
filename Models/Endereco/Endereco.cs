@@ -1,4 +1,4 @@
-﻿namespace SigaApp.Models
+﻿namespace SigaApp.Models.Endereco
 {
   
     public class Endereco

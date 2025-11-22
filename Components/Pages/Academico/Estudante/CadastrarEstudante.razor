@@ -1,109 +1,205 @@
 ﻿@page "/estudantes/cadastrar_estudante"
+@rendermode InteractiveServer
+
+@using SigaApp.ViewModels
+@using System.ComponentModel.DataAnnotations
+@using SigaApp.Models.Estudante
+@using SigaApp.Models.Endereco
+@inject EstudanteDAO estudanteDAO
+@inject NavigationManager Navigation
+
 <PageTitle>Cadastrar Estudante</PageTitle>
 
-<div class="container-fluid py-5">
-    <div class="card shadow-sm border-0 p-5 mx-auto" style="max-width: 1000px;">
-        <div class="text-center mb-4">
-            <i class="bi bi-person-plus-fill text-primary" style="font-size: 3rem;"></i>
-            <h4 class="mt-3 mb-2 text-dark">Cadastrar Novo Estudante</h4>
-            <p class="text-muted">Preencha as informações abaixo para adicionar um novo estudante.</p>
-        </div>
+<h2 class="fw-bold mb-4">Cadastro de Estudante</h2>
 
-        <div class="text-start">
+<EditForm Model="_novoEstudante" OnValidSubmit="Salvar">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
-            <div class="mb-3">
-                <label class="form-label">Nome do Estudante</label>
-                <input type="text" class="form-control" placeholder="Nome completo">
-            </div>
+    <div class="row g-3">
 
-            <div class="row g-3 mb-3">
+        <div class="col-md-12">
+            <div class="row g-2">
+
+                <!-- Nome -->
+                <div class="col-md-8">
+                    <label class="form-label">Nome do Estudante</label>
+                    <InputText @bind-Value="_novoEstudante.Nome" class="form-control" />
+                    <ValidationMessage For="@(() => _novoEstudante.Nome)" />
+                </div>
+
+                <!-- Data de nascimento -->
+                
                 <div class="col-md-4">
                     <label class="form-label">Data de Nascimento</label>
-                    <input type="date" class="form-control">
+                    <InputDate @bind-Value="_novoEstudante.DataNasc"
+                               class="form-control"
+                               @oninput="AtualizarIdade" />
+                    <ValidationMessage For="@(() => _novoEstudante.DataNasc)" />
                 </div>
+
+                <!-- Idade -->
                 <div class="col-md-2">
                     <label class="form-label">Idade</label>
-                    <input type="number" class="form-control" placeholder="Idade">
+                    <InputNumber @bind-Value="_novoEstudante.Idade" class="form-control" Disabled="true" />
+                    <ValidationMessage For="@(() => _novoEstudante.Idade)" />
                 </div>
-                <div class="col-md-6">
+
+                <!-- Sexo -->
+                <div class="col-md-4">
                     <label class="form-label">Sexo</label>
-                    <select class="form-select">
+                    <InputSelect @bind-Value="_novoEstudante.Sexo" class="form-select">
+                        <option value="">Selecione...</option>
                         <option>Masculino</option>
                         <option>Feminino</option>
-                    </select>
+                    </InputSelect>
+                    <ValidationMessage For="@(() => _novoEstudante.Sexo)" />
                 </div>
-            </div>
 
-            <div class="row g-3 mb-3">
+                <!-- Cidade -->
                 <div class="col-md-6">
                     <label class="form-label">Cidade</label>
-                    <input type="text" class="form-control" placeholder="Cidade">
+                    <InputText @bind-Value="_novoEstudante.Endereco.Cidade" class="form-control" />
+                    <ValidationMessage For="@(() => _novoEstudante.Endereco.Cidade)" />
                 </div>
+
+                <!-- UF -->
                 <div class="col-md-2">
                     <label class="form-label">UF</label>
-                    <input type="text" class="form-control" placeholder="UF">
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Telefone</label>
-                    <input type="text" class="form-control" placeholder="(xx) xxxx-xxxx">
-                </div>
-            </div>
-
-            <div class="row g-3 mb-3">
-                <div class="col-md-6">
-                    <label class="form-label">Nome do Pai</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Nome da mãe</label>
-                    <input type="text" class="form-control">
-                </div>
-               
-                <div class="col-md-3">
-                    <label class="form-label">Situação</label>
-                    <select class="form-select">
-                        <option>Cursando</option>
-                        <option>Transferido</option>
-                    </select>
+                    <InputText @bind-Value="_novoEstudante.Endereco.Uf" class="form-control" />
+                    <ValidationMessage For="@(() => _novoEstudante.Endereco.Uf)" />
                 </div>
 
-            </div>
-
-            <div class="row g-3 mb-3">
+                <!-- Rua (FALTAVA) -->
                 <div class="col-md-6">
-                    <label class="form-label">Endereço</label>
-                    <input type="text" class="form-control" placeholder="Rua, número">
+                    <label class="form-label">Rua</label>
+                    <InputText @bind-Value="_novoEstudante.Endereco.Rua" class="form-control" />
+                    <ValidationMessage For="@(() => _novoEstudante.Endereco.Rua)" />
                 </div>
+
+                <!-- Número (FALTAVA) -->
+                <div class="col-md-2">
+                    <label class="form-label">Número</label>
+                    <InputText @bind-Value="_novoEstudante.Endereco.Numero" class="form-control" />
+                    <ValidationMessage For="@(() => _novoEstudante.Endereco.Numero)" />
+                </div>
+
+                <!-- Bairro -->
                 <div class="col-md-6">
                     <label class="form-label">Bairro</label>
-                    <input type="text" class="form-control" placeholder="Bairro">
+                    <InputText @bind-Value="_novoEstudante.Endereco.Bairro" class="form-control" />
+                    <ValidationMessage For="@(() => _novoEstudante.Endereco.Bairro)" />
+                </div>
+
+                <!-- Telefone -->
+                <div class="col-md-4">
+                    <label class="form-label">Telefone</label>
+                    <InputText @bind-Value="_novoEstudante.Telefone" class="form-control" />
+                    <ValidationMessage For="@(() => _novoEstudante.Telefone)" />
+                </div>
+
+                <!-- Pai / Responsável -->
+                <div class="col-md-6">
+                    <label class="form-label">Nome do Responsável</label>
+                    <InputText @bind-Value="_novoEstudante.NomeResp1" class="form-control" />
+                    <ValidationMessage For="@(() => _novoEstudante.NomeResp1)" />
+                </div>
+
+                <!-- Mãe / Responsável -->
+                <div class="col-md-6">
+                    <label class="form-label">Adicionar outro Responsavel</label>
+                    <InputText @bind-Value="_novoEstudante.NomeResp2" class="form-control" />
+                    <ValidationMessage For="@(() => _novoEstudante.NomeResp2)" />
+                </div>
+
+                <!-- Situação -->
+                <div class="col-md-4">
+                    <label class="form-label">Situação</label>
+                    <InputSelect @bind-Value="_novoEstudante.Situacao" class="form-select">
+                        <option value="Cursando">Cursando</option>
+                        <option value="Transferido">Transferido</option>
+                    </InputSelect>
+                    <ValidationMessage For="@(() => _novoEstudante.Situacao)" />
                 </div>
             </div>
-
-            <div class="row g-3 mb-3">
-                <div class="col-md-4">
-                    <label class="form-label">Turno</label>
-                    <select class="form-select">
-                        <option>Matutino</option>
-                        <option>Vespertino</option>
-                        <option>Integral</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">CPF</label>
-                    <input type="text" class="form-control" placeholder="000.000.000-00">
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Cartão SUS</label>
-                    <input type="text" class="form-control" placeholder="Número do SUS">
-                </div>
-            </div>
-
         </div>
 
-        <div class="mt-4 text-center">
-            <a href="/estudantes" class="btn btn-secondary me-2">Cancelar</a>
-            <button class="btn btn-primary">Cadastrar</button>
-        </div>
     </div>
-</div>
+
+    <div class="mt-4 d-flex justify-content-end gap-2">
+        <a class="btn btn-outline-secondary" href="/estudantes">Cancelar</a>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </div>
+</EditForm>
+
+
+@if (!string.IsNullOrEmpty(erro))
+{
+    <div class="alert alert-danger mt-3">@erro</div>
+}
+
+@code {
+
+    private string? erro;
+    private EstudanteViewModel _novoEstudante = new ();
+
+    protected override void OnInitialized()
+    {
+        _novoEstudante = new EstudanteViewModel
+        {
+            Endereco = new EnderecoViewModel(),
+            Turma = new TurmaViewModel()
+        };
+    }
+  
+ 
+
+    private void Salvar()
+    {
+        try
+        {
+            var est = new Estudante
+            {
+                Nome = _novoEstudante.Nome,
+                DataNasc = _novoEstudante.DataNasc,
+                Idade = _novoEstudante.Idade,
+                Sexo = _novoEstudante.Sexo,      
+                Telefone = _novoEstudante.Telefone,
+                NomeResp1 = _novoEstudante.NomeResp1,
+                NomeResp2 = _novoEstudante.NomeResp2,
+                Situacao = _novoEstudante.Situacao.ToLower(),
+            };
+
+            var end = new Endereco
+                {
+                    Cidade = _novoEstudante.Endereco.Cidade,
+                    Bairro = _novoEstudante.Endereco.Bairro,
+                    Numero = _novoEstudante.Endereco.Numero,
+                    Uf = _novoEstudante.Endereco.Uf,
+                    Rua = _novoEstudante.Endereco.Rua,
+                };
+
+            est.Endereco = end;
+
+            estudanteDAO.Inserir(est);
+
+            //Navigation.NavigateTo("/estudantes");
+        }
+        catch (Exception ex)
+        {
+            erro = $"Erro ao salvar: {ex.Message}";
+        }
+    }
+    private void AtualizarIdade(ChangeEventArgs e)
+    {
+        if (DateTime.TryParse(e.Value?.ToString(), out var dataNasc))
+        {
+            var hoje = DateTime.Today;
+            var idade = hoje.Year - dataNasc.Year;
+
+            if (dataNasc.Date > hoje.AddYears(-idade)) idade--;
+
+            _novoEstudante.Idade = idade;
+        }
+    }
+}

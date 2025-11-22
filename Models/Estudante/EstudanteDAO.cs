@@ -21,40 +21,35 @@ namespace SigaApp.Models.Estudante
             {
                 conn.Open();
 
+                // -----------------------------------------
+                // 1) BUSCAR ESTUDANTE + ENDEREÇO
+                // -----------------------------------------
                 string sql = @"
             SELECT 
-                estudante.id_est,
-                estudante.nome_est,
-                estudante.idade_est,
-                estudante.data_nasc_est,
-                estudante.telefone_est,
-                estudante.nome_mae_est,
-                estudante.nome_pai_ou_resp_est,
-                estudante.situacao_est,
-                estudante.sexo_est,
-                estudante.id_end_fk,
-                estudante.id_tur_fk,
+                est.id_est,
+                est.nome_est,
+                est.idade_est,
+                est.data_nasc_est,
+                est.telefone_est,
+                est.nome_resp_1,
+                est.nome_resp_2,
+                est.situacao_est,
+                est.sexo_est,
+                est.id_tur_fk,
 
-                endereco.id_end,
-                endereco.cidade_end,
-                endereco.uf_end,
-                endereco.rua_end,
-                endereco.numero_end,
-                endereco.bairro_end,
+                ender.id_end,
+                ender.cidade_end,
+                ender.uf_end,
+                ender.rua_end,
+                ender.numero_end,
+                ender.bairro_end
 
-                turma.id_tur,
-                turma.nome_tur,
-                turma.ano_tur,
-                turma.turno_tur,
-                turma.capacidade_maxima_tur
+            FROM estudante est
+            LEFT JOIN endereco ender
+                ON est.id_end_fk = ender.id_end";
 
-                FROM estudante 
-                LEFT JOIN endereco ON (estudante.id_end_fk = endereco.id_end)
-                LEFT JOIN turma ON (estudante.id_tur_fk = turma.id_tur);
-        ";
-
-                using (var comando = new MySqlCommand(sql, conn))
-                using (var leitor = comando.ExecuteReader())
+                using (var cmd = new MySqlCommand(sql, conn))
+                using (var leitor = cmd.ExecuteReader())
                 {
                     while (leitor.Read())
                     {
@@ -65,34 +60,67 @@ namespace SigaApp.Models.Estudante
                             Idade = leitor.GetInt32("idade_est"),
                             DataNasc = leitor.GetDateTime("data_nasc_est"),
                             Telefone = leitor.GetString("telefone_est"),
-                            NomeMae = leitor.GetString("nome_mae_est"),
-                            NomeResp = leitor.GetString("nome_pai_ou_resp_est"),
+                            NomeResp1 = leitor.GetString("nome_resp_1"),
+                            NomeResp2 = leitor.GetString("nome_resp_2"),
                             Situacao = leitor.GetString("situacao_est"),
                             Sexo = leitor.GetString("sexo_est"),
-                            Id_End = leitor.GetInt32("id_end_fk"),
-                            Id_Tur = leitor.GetInt32("id_tur_fk"),
-                            
-                            Endereco = new Endereco
-                            {
-                                Id = leitor.GetInt32("id_end"),
-                                Cidade = leitor.GetString("cidade_end"),
-                                Uf = leitor.GetString("uf_end"),
-                                Rua = leitor.GetString("rua_end"),
-                                Numero = leitor.GetString("numero_end"),
-                                Bairro = leitor.GetString("bairro_end")
-                            },
-                            
-                            Turma = new Turma.Turma
-                            {
-                                Id = leitor.GetInt32("id_tur"),
-                                Nome = leitor.GetString("nome_tur"),
-                                Ano = leitor.GetString("ano_tur"),
-                                Turno = leitor.GetString("turno_tur"),
-                                Capacidade = leitor.GetInt32("capacidade_maxima_tur")
-                            }
+
+                            Id_Tur = leitor.IsDBNull(leitor.GetOrdinal("id_tur_fk"))
+                                        ? 0
+                                        : leitor.GetInt32("id_tur_fk"),
+
+                            // ENDEREÇO
+                            Endereco = new Endereco.Endereco
+                                {
+                                    Id = leitor.GetInt32("id_end"),
+                                    Cidade =  leitor.GetString("cidade_end"),
+                                    Uf = leitor.GetString("uf_end"),
+                                    Rua = leitor.GetString("rua_end"),
+                                    Numero = leitor.GetString("numero_end"),
+                                    Bairro = leitor.GetString("bairro_end")
+                                }
                         };
 
                         lista.Add(estudante);
+                    }
+                }
+
+                // -----------------------------------------
+                // 2) BUSCAR TURMA SEPARADAMENTE
+                // -----------------------------------------
+                foreach (var est in lista)
+                {
+                    if (est.Id_Tur == 0)
+                        continue;
+
+                    string sqlTurma = @"
+                SELECT 
+                    id_tur,
+                    nome_tur,
+                    ano_tur,
+                    turno_tur,
+                    capacidade_maxima_tur
+                FROM turma
+                WHERE id_tur = @id";
+
+                    using (var cmdTur = new MySqlCommand(sqlTurma, conn))
+                    {
+                        cmdTur.Parameters.AddWithValue("@id", est.Id_Tur);
+
+                        using (var leitorTur = cmdTur.ExecuteReader())
+                        {
+                            if (leitorTur.Read())
+                            {
+                                est.Turma = new Turma.Turma
+                                {
+                                    Id = leitorTur.GetInt32("id_tur"),
+                                    Nome = leitorTur.GetString("nome_tur"),
+                                    Ano = leitorTur.GetString("ano_tur"),
+                                    Turno =  leitorTur.GetString("turno_tur"),
+                                    Capacidade = leitorTur.GetInt32("capacidade_maxima_tur")
+                                };
+                            }
+                        }
                     }
                 }
             }
@@ -100,6 +128,8 @@ namespace SigaApp.Models.Estudante
             return lista;
         }
 
+
+         
         public Estudante BuscarPorId(int id)
         {
             try
@@ -115,7 +145,78 @@ namespace SigaApp.Models.Estudante
 
             
         }
+
+        public void Inserir(Estudante novo)
+        {
+            using (var conn = _conexao.GetConnection())
+            {
+                conn.Open();
+
+                using (var trans = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        
+                        string sqlEnd = @"
+                    INSERT INTO endereco(cidade_end, uf_end, rua_end, numero_end, bairro_end)
+                    VALUES (@Cidade, @Uf, @Rua, @Numero, @Bairro);
+                    SELECT LAST_INSERT_ID();
+                ";
+
+                        int idEndereco;
+
+                        using (var cmdEnd = new MySqlCommand(sqlEnd, conn, trans))
+                        {
+                            cmdEnd.Parameters.AddWithValue("@Cidade", novo.Endereco.Cidade);
+                            cmdEnd.Parameters.AddWithValue("@Uf", novo.Endereco.Uf);
+                            cmdEnd.Parameters.AddWithValue("@Rua", novo.Endereco.Rua);
+                            cmdEnd.Parameters.AddWithValue("@Numero", novo.Endereco.Numero);
+                            cmdEnd.Parameters.AddWithValue("@Bairro", novo.Endereco.Bairro);
+
+                            idEndereco = Convert.ToInt32(cmdEnd.ExecuteScalar());
+                        }
+
+                       
+                        string sqlEst = @"
+                    insert into estudante
+                    (nome_est, idade_est, sexo_est, data_nasc_est, telefone_est, 
+                     nome_resp_1, nome_resp_2, situacao_est, id_end_fk, id_tur_fk)
+                    VALUES
+                    (@_nome, @_idade, @_sexo, @_dataNasc, @_telefone,
+                     @_resp, @_mae, @_situacao, @_idEnd, null);
+                ";
+
+                        using (var cmdEst = new MySqlCommand(sqlEst, conn, trans))
+                        {
+                            cmdEst.Parameters.AddWithValue("@_nome", novo.Nome);
+                            cmdEst.Parameters.AddWithValue("@_idade", novo.Idade);
+                            cmdEst.Parameters.AddWithValue("@_sexo", novo.Sexo);
+                            cmdEst.Parameters.AddWithValue("@_dataNasc", novo.DataNasc);
+                            cmdEst.Parameters.AddWithValue("@_telefone", novo.Telefone);
+                            cmdEst.Parameters.AddWithValue("@_resp", novo.NomeResp1);
+                            cmdEst.Parameters.AddWithValue("@_mae", novo.NomeResp2);
+                            cmdEst.Parameters.AddWithValue("@_situacao", novo.Situacao);
+                            cmdEst.Parameters.AddWithValue("@_idEnd", idEndereco);
+
+                            
+
+                            cmdEst.ExecuteNonQuery();
+                        }
+
+                        
+                        trans.Commit();
+                        
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                        trans.Rollback();                        
+                    }
+                }
+            }
+        }
+
     }
 
-  
+
 }

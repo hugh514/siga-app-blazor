@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SigaApp.RegrasDeNegocio;
+using System.ComponentModel.DataAnnotations;
 
 namespace SigaApp.Models.Professor
 {
@@ -9,6 +10,7 @@ namespace SigaApp.Models.Professor
 
         [Required(ErrorMessage = "O CPF é obrigatório.")]
         [StringLength(14)]
+        [CustomValidation(typeof(ValidarCpf), nameof(ValidarCpf.Validar))]
         public string Cpf { get; set; } = "";
 
         [Required(ErrorMessage = "O e-mail é obrigatório.")]
