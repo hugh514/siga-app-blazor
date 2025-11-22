@@ -1,5 +1,6 @@
-using SigaApp.Components;
+﻿using SigaApp.Components;
 using SigaApp.Configs;
+using SigaApp.Models.Endereco;
 using SigaApp.Models.Estudante;
 using SigaApp.Models.Professor;
 using SigaApp.Models.Turma;
@@ -14,6 +15,13 @@ builder.Services.AddSingleton<Conexao>();
 builder.Services.AddScoped<ProfessorDAO>();
 builder.Services.AddScoped<TurmaDAO>();
 builder.Services.AddScoped<EstudanteDAO>();
+builder.Services.AddScoped<EnderecoDAO>();
+
+// ✔ REGISTRA O HTTP CLIENT NECESSÁRIO PARA O SERVIÇO
+builder.Services.AddHttpClient<LocalidadeService>();
+
+// ✔ O SEU SERVIÇO
+builder.Services.AddScoped<LocalidadeService>();
 
 var app = builder.Build();
 

@@ -62,8 +62,8 @@ namespace SigaApp.Models.Estudante
                             Telefone = leitor.GetString("telefone_est"),
                             NomeResp1 = leitor.GetString("nome_resp_1"),
                             NomeResp2 = leitor.GetString("nome_resp_2"),
-                            Situacao = leitor.GetString("situacao_est"),
-                            Sexo = leitor.GetString("sexo_est"),
+                            Situacao = leitor.GetString("situacao_est").ToLower(),
+                            Sexo = leitor.GetString("sexo_est").ToLower(),
 
                             Id_Tur = leitor.IsDBNull(leitor.GetOrdinal("id_tur_fk"))
                                         ? 0
@@ -190,12 +190,12 @@ namespace SigaApp.Models.Estudante
                         {
                             cmdEst.Parameters.AddWithValue("@_nome", novo.Nome);
                             cmdEst.Parameters.AddWithValue("@_idade", novo.Idade);
-                            cmdEst.Parameters.AddWithValue("@_sexo", novo.Sexo);
+                            cmdEst.Parameters.AddWithValue("@_sexo", novo.Sexo.ToLower());
                             cmdEst.Parameters.AddWithValue("@_dataNasc", novo.DataNasc);
                             cmdEst.Parameters.AddWithValue("@_telefone", novo.Telefone);
                             cmdEst.Parameters.AddWithValue("@_resp", novo.NomeResp1);
                             cmdEst.Parameters.AddWithValue("@_mae", novo.NomeResp2);
-                            cmdEst.Parameters.AddWithValue("@_situacao", novo.Situacao);
+                            cmdEst.Parameters.AddWithValue("@_situacao", novo.Situacao.ToLower());
                             cmdEst.Parameters.AddWithValue("@_idEnd", idEndereco);
 
                             
@@ -212,6 +212,25 @@ namespace SigaApp.Models.Estudante
                         Console.WriteLine(ex.ToString());
                         trans.Rollback();                        
                     }
+                }
+
+                
+            }
+            
+        }
+        public void Excluir(int id)
+        {
+
+            using (var conn = _conexao.GetConnection())
+            {
+                conn.Open();
+
+                string sql = "DELETE FROM estudante WHERE id_est = @_id";
+
+                using (var comando = new MySqlCommand(sql, conn))
+                {
+                    comando.Parameters.AddWithValue("@_id", id);
+                    comando.ExecuteNonQuery();
                 }
             }
         }

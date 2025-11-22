@@ -1,0 +1,119 @@
+﻿@page "/estudantes/excluir_estudante/{id:int}"
+@using SigaApp.Models
+@using SigaApp.Models.Estudante
+@using SigaApp.Models.Endereco
+@inject EstudanteDAO estudanteDAO
+@inject EnderecoDAO enderecoDAO
+@inject NavigationManager navManager
+@rendermode InteractiveServer
+
+<PageTitle>Excluir Estudante</PageTitle>
+
+<div class="d-flex justify-content-center align-items-center min-vh-75 py-5 bg-light">
+    <div class="card border-0 shadow-lg p-4 text-center" style="max-width: 480px; width: 100%; border-radius: 1rem;">
+        <div class="mb-3">
+            <div class="rounded-circle bg-danger bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width:70px; height:70px;">
+                <i class="bi bi-exclamation-triangle-fill text-danger fs-2"></i>
+            </div>
+            <h4 class="fw-bold text-danger">Excluir Estudante</h4>
+        </div>
+
+        @if (isLoading)
+        {
+            <div class="text-muted my-4">
+                <div class="spinner-border text-secondary" role="status"></div>
+                <p class="mt-2">Carregando informações...</p>
+            </div>
+        }
+        else if (estudante == null)
+        {
+            <p class="text-danger my-4">Estudante não encontrado.</p>
+            <a class="btn btn-outline-secondary" href="/estudantes">Voltar</a>
+        }
+        else
+        {
+            <p class="mb-4 fs-6">
+                Tem certeza que deseja <strong class="text-danger">excluir</strong> o estudante
+                <strong>@estudante.Nome</strong>?<br />
+                <span class="text-muted small">O endereço vinculado também será excluído. Esta ação não poderá ser desfeita.</span>
+            </p>
+
+            <div class="d-flex justify-content-center gap-3">
+                <button type="button"
+                        class="btn btn-danger px-4"
+                        style="min-width:120px;"
+                        @onclick="ExcluirEstudantes"
+                        disabled="@isDeleting">
+                    @if (isDeleting)
+                    {
+                        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                        <span>Excluindo...</span>
+                    }
+                    else
+                    {
+                        <i class="bi bi-trash me-2"></i>
+                        <span>Excluir</span>
+                    }
+                </button>
+
+                <a class="btn btn-outline-secondary px-4" href="/estudantes">
+                    <i class="bi bi-x-circle me-1"></i>
+                    <span>Cancelar</span>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    private Estudante? estudante;
+    private bool isLoading = true;
+    private bool isDeleting = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            estudante = await Task.Run(() =>
+                estudanteDAO.ListarTodos().FirstOrDefault(e => e.Id == id)
+            );
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao carregar estudante: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task ExcluirEstudantes()
+    {
+        if (estudante == null) return;
+
+        isDeleting = true;
+
+        try
+        {
+            // Exclui o estudante
+            await Task.Run(() => estudanteDAO.Excluir(estudante.Id));
+
+            // Exclui o endereço (se tiver)
+            if (estudante.Id_End > 0)
+            {
+                await Task.Run(() => enderecoDAO.Excluir(estudante.Id_End));
+            }
+
+            navManager.NavigateTo("/estudantes");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao excluir estudante: {ex.Message}");
+            isDeleting = false;
+        }
+    }
+}

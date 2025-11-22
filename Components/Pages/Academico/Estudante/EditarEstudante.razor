@@ -3,6 +3,8 @@
 @inject EstudanteDAO estudanteDAO
 @inject NavigationManager nav
 
+@rendermode InteractiveServer
+
 <PageTitle>Editar Estudante</PageTitle>
 
 @if (_estudanteCarregado == false)
@@ -119,7 +121,7 @@ else
 @code {
     [Parameter] public int id { get; set; }
 
-    private Estudante? _estudanteEdicao;
+    private Estudante _estudanteEdicao = new();
     private bool _estudanteCarregado = false;
     private string? erro;
 
@@ -127,6 +129,8 @@ else
     {
         _estudanteEdicao = estudanteDAO.BuscarPorId(id);
         _estudanteCarregado = _estudanteEdicao != null;
+
+
     }
 
     private void SalvarEdicao()

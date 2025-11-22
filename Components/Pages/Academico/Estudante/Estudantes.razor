@@ -82,7 +82,7 @@
                                 <td>@est.Nome</td>
                                 <td>@(est.Turma?.Nome ?? "Sem turma")</td>
                                 <td>
-                                    @if (est.Situacao == "Cursando")
+                                    @if (est.Situacao == "cursando")
                                     {
                                         <span class="badge bg-success">Cursando</span>
                                     }
@@ -97,7 +97,7 @@
                                         Editar
                                     </a>
 
-                                    <a class="btn btn-outline-danger btn-sm" href="/estudante_excluir/@est.Id">
+                                <a class="btn btn-outline-danger btn-sm" href="/estudantes/excluir_estudante/@est.Id">
                                         Excluir
                                     </a>
                                 </td>

@@ -73,11 +73,7 @@ else
                         <ValidationMessage For="@(() => _professorEdicao.DisciplinaPrincipal)" />
                     </div>
 
-                    <div class="col-12">
-                        <label class="form-label">Turmas vinculadas (ex: 1A, 2B)</label>
-                        <InputText @bind-Value="_professorEdicao.TurmasVinculadas" class="form-control" />
-                        <ValidationMessage For="@(() => _professorEdicao.TurmasVinculadas)" />
-                    </div>
+                    
 
                     <div class="col-12">
                         <label class="form-label">Especialidade</label>
@@ -130,7 +126,6 @@ else
                 Status = professor.Status,
                 DisciplinaPrincipal = professor.Disciplina,
                 Especialidade = professor.Especialidade,
-                TurmasVinculadas = professor.TurmasVinculadas
             };
         }
         catch (Exception ex)
@@ -160,7 +155,6 @@ else
                 Status = _professorEdicao.Status ?? "Ativo",
                 Disciplina = _professorEdicao.DisciplinaPrincipal,
                 Especialidade = _professorEdicao.Especialidade,
-                TurmasVinculadas = _professorEdicao.TurmasVinculadas,
                 DataCadastro = DateTime.Now
             };
 

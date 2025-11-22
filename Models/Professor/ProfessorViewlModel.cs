@@ -26,9 +26,6 @@ namespace SigaApp.Models.Professor
         [Required(ErrorMessage = "A disciplina principal é obrigatória.")]
         public string DisciplinaPrincipal { get; set; } = "";
 
-        [Required(ErrorMessage = "As turmas vinculadas são obrigatórias.")]
-        public string TurmasVinculadas { get; set; } = "";
-
         [Required(ErrorMessage = "A especialidade é obrigatória.")]
         public string Especialidade { get; set; } = "";
     }

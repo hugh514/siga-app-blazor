@@ -1,5 +1,4 @@
 ﻿@page "/estudantes/cadastrar_estudante"
-@rendermode InteractiveServer
 
 @using SigaApp.ViewModels
 @using System.ComponentModel.DataAnnotations
@@ -7,6 +6,9 @@
 @using SigaApp.Models.Endereco
 @inject EstudanteDAO estudanteDAO
 @inject NavigationManager Navigation
+@inject LocalidadeService localidadeService
+
+@rendermode InteractiveServer
 
 <PageTitle>Cadastrar Estudante</PageTitle>
 
@@ -56,19 +58,33 @@
                     <ValidationMessage For="@(() => _novoEstudante.Sexo)" />
                 </div>
 
+                <!-- UF -->
+                <div class="col-md-3">
+                    <label class="form-label">UF</label>
+                    <select class="form-select" @onchange="OnUFChange">
+                        <option value="">Selecione o estado...</option>
+
+                        @foreach (var e in Estados)
+                        {
+                            <option value="@e.sigla">@e.nome (@e.sigla)</option>
+                        }
+                    </select>
+                    <ValidationMessage For="@(() => _novoEstudante.Endereco.Uf)" />
+                </div>
+
                 <!-- Cidade -->
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <label class="form-label">Cidade</label>
-                    <InputText @bind-Value="_novoEstudante.Endereco.Cidade" class="form-control" />
+                    <InputSelect @bind-Value="_novoEstudante.Endereco.Cidade" class="form-control" disabled="@BloquearCidades">
+                        <option value="">Selecione a cidade</option>
+                        @foreach (var cidade in Cidades)
+                        {
+                            <option value="@cidade.nome">@cidade.nome</option>
+                        }
+                    </InputSelect>
                     <ValidationMessage For="@(() => _novoEstudante.Endereco.Cidade)" />
                 </div>
 
-                <!-- UF -->
-                <div class="col-md-2">
-                    <label class="form-label">UF</label>
-                    <InputText @bind-Value="_novoEstudante.Endereco.Uf" class="form-control" />
-                    <ValidationMessage For="@(() => _novoEstudante.Endereco.Uf)" />
-                </div>
 
                 <!-- Rua (FALTAVA) -->
                 <div class="col-md-6">
@@ -142,17 +158,33 @@
 
     private string? erro;
     private EstudanteViewModel _novoEstudante = new ();
+    private List<Estado> Estados = new();
+    private List<Cidade> Cidades = new();
+    private bool BloquearCidades = true;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         _novoEstudante = new EstudanteViewModel
         {
             Endereco = new EnderecoViewModel(),
             Turma = new TurmaViewModel()
         };
+
+        Estados = await localidadeService.GetEstadosAsync();
     }
-  
- 
+
+    private async Task OnUFChange(ChangeEventArgs e)
+    {
+        var uf = e.Value?.ToString() ?? "";
+        _novoEstudante.Endereco.Uf = uf;
+
+        Cidades.Clear();
+        BloquearCidades = true;
+
+        Cidades = await localidadeService.GetCidadesByUFAsync(uf);
+        BloquearCidades = false;
+    }
+
 
     private void Salvar()
     {
@@ -182,8 +214,7 @@
             est.Endereco = end;
 
             estudanteDAO.Inserir(est);
-
-            //Navigation.NavigateTo("/estudantes");
+            Navigation.NavigateTo("/estudantes");
         }
         catch (Exception ex)
         {

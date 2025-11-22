@@ -66,13 +66,7 @@
                     <ValidationMessage For="@(() => _novoProfessor.DisciplinaPrincipal)" />
                 </div>
 
-                <div class="col-12">
-                    <label class="form-label">Turmas vinculadas (ex: 1A, 2B)</label>
-                    <InputText @bind-Value="_novoProfessor.TurmasVinculadas" class="form-control" />
-                    <ValidationMessage For="@(() => _novoProfessor.TurmasVinculadas)" />
-                </div>
-
-                <div class="col-12">
+               <div class="col-12">
                     <label class="form-label">Especialidade</label>
                     <InputTextArea @bind-Value="_novoProfessor.Especialidade" class="form-control" rows="3" />
                     <ValidationMessage For="@(() => _novoProfessor.Especialidade)" />
