@@ -163,6 +163,79 @@ namespace SigaApp.Models.Turma
                 }
             }
         }
+        public List<Turma> Filtrar(string ano, string periodo)
+        {
+            List<Turma> lista = new List<Turma>();
 
+            using (var conn = _conexao.GetConnection())
+            {
+                conn.Open();
+
+                string sql = @"
+            SELECT 
+                id_tur, nome_tur, ano_tur, periodo_letivo_tur, 
+                turno_tur, status_tur, capacidade_maxima_tur
+            FROM turma
+            
+        ";
+                /*
+                 * WHERE 
+                (@_nome = '' OR nome_tur LIKE CONCAT('%', @_nome, '%'))
+                AND (@_status = '' OR status_tur = @_status)
+                AND (@_ano = '' OR ano_tur = @_ano)
+                AND (@_periodo = '' OR periodo_letivo_tur = @_periodo)
+                AND (@_turno = '' OR turno_tur = @_turno);
+                 */
+
+                var wheres = new List<string>();
+
+                if (!string.IsNullOrEmpty(ano))
+                {
+                    wheres.Add("ano_tur = @_ano");
+                }
+
+                if (!string.IsNullOrEmpty(periodo))
+                {
+                    wheres.Add("periodo_letivo_tur = @_periodo");
+                }
+
+                string whereClause = string.Join(" OR ", wheres);
+
+                if (wheres.Count > 0)
+                {
+                    sql += $"WHERE {whereClause}";
+                }
+
+                Console.WriteLine(sql);
+                using (var comando = new MySqlCommand(sql, conn))
+                {
+                    
+                    comando.Parameters.AddWithValue("@_ano", ano);
+                    comando.Parameters.AddWithValue("@_periodo", periodo);
+
+
+                    using (var reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Turma t = new Turma
+                            {
+                                Id = reader.GetInt32("id_tur"),
+                                Nome = reader.GetString("nome_tur"),
+                                Ano = reader.GetString("ano_tur"),
+                                PeriodoLetivo = reader.GetString("periodo_letivo_tur"),
+                                Turno = reader.GetString("turno_tur"),
+                                Status = reader.GetString("status_tur"),
+                                Capacidade = reader.GetInt32("capacidade_maxima_tur")
+                            };
+
+                            lista.Add(t);
+                        }
+                    }
+                }
+            }
+
+            return lista;
+        }
     }
 }
