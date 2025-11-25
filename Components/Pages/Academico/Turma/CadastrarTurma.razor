@@ -1,113 +1,109 @@
 ﻿@page "/turmas/cadastrar_turma"
-
-@using System.ComponentModel.DataAnnotations
-@using SigaApp.Models
-@using SigaApp.Models.Professor
- 
-@inject ProfessorDAO professorDAO
-
 @rendermode InteractiveServer
 
-@code {
-    private List<Professor> Professores = new();
-
-    protected override void OnInitialized()
-    {
-        Professores = professorDAO.ListarTodos();
-    }
-}
+@using SigaApp.ViewModels
+@using SigaApp.Models
+@using SigaApp.Models.Turma
+@inject NavigationManager Navigation
+@inject TurmaDAO turmaDAO
 
 <PageTitle>Cadastrar Turma</PageTitle>
 
+<h2 class="fw-bold mb-4">Cadastro de Turma</h2>
 
-<div class="container py-5">
-    <h3 class="mb-4 fw-semibold text-dark">Cadastrar Nova Turma</h3>
+<EditForm Model="_novaTurma" OnValidSubmit="Salvar">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
-    <div class="card shadow-sm border-0 p-4 rounded-4">
-        <form class="row g-3">
-            <div class="col-md-6">
-                <label class="form-label fw-semibold text-secondary">Nome da Turma</label>
-                <input type="text" class="form-control shadow-sm" placeholder="Ex: Turma A">
-            </div>
+    <div class="row g-3">
 
-            <div class="col-md-3">
-                <label class="form-label fw-semibold text-secondary">Ano/Série</label>
-                <select class="form-select shadow-sm">
-                    <option selected disabled>Selecione...</option>
-                    <option>1º Ano</option>
-                    <option>2º Ano</option>
-                    <option>3º Ano</option>
-                </select>
-            </div>
+        <!-- Nome da Turma -->
+        <div class="col-md-6">
+            <label class="form-label">Nome da Turma</label>
+            <InputText @bind-Value="_novaTurma.Nome" class="form-control" />
+            <ValidationMessage For="@(() => _novaTurma.Nome)" />
+        </div>
 
-            <div class="col-md-3">
-                <label class="form-label fw-semibold text-secondary">Turno</label>
-                <select class="form-select shadow-sm">
-                    <option selected disabled>Selecione...</option>
-                    <option>Matutino</option>
+        <!-- Ano/Série -->
+        <div class="col-md-3">
+            <label class="form-label">Ano/Série</label>
+            <InputSelect @bind-Value="_novaTurma.Ano" class="form-select">
+                <option value="">Selecione...</option>
+                <option value="1° ano">1º Ano</option>
+                <option value="2° ano">2º Ano</option>
+                <option value="3° ano">3º Ano</option>
+                <option value="4° ano">4º Ano</option>
+                <option value="5° ano">5º Ano</option>
+            </InputSelect>
+            <ValidationMessage For="@(() => _novaTurma.Ano)" />
+        </div>
 
-                    <option>Vespertino</option>
-                    <option>Noturno</option>
-                </select>
-            </div>
+        <!-- Turno -->
+        <div class="col-md-3">
+            <label class="form-label">Turno</label>
+            <InputSelect @bind-Value="_novaTurma.Turno" class="form-select">
+                <option value="">Selecione...</option>
+                <option value="matutino">Matutino</option>
+                <option value="vespertino">Vespertino</option>                
+            </InputSelect>
+            <ValidationMessage For="@(() => _novaTurma.Turno)" />
+        </div>
 
-            @* capacidade centralizada *@
-            <div class="col-12">
-                <div class="w-50">
-                    <label class="form-label fw-semibold text-secondary">Capacidade Máxima</label>
-                    <div class="text-center">
-                        <input type="number" class="form-control shadow-sm mx-auto" placeholder="Ex: 40" min="1">
-                    </div>
-                </div>
-               
-            </div>
+        <!-- Período Letivo -->
+        <div class="col-md-3">
+            <label class="form-label">Período Letivo</label>
+            <InputText @bind-Value="_novaTurma.PeriodoLetivo" class="form-control" placeholder="Ex: 2025" />
+        </div>
 
-            @* professores e disciplinas na mesma linha *@
-            <div class="col-md-6">
-                <label class="form-label fw-semibold text-secondary">Professor(es) Responsável(is)</label>
-                <select class="form-select shadow-sm" multiple>
-                    @foreach (var prof in Professores)
-                    {
-                        <option value="@prof.Id">@prof.Nome</option>
-                    }
-                </select>
-                <small class="text-muted">Segure CTRL para selecionar mais de um.</small>
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label fw-semibold text-secondary">Disciplina(s)</label>
-                <select class="form-select shadow-sm" multiple>
-                    <option>Matemática</option>
-                    <option>História</option>
-                    <option>Português</option>
-                    <option>Física</option>
-                    <option>Química</option>
-                </select>
-                <small class="text-muted">Segure CTRL para selecionar múltiplas disciplinas.</small>
-            </div>
-
-            <div class="col-12 text-center mt-4">
-                <a href="turmas" class="btn btn-secondary px-4 me-2">Cancelar</a>
-                <a href="turmas" class="btn btn-primary px-4">Salvar Turma</a>
-            </div>
-        </form>
+        <!-- Capacidade Máxima -->
+        <div class="col-md-3">
+            <label class="form-label">Capacidade Máxima</label>
+            <InputNumber @bind-Value="_novaTurma.Capacidade" class="form-control" min="1" />
+            <ValidationMessage For="@(() => _novaTurma.Capacidade)" />
+        </div>
     </div>
-</div>
 
-<style>
-    h3 {
-        text-align: left;
-        border-left: 5px solid #fafafa;
-        padding-left: 10px;
+    <div class="mt-4 d-flex justify-content-end gap-2">
+        <a href="/turmas" class="btn btn-outline-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+</EditForm>
+
+@if (!string.IsNullOrEmpty(erro))
+{
+    <div class="alert alert-danger mt-3">@erro</div>
+}
+
+@code {
+    private string? erro;
+    private TurmaViewModel _novaTurma = new();
+
+    protected override void OnInitialized()
+    {
+        _novaTurma.PeriodoLetivo = DateTime.Now.Year.ToString();
     }
 
-    .card {
-        background-color: #fafafa;
-        transition: all 0.2s ease-in-out;
+    private void Salvar()
+    {
+        try
+        {
+            var turma = new Turma
+            {
+                Nome = _novaTurma.Nome,
+                Ano = _novaTurma.Ano,
+                PeriodoLetivo = _novaTurma.PeriodoLetivo,
+                Turno = _novaTurma.Turno,
+                Capacidade = _novaTurma.Capacidade,
+                Status = "ativo"
+            };
+
+            turmaDAO.Inserir(turma);
+
+            Navigation.NavigateTo("/turmas");
+        }
+        catch (Exception ex)
+        {
+            erro = "Erro ao salvar: " + ex.Message;
+        }
     }
- 
-    select:focus, input:focus {
-        border-color: #198754;
-        box-shadow: 0 0 0 0.15rem rgba(25, 135, 84, 0.25);
-    }
-</style>
+}

@@ -18,8 +18,16 @@ namespace SigaApp.ViewModels
         [StringLength(50)]
         public string Turno { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Capacidade é obrigatório.")]
         [Range(1, 40, ErrorMessage = "A capacidade deve ser entre 1 e 40 alunos.")]
-        public int CapacidadeMaxima { get; set; }
+        public int Capacidade{ get; set; }
+
+        [Required(ErrorMessage = "Periodo letivo é obrigatorio.")]
+        [StringLength(50)]
+        public string PeriodoLetivo { get; set; }
+
+        [Required(ErrorMessage = "O status é obrigatorio.")]
+        public string Status { get; set; } = "ativo";
+       
     }
 }

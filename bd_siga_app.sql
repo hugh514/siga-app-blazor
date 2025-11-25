@@ -21,7 +21,7 @@ create table turma (
     ano_tur varchar(100),    
     periodo_letivo_tur varchar(5),
     turno_tur varchar(50),
-    status_tur varchar(10) default 'ativo'
+    status_tur varchar(10) default 'ativo',
     capacidade_maxima_tur int
 );
 

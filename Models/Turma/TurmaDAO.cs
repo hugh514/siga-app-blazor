@@ -46,5 +46,32 @@ namespace SigaApp.Models.Turma
 
             return lista;
         }
+        public void Inserir(Turma turma)
+        {
+            using (var conn = _conexao.GetConnection())
+            {
+                conn.Open();
+
+                string sql = @"
+                    INSERT INTO turma 
+                    (nome_tur, ano_tur, periodo_letivo_tur, turno_tur, 
+                    status_tur, capacidade_maxima_tur)
+                    VALUES 
+                    (@_nome, @_ano, @_periodoLetivo, @_turno, @_status, @_capacidade);
+                ";
+
+                using (var comando = new MySqlCommand(sql, conn))
+                {
+                    comando.Parameters.AddWithValue("@_nome", turma.Nome);
+                    comando.Parameters.AddWithValue("@_ano", turma.Ano);
+                    comando.Parameters.AddWithValue("@_periodoLetivo", turma.PeriodoLetivo ?? "");
+                    comando.Parameters.AddWithValue("@_turno", turma.Turno);
+                    comando.Parameters.AddWithValue("@_status", turma.Status ?? "ativo");
+                    comando.Parameters.AddWithValue("@_capacidade", turma.Capacidade);
+
+                    comando.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
