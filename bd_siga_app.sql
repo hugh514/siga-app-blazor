@@ -96,5 +96,7 @@ values ('carlos pereira', 15, 'masculino', '2010-05-20', '(69) 97777-3333', 'jos
 insert into estudante (nome_est, idade_est, sexo_est, data_nasc_est, telefone_est, nome_resp_1, nome_resp_2, id_end_fk, id_tur_fk)
 values ('fernanda lima', 16, 'feminino', '2009-08-14', '(69) 96666-4444', 'roberto lima', 'cláudia lima', 2, 2);
 
-select * from estudante;
+
 */
+
+select * from estudante;
