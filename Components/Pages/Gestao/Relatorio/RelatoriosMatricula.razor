@@ -1,91 +1,55 @@
 ﻿@page "/relatorios/relatorio"
-<PageTitle>Estudantes</PageTitle>
+<PageTitle>Relatório de Matrículas</PageTitle>
 
 
-<div class="container py-5">
-    <h3 class="mb-4 fw-normal text-dark">Transferência de Aluno</h3>
+<h3>Gerar Relatório de Matrícula</h3>
 
-    <div class="card shadow-sm border-0 p-4">
-        <form>
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Nome do Aluno</label>
-                    <input type="text" class="form-control" placeholder="Digite o nome completo" />
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label fw-semibold">Data de Nascimento</label>
-                    <input type="date" class="form-control" />
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label fw-semibold">Cidade / UF</label>
-                    <input type="text" class="form-control" placeholder="Ex: Ji-Paraná / RO" />
-                </div>
+<div class="card p-4 shadow-sm">
 
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Nome do Pai</label>
-                    <input type="text" class="form-control" placeholder="Digite o nome do pai" />
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Nome da Mãe</label>
-                    <input type="text" class="form-control" placeholder="Digite o nome da mãe" />
-                </div>
+    <label class="form-label fw-bold">Selecione o aluno:</label>
 
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Escola de Origem</label>
-                    <input type="text" class="form-control" placeholder="Digite o nome da escola de origem" />
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Escola de Destino</label>
-                    <input type="text" class="form-control" placeholder="Digite o nome da escola de destino" />
-                </div>
+    <select class="form-select" @bind="AlunoSelecionadoId">
+        <option value="">-- Escolha um aluno --</option>
 
-                <div class="col-md-4">
-                    <label class="form-label fw-semibold">Data da Transferência</label>
-                    <input type="date" class="form-control" />
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label fw-semibold">Situação</label>
-                    <select class="form-select">
-                        <option selected disabled>Selecione</option>
-                        <option>Aprovado</option>
-                        <option>Reprovado</option>
-                        <option>Transferido</option>
-                    </select>
-                </div>
+        @foreach (var aluno in ListaAlunos)
+        {
+            <option value="@aluno.Id">@aluno.Nome</option>
+        }
+    </select>
 
-                <div class="col-md-12">
-                    <label class="form-label fw-semibold">Observações</label>
-                    <textarea class="form-control" rows="3" placeholder="Digite alguma observação"></textarea>
-                </div>
-            </div>
+    <button class="btn btn-primary mt-3" @onclick="GerarRelatorio"
+            disabled="@string.IsNullOrEmpty(AlunoSelecionadoId)">
+        Gerar Documento de Matrícula
+    </button>
 
-            <div class="d-flex justify-content-end mt-4 gap-2">
-                <button type="button" class="btn btn-secondary px-4" @onclick="VoltarPainel">
-                    <i class="bi bi-arrow-left-circle me-1"></i> Voltar
-                </button>
-                <button type="submit" class="btn btn-primary px-4" @onclick="SalvarTransferencia">
-                    <i class="bi bi-save2 me-1"></i> Salvar
-                </button>
-            </div>
-        </form>
-    </div>
 </div>
 
 @code {
-    private void VoltarPainel()
-    {
-        NavigationManager.NavigateTo("/painel");
-    }
+    private string? AlunoSelecionadoId;
 
-    private void SalvarTransferencia()
+    private List<Aluno> ListaAlunos = new()
     {
-        // Aqui tu pode colocar a lógica pra salvar no banco
-        // Exemplo: chamar um serviço de API ou método local
-        Console.WriteLine("Transferência salva com sucesso!");
+        new Aluno { Id = "1", Nome = "Ana Júlia Ferreira", NumeroMatricula = "2025-001", DataMatricula = new DateTime(2025,02,10), Situacao="Ativa" },
+        new Aluno { Id = "2", Nome = "Lucas Barbosa da Silva", NumeroMatricula = "2025-002", DataMatricula = new DateTime(2025,02,10), Situacao="Ativa" },
+        new Aluno { Id = "3", Nome = "Maria Eduarda Santos", NumeroMatricula = "2025-003", DataMatricula = new DateTime(2025,02,11), Situacao="Ativa" }
+    };
+
+    private void GerarRelatorio()
+    {
+        NavigationManager.NavigateTo($"/relatorios/matriculas/{AlunoSelecionadoId}");
     }
 
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
+
+    public class Aluno
+    {
+        public string Id { get; set; }
+        public string Nome { get; set; }
+        public string NumeroMatricula { get; set; }
+        public DateTime DataMatricula { get; set; }
+        public string Situacao { get; set; }
+    }
 }
 
 
