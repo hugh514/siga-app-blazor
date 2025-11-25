@@ -33,15 +33,6 @@ create table professor_turma(
     foreign key (id_tur_fk) references turma(id_tur)
 );
 
-create table endereco(
-	id_end int auto_increment primary key,
-	cidade_end varchar(200),
-	#uf = estado abreviado
-    uf_end varchar(2),
-    rua_end varchar(200),
-    numero_end varchar(20),
-    bairro_end varchar(50)
-);
 
 create table estudante(
 	id_est int auto_increment primary key,
@@ -50,13 +41,17 @@ create table estudante(
     sexo_est varchar(20),
     data_nasc_est date,    
     telefone_est varchar(50),
-    nome_resp_1 varchar(300) not null,
-    nome_resp_2 varchar(300),
+    nome_resp_1_est varchar(300) not null,
+    nome_resp_2_est varchar(300),
     situacao_est varchar(50) default 'cursando',
-    id_end_fk int,
+	cidade_est varchar(200),
+	#uf = estado abreviado
+    uf_est varchar(2),
+    rua_est varchar(200),
+    numero_est varchar(20),
+    bairro_est varchar(50),
     id_tur_fk int,
-    foreign key (id_end_fk) references endereco(id_end),
-    foreign key (id_tur_fk) references turma(id_tur)
+	foreign key (id_tur_fk) references turma(id_tur)
 );
 
 /*
@@ -81,13 +76,6 @@ values (1, 1);
 
 insert into professor_turma (id_pro_fk, id_tur_fk)
 values (2, 2);
-
--- endereco
-insert into endereco (cidade_end, uf_end, rua_end, numero_end, bairro_end)
-values ('ouro preto do oeste', 'ro', 'rua das flores', '123', 'centro');
-
-insert into endereco (cidade_end, uf_end, rua_end, numero_end, bairro_end)
-values ('ji-paraná', 'ro', 'av. brasil', '456', 'nova brasília');
 
 -- estudante
 insert into estudante (nome_est, idade_est, sexo_est, data_nasc_est, telefone_est, nome_resp_1, nome_resp_2, id_end_fk, id_tur_fk)

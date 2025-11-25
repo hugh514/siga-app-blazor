@@ -34,16 +34,24 @@ namespace SigaApp.Models.Estudante
         [Required(ErrorMessage = "A situação do estudante é obrigatória.")]
         public string Situacao { get; set; } = "Cursando";
 
-        // -----------------------------
-        // Relações com outras tabelas
-        // -----------------------------
+        [Required(ErrorMessage = "Selecione uma cidade.")]
+        public string Cidade { get; set; } = "";
 
-        [Required]
-        public EnderecoViewModel Endereco { get; set; }
+        [Required(ErrorMessage = "Selecione um estado.")]
+        [StringLength(2)]
+        public string Uf { get; set; } = "";
 
-        [Required]
-        public TurmaViewModel Turma { get; set; }
-    
+        [Required(ErrorMessage = "O campo rua é obrigatório.")]
+        [StringLength(200)]
+        public string Rua { get; set; } = "";
+
+        [Required(ErrorMessage = "O campo número é obrigatório.")]
+        [StringLength(20)]
+        public string Numero { get; set; } = "";
+
+        [Required(ErrorMessage = "O campo bairro é obrigatório.")]
+        [StringLength(50)]
+        public string Bairro { get; set; } = "";
     }
 }
 

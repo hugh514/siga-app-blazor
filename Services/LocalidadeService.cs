@@ -13,14 +13,14 @@ public class LocalidadeService
     {
         return await _http.GetFromJsonAsync<List<Estado>>(
             "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
-        );
+        ) ?? new List<Estado>() ;
     }
 
     public async Task<List<Cidade>> GetCidadesByUFAsync(string uf)
     {
         return await _http.GetFromJsonAsync<List<Cidade>>(
             $"https://servicodados.ibge.gov.br/api/v1/localidades/estados/{uf}/municipios"
-        );
+        ) ?? new List<Cidade>();
     }
 }
 

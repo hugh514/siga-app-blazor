@@ -10,11 +10,14 @@
         public string Telefone { get; set; }
         public string NomeResp1 { get; set; }
         public string NomeResp2 { get; set; }
-        public string Situacao { get; set; } = "Cursando";
-        public int Id_End { get; set; }
-        public int Id_Tur { get; set; }
+        public string Situacao { get; set; } = "cursando"; 
+        public string Cidade { get; set; }
+        public string Uf { get; set; }
+        public string Rua { get; set; }
+        public string Numero { get; set; }
+        public string Bairro { get; set; }
 
-        public Endereco.Endereco Endereco { get; set; }
+        public int Id_Tur { get; set; }
         public Turma.Turma Turma { get; set; }
 
     }

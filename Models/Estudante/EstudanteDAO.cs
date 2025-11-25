@@ -25,28 +25,8 @@ namespace SigaApp.Models.Estudante
                 // 1) BUSCAR ESTUDANTE + ENDEREÇO
                 // -----------------------------------------
                 string sql = @"
-            SELECT 
-                est.id_est,
-                est.nome_est,
-                est.idade_est,
-                est.data_nasc_est,
-                est.telefone_est,
-                est.nome_resp_1,
-                est.nome_resp_2,
-                est.situacao_est,
-                est.sexo_est,
-                est.id_tur_fk,
+            SELECT * FROM estudante";
 
-                ender.id_end,
-                ender.cidade_end,
-                ender.uf_end,
-                ender.rua_end,
-                ender.numero_end,
-                ender.bairro_end
-
-            FROM estudante est
-            LEFT JOIN endereco ender
-                ON est.id_end_fk = ender.id_end";
 
                 using (var cmd = new MySqlCommand(sql, conn))
                 using (var leitor = cmd.ExecuteReader())
@@ -60,31 +40,26 @@ namespace SigaApp.Models.Estudante
                             Idade = leitor.GetInt32("idade_est"),
                             DataNasc = leitor.GetDateTime("data_nasc_est"),
                             Telefone = leitor.GetString("telefone_est"),
-                            NomeResp1 = leitor.GetString("nome_resp_1"),
-                            NomeResp2 = leitor.GetString("nome_resp_2"),
+                            NomeResp1 = leitor.GetString("nome_resp_1_est"),
+                            NomeResp2 = leitor.GetString("nome_resp_2_est"),
                             Situacao = leitor.GetString("situacao_est").ToLower(),
                             Sexo = leitor.GetString("sexo_est").ToLower(),
+                            Cidade = leitor.GetString("cidade_est"),
+                            Bairro = leitor.GetString("bairro_est"),
+                            Numero = leitor.GetString("numero_est"),
+                            Rua = leitor.GetString("rua_est"),
+                            Uf = leitor.GetString("uf_est"),
 
                             Id_Tur = leitor.IsDBNull(leitor.GetOrdinal("id_tur_fk"))
                                         ? 0
                                         : leitor.GetInt32("id_tur_fk"),
 
-                            // ENDEREÇO
-                            Endereco = new Endereco.Endereco
-                                {
-                                    Id = leitor.GetInt32("id_end"),
-                                    Cidade =  leitor.GetString("cidade_end"),
-                                    Uf = leitor.GetString("uf_end"),
-                                    Rua = leitor.GetString("rua_end"),
-                                    Numero = leitor.GetString("numero_end"),
-                                    Bairro = leitor.GetString("bairro_end")
-                                }
+
                         };
 
                         lista.Add(estudante);
                     }
-                }
-
+                };
                 // -----------------------------------------
                 // 2) BUSCAR TURMA SEPARADAMENTE
                 // -----------------------------------------
@@ -148,74 +123,51 @@ namespace SigaApp.Models.Estudante
 
         public void Inserir(Estudante novo)
         {
-            using (var conn = _conexao.GetConnection())
+            try
             {
-                conn.Open();
-
-                using (var trans = conn.BeginTransaction())
+                using (var conn = _conexao.GetConnection())
                 {
-                    try
+                    conn.Open();
+
+                    string sql = @"
+                        INSERT INTO estudante
+                        (nome_est, idade_est, sexo_est, data_nasc_est, telefone_est, 
+                        nome_resp_1_est, nome_resp_2_est, situacao_est, 
+                        cidade_est, uf_est, rua_est, numero_est, bairro_est, id_tur_fk)
+                        VALUES
+                        (@_nome, @_idade, @_sexo, @_dataNasc, @_telefone,
+                        @_resp1, @_resp2, @_situacao,
+                        @_cidade, @_uf, @_rua, @_numero, @_bairro, null);
+";
+
+                    using (var comando = new MySqlCommand(sql, conn))
                     {
-                        
-                        string sqlEnd = @"
-                    INSERT INTO endereco(cidade_end, uf_end, rua_end, numero_end, bairro_end)
-                    VALUES (@Cidade, @Uf, @Rua, @Numero, @Bairro);
-                    SELECT LAST_INSERT_ID();
-                ";
+                        comando.Parameters.AddWithValue("@_nome", novo.Nome);
+                        comando.Parameters.AddWithValue("@_idade", novo.Idade);
+                        comando.Parameters.AddWithValue("@_sexo", novo.Sexo.ToLower());
+                        comando.Parameters.AddWithValue("@_dataNasc", novo.DataNasc);
+                        comando.Parameters.AddWithValue("@_telefone", novo.Telefone);
+                        comando.Parameters.AddWithValue("@_resp1", novo.NomeResp1);
+                        comando.Parameters.AddWithValue("@_resp2", novo.NomeResp2);
+                        comando.Parameters.AddWithValue("@_situacao", novo.Situacao.ToLower());
 
-                        int idEndereco;
+                    
+                        comando.Parameters.AddWithValue("@_cidade", novo.Cidade);
+                        comando.Parameters.AddWithValue("@_uf", novo.Uf);
+                        comando.Parameters.AddWithValue("@_rua", novo.Rua);
+                        comando.Parameters.AddWithValue("@_numero", novo.Numero);
+                        comando.Parameters.AddWithValue("@_bairro", novo.Bairro);
 
-                        using (var cmdEnd = new MySqlCommand(sqlEnd, conn, trans))
-                        {
-                            cmdEnd.Parameters.AddWithValue("@Cidade", novo.Endereco.Cidade);
-                            cmdEnd.Parameters.AddWithValue("@Uf", novo.Endereco.Uf);
-                            cmdEnd.Parameters.AddWithValue("@Rua", novo.Endereco.Rua);
-                            cmdEnd.Parameters.AddWithValue("@Numero", novo.Endereco.Numero);
-                            cmdEnd.Parameters.AddWithValue("@Bairro", novo.Endereco.Bairro);
-
-                            idEndereco = Convert.ToInt32(cmdEnd.ExecuteScalar());
-                        }
-
-                       
-                        string sqlEst = @"
-                    insert into estudante
-                    (nome_est, idade_est, sexo_est, data_nasc_est, telefone_est, 
-                     nome_resp_1, nome_resp_2, situacao_est, id_end_fk, id_tur_fk)
-                    VALUES
-                    (@_nome, @_idade, @_sexo, @_dataNasc, @_telefone,
-                     @_resp, @_mae, @_situacao, @_idEnd, null);
-                ";
-
-                        using (var cmdEst = new MySqlCommand(sqlEst, conn, trans))
-                        {
-                            cmdEst.Parameters.AddWithValue("@_nome", novo.Nome);
-                            cmdEst.Parameters.AddWithValue("@_idade", novo.Idade);
-                            cmdEst.Parameters.AddWithValue("@_sexo", novo.Sexo.ToLower());
-                            cmdEst.Parameters.AddWithValue("@_dataNasc", novo.DataNasc);
-                            cmdEst.Parameters.AddWithValue("@_telefone", novo.Telefone);
-                            cmdEst.Parameters.AddWithValue("@_resp", novo.NomeResp1);
-                            cmdEst.Parameters.AddWithValue("@_mae", novo.NomeResp2);
-                            cmdEst.Parameters.AddWithValue("@_situacao", novo.Situacao.ToLower());
-                            cmdEst.Parameters.AddWithValue("@_idEnd", idEndereco);
-
-                            
-
-                            cmdEst.ExecuteNonQuery();
-                        }
-
-                        
-                        trans.Commit();
-                        
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
-                        trans.Rollback();                        
+                        comando.ExecuteNonQuery();
                     }
                 }
-
-                
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return;
+            }
+         
             
         }
         public void Excluir(int id)
@@ -234,6 +186,58 @@ namespace SigaApp.Models.Estudante
                 }
             }
         }
+
+        public void Atualizar(Estudante estudante)
+        {
+
+            using (var conn = _conexao.GetConnection())
+            {
+                conn.Open();
+                string sql = @"
+                UPDATE estudante
+                SET nome_est = @_nome,
+                idade_est = @_idade,
+                sexo_est = @_sexo,
+                data_nasc_est = @_dataNasc,
+                telefone_est = @_telefone,
+                nome_resp_1_est = @_resp,
+                nome_resp_2_est = @_mae,
+                situacao_est = @_situacao,
+                cidade_est = @_cidade,
+                uf_est = @_uf,
+                rua_est = @_rua,
+                numero_est = @_numero,
+                bairro_est = @_bairro
+                WHERE id_est = @_id;
+                ";
+
+                using (var comando = new MySqlCommand(sql, conn))
+                {
+                    comando.Parameters.AddWithValue("@_nome", estudante.Nome);
+                    comando.Parameters.AddWithValue("@_idade", estudante.Idade);
+                    comando.Parameters.AddWithValue("@_sexo", estudante.Sexo.ToLower());
+                    comando.Parameters.AddWithValue("@_dataNasc", estudante.DataNasc);
+                    comando.Parameters.AddWithValue("@_telefone", estudante.Telefone);
+                    comando.Parameters.AddWithValue("@_resp", estudante.NomeResp1);
+                    comando.Parameters.AddWithValue("@_mae", estudante.NomeResp2);
+                    comando.Parameters.AddWithValue("@_situacao", estudante.Situacao.ToLower());
+
+                    // novos campos
+                    comando.Parameters.AddWithValue("@_cidade", estudante.Cidade);
+                    comando.Parameters.AddWithValue("@_uf", estudante.Uf);
+                    comando.Parameters.AddWithValue("@_rua", estudante.Rua);
+                    comando.Parameters.AddWithValue("@_numero", estudante.Numero);
+                    comando.Parameters.AddWithValue("@_bairro", estudante.Bairro);
+
+                    // chave primária
+                    comando.Parameters.AddWithValue("@_id", estudante.Id);
+
+                    comando.ExecuteNonQuery();
+                }
+
+            }
+        }
+        
 
     }
 

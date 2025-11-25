@@ -1,16 +1,16 @@
 ﻿@page "/estudantes/editar_estudante/{id:int}"
 @using SigaApp.Models.Estudante
 @inject EstudanteDAO estudanteDAO
-@inject NavigationManager nav
+@inject NavigationManager Navigation
+@inject LocalidadeService localidadeService
 
 @rendermode InteractiveServer
 
 <PageTitle>Editar Estudante</PageTitle>
 
-@if (_estudanteCarregado == false)
+@if (!_estudanteCarregado)
 {
     <p>Carregando...</p>
-    @code { } <!-- Evita erro visual -->
 }
 else
 {
@@ -21,82 +21,127 @@ else
         <ValidationSummary />
 
         <div class="row g-3">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="row g-2">
-                    <div class="col-md-6">
-                        <label class="form-label">Nome do Aluno</label>
+
+                    <!-- Nome -->
+                    <div class="col-md-8">
+                        <label class="form-label">Nome do Estudante</label>
                         <InputText @bind-Value="_estudanteEdicao.Nome" class="form-control" />
                         <ValidationMessage For="@(() => _estudanteEdicao.Nome)" />
                     </div>
 
-                    <div class="col-md-3">
+                    <!-- Data de nascimento -->
+                    <div class="col-md-4">
                         <label class="form-label">Data de Nascimento</label>
-                        <InputDate @bind-Value="_estudanteEdicao.DataNasc" class="form-control" />
+                        <InputDate @bind-Value="_estudanteEdicao.DataNasc"
+                                   class="form-control"
+                                   @oninput="AtualizarIdade" />
                         <ValidationMessage For="@(() => _estudanteEdicao.DataNasc)" />
                     </div>
 
-                    <div class="col-md-3">
+                    <!-- Idade -->
+                    <div class="col-md-2">
                         <label class="form-label">Idade</label>
-                        <InputNumber @bind-Value="_estudanteEdicao.Idade" class="form-control" />
+                        <InputNumber @bind-Value="_estudanteEdicao.Idade" class="form-control" Disabled="true" />
                         <ValidationMessage For="@(() => _estudanteEdicao.Idade)" />
                     </div>
 
+                    <!-- Sexo -->
                     <div class="col-md-4">
-                        <label class="form-label">Cidade</label>
-                        <InputText @bind-Value="_estudanteEdicao.Endereco.Cidade" class="form-control" />
-                        <ValidationMessage For="@(() => _estudanteEdicao.Endereco.Cidade)" />
-                    </div>
-
-                    <div class="col-md-2">
-                        <label class="form-label">UF</label>
-                        <InputText @bind-Value="_estudanteEdicao.Endereco.Uf" class="form-control" maxlength="2" />
-                        <ValidationMessage For="@(() => _estudanteEdicao.Endereco.Uf)" />
-                    </div>
-
-                    <div class="col-md-3">
                         <label class="form-label">Sexo</label>
                         <InputSelect @bind-Value="_estudanteEdicao.Sexo" class="form-select">
                             <option value="">Selecione...</option>
                             <option value="masculino">Masculino</option>
-                            <option  value="feminino">Feminino</option>
+                            <option value="feminino">Feminino</option>
                         </InputSelect>
                         <ValidationMessage For="@(() => _estudanteEdicao.Sexo)" />
                     </div>
 
+                    <!-- UF -->
                     <div class="col-md-3">
+                        <label class="form-label">UF</label>
+
+                        <select class="form-select"
+                                value="@_estudanteEdicao.Uf"
+                                @onchange="OnUFChange">
+
+                            <option value="">Selecione o estado...</option>
+
+                            @foreach (var e in Estados)
+                            {
+                                <option value="@e.sigla">@e.nome (@e.sigla)</option>
+                            }
+                        </select>
+
+                        <ValidationMessage For="@(() => _estudanteEdicao.Uf)" />
+                    </div>
+
+                    <!-- Cidade -->
+                    <div class="col-md-5">
+                        <label class="form-label">Cidade</label>
+
+                        <InputSelect @bind-Value="_estudanteEdicao.Cidade"
+                                     class="form-control"
+                                     disabled="@BloquearCidades">
+
+                            <option value="">Selecione a cidade</option>
+
+                            @foreach (var cidade in Cidades)
+                            {
+                                <option value="@cidade.nome">@cidade.nome</option>
+                            }
+                        </InputSelect>
+
+                        <ValidationMessage For="@(() => _estudanteEdicao.Cidade)" />
+                    </div>
+
+                    <!-- Rua -->
+                    <div class="col-md-6">
+                        <label class="form-label">Rua</label>
+                        <InputText @bind-Value="_estudanteEdicao.Rua" class="form-control" />
+                        <ValidationMessage For="@(() => _estudanteEdicao.Rua)" />
+                    </div>
+
+                    <!-- Número -->
+                    <div class="col-md-2">
+                        <label class="form-label">Número</label>
+                        <InputText @bind-Value="_estudanteEdicao.Numero" class="form-control" />
+                        <ValidationMessage For="@(() => _estudanteEdicao.Numero)" />
+                    </div>
+
+                    <!-- Bairro -->
+                    <div class="col-md-6">
+                        <label class="form-label">Bairro</label>
+                        <InputText @bind-Value="_estudanteEdicao.Bairro" class="form-control" />
+                        <ValidationMessage For="@(() => _estudanteEdicao.Bairro)" />
+                    </div>
+
+                    <!-- Telefone -->
+                    <div class="col-md-4">
                         <label class="form-label">Telefone</label>
                         <InputText @bind-Value="_estudanteEdicao.Telefone" class="form-control" />
                         <ValidationMessage For="@(() => _estudanteEdicao.Telefone)" />
                     </div>
 
+                    <!-- Responsável 1 -->
                     <div class="col-md-6">
-                        <label class="form-label">Nome do Responsavel 1</label>
+                        <label class="form-label">Nome do Responsável</label>
                         <InputText @bind-Value="_estudanteEdicao.NomeResp1" class="form-control" />
                         <ValidationMessage For="@(() => _estudanteEdicao.NomeResp1)" />
                     </div>
 
+                    <!-- Responsável 2 -->
                     <div class="col-md-6">
-                        <label class="form-label">Nome do Responsavel 2</label>
+                        <label class="form-label">Adicionar outro Responsável</label>
                         <InputText @bind-Value="_estudanteEdicao.NomeResp2" class="form-control" />
                         <ValidationMessage For="@(() => _estudanteEdicao.NomeResp2)" />
                     </div>
 
-                    <div class="col-md-6">
-                        <label class="form-label">Rua</label>
-                        <InputText @bind-Value="_estudanteEdicao.Endereco.Rua" class="form-control" />
-                        <ValidationMessage For="@(() => _estudanteEdicao.Endereco.Rua)" />
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">Bairro</label>
-                        <InputText @bind-Value="_estudanteEdicao.Endereco.Bairro" class="form-control" />
-                        <ValidationMessage For="@(() => _estudanteEdicao.Endereco.Bairro)" />
-                    </div>
-
-                    <div class="col-md-3">
+                    <!-- Situação -->
+                    <div class="col-md-4">
                         <label class="form-label">Situação</label>
                         <InputSelect @bind-Value="_estudanteEdicao.Situacao" class="form-select">
-                            <option value="">Selecione...</option>
                             <option value="cursando">Cursando</option>
                             <option value="transferido">Transferido</option>
                         </InputSelect>
@@ -117,32 +162,72 @@ else
         <div class="alert alert-danger mt-3">@erro</div>
     }
 }
-
 @code {
     [Parameter] public int id { get; set; }
 
     private Estudante _estudanteEdicao = new();
     private bool _estudanteCarregado = false;
     private string? erro;
+    private List<Estado> Estados = new();
+    private List<Cidade> Cidades = new();
+    private bool BloquearCidades = false;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
+        // Carrega estudante existente
         _estudanteEdicao = estudanteDAO.BuscarPorId(id);
         _estudanteCarregado = _estudanteEdicao != null;
 
+        // Carrega lista de estados
+        Estados = await localidadeService.GetEstadosAsync();
 
+        // Se o estudante já tem UF salva, carregar as cidades automaticamente
+        if (!string.IsNullOrWhiteSpace(_estudanteEdicao!.Uf))
+        {
+            BloquearCidades = true;
+            Cidades = await localidadeService.GetCidadesByUFAsync(_estudanteEdicao.Uf);
+            BloquearCidades = false;
+        }
+    }
+
+    private async Task OnUFChange(ChangeEventArgs e)
+    {
+        var uf = e.Value?.ToString() ?? "";
+
+        _estudanteEdicao.Uf = uf;
+        _estudanteEdicao.Cidade = ""; // limpa cidade
+
+        BloquearCidades = true;
+        Cidades.Clear();
+
+        if (!string.IsNullOrWhiteSpace(uf))
+            Cidades = await localidadeService.GetCidadesByUFAsync(uf);
+
+        BloquearCidades = false;
     }
 
     private void SalvarEdicao()
     {
         try
         {
-            // estudanteDAO.Atualizar(_estudanteEdicao);
-            nav.NavigateTo("/estudantes");
+            estudanteDAO.Atualizar(_estudanteEdicao);
+            Navigation.NavigateTo("/estudantes");
         }
         catch (Exception ex)
         {
             erro = $"Erro ao salvar alterações: {ex.Message}";
+        }
+    }
+
+    private void AtualizarIdade(ChangeEventArgs e)
+    {
+        if (DateTime.TryParse(e.Value?.ToString(), out var dataNasc))
+        {
+            var hoje = DateTime.Today;
+            var idade = hoje.Year - dataNasc.Year;
+            if (dataNasc.Date > hoje.AddYears(-idade)) idade--;
+
+            _estudanteEdicao.Idade = idade;
         }
     }
 }

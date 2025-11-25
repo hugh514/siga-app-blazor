@@ -3,7 +3,6 @@
 @using SigaApp.ViewModels
 @using System.ComponentModel.DataAnnotations
 @using SigaApp.Models.Estudante
-@using SigaApp.Models.Endereco
 @inject EstudanteDAO estudanteDAO
 @inject NavigationManager Navigation
 @inject LocalidadeService localidadeService
@@ -69,42 +68,42 @@
                             <option value="@e.sigla">@e.nome (@e.sigla)</option>
                         }
                     </select>
-                    <ValidationMessage For="@(() => _novoEstudante.Endereco.Uf)" />
+                    <ValidationMessage For="@(() => _novoEstudante.Uf)" />
                 </div>
 
                 <!-- Cidade -->
                 <div class="col-md-5">
                     <label class="form-label">Cidade</label>
-                    <InputSelect @bind-Value="_novoEstudante.Endereco.Cidade" class="form-control" disabled="@BloquearCidades">
+                    <InputSelect @bind-Value="_novoEstudante.Cidade" class="form-control" disabled="@BloquearCidades">
                         <option value="">Selecione a cidade</option>
                         @foreach (var cidade in Cidades)
                         {
                             <option value="@cidade.nome">@cidade.nome</option>
                         }
                     </InputSelect>
-                    <ValidationMessage For="@(() => _novoEstudante.Endereco.Cidade)" />
+                    <ValidationMessage For="@(() => _novoEstudante.Cidade)" />
                 </div>
 
 
                 <!-- Rua (FALTAVA) -->
                 <div class="col-md-6">
                     <label class="form-label">Rua</label>
-                    <InputText @bind-Value="_novoEstudante.Endereco.Rua" class="form-control" />
-                    <ValidationMessage For="@(() => _novoEstudante.Endereco.Rua)" />
+                    <InputText @bind-Value="_novoEstudante.Rua" class="form-control" />
+                    <ValidationMessage For="@(() => _novoEstudante.Rua)" />
                 </div>
 
                 <!-- Número (FALTAVA) -->
                 <div class="col-md-2">
                     <label class="form-label">Número</label>
-                    <InputText @bind-Value="_novoEstudante.Endereco.Numero" class="form-control" />
-                    <ValidationMessage For="@(() => _novoEstudante.Endereco.Numero)" />
+                    <InputText @bind-Value="_novoEstudante.Numero" class="form-control" />
+                    <ValidationMessage For="@(() => _novoEstudante.Numero)" />
                 </div>
 
                 <!-- Bairro -->
                 <div class="col-md-6">
                     <label class="form-label">Bairro</label>
-                    <InputText @bind-Value="_novoEstudante.Endereco.Bairro" class="form-control" />
-                    <ValidationMessage For="@(() => _novoEstudante.Endereco.Bairro)" />
+                    <InputText @bind-Value="_novoEstudante.Bairro" class="form-control" />
+                    <ValidationMessage For="@(() => _novoEstudante.Bairro)" />
                 </div>
 
                 <!-- Telefone -->
@@ -164,19 +163,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _novoEstudante = new EstudanteViewModel
-        {
-            Endereco = new EnderecoViewModel(),
-            Turma = new TurmaViewModel()
-        };
-
+        _novoEstudante = new EstudanteViewModel();
         Estados = await localidadeService.GetEstadosAsync();
     }
 
     private async Task OnUFChange(ChangeEventArgs e)
     {
         var uf = e.Value?.ToString() ?? "";
-        _novoEstudante.Endereco.Uf = uf;
+        _novoEstudante.Uf = uf;
 
         Cidades.Clear();
         BloquearCidades = true;
@@ -200,18 +194,15 @@
                 NomeResp1 = _novoEstudante.NomeResp1,
                 NomeResp2 = _novoEstudante.NomeResp2,
                 Situacao = _novoEstudante.Situacao.ToLower(),
+                Cidade = _novoEstudante.Cidade,
+                Bairro = _novoEstudante.Bairro,
+                Numero = _novoEstudante.Numero,
+                Uf = _novoEstudante.Uf,
+                Rua = _novoEstudante.Rua,
             };
 
-            var end = new Endereco
-                {
-                    Cidade = _novoEstudante.Endereco.Cidade,
-                    Bairro = _novoEstudante.Endereco.Bairro,
-                    Numero = _novoEstudante.Endereco.Numero,
-                    Uf = _novoEstudante.Endereco.Uf,
-                    Rua = _novoEstudante.Endereco.Rua,
-                };
 
-            est.Endereco = end;
+            
 
             estudanteDAO.Inserir(est);
             Navigation.NavigateTo("/estudantes");

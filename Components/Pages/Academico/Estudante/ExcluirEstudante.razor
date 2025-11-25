@@ -1,9 +1,7 @@
 ﻿@page "/estudantes/excluir_estudante/{id:int}"
 @using SigaApp.Models
 @using SigaApp.Models.Estudante
-@using SigaApp.Models.Endereco
 @inject EstudanteDAO estudanteDAO
-@inject EnderecoDAO enderecoDAO
 @inject NavigationManager navManager
 @rendermode InteractiveServer
 
@@ -91,7 +89,7 @@
         }
     }
 
-    private async Task ExcluirEstudantes()
+    private void ExcluirEstudantes()
     {
         if (estudante == null) return;
 
@@ -99,15 +97,7 @@
 
         try
         {
-            // Exclui o estudante
-            await Task.Run(() => estudanteDAO.Excluir(estudante.Id));
-
-            // Exclui o endereço (se tiver)
-            if (estudante.Id_End > 0)
-            {
-                await Task.Run(() => enderecoDAO.Excluir(estudante.Id_End));
-            }
-
+            estudanteDAO.Excluir(estudante.Id);
             navManager.NavigateTo("/estudantes");
         }
         catch (Exception ex)
