@@ -2,92 +2,94 @@
 
 <div class="d-flex" >
     <!-- 🔹 Sidebar -->
-    <nav id="sidebar" class="sidebar d-flex flex-column p-3">
-
-        <!-- 🔸 Logo -->
-        <div class="text-center mb-3">
-            <div class="mx-auto d-inline-block p-2 rounded-circle border border-white" style="background-color: #152259;">
-                <img src="/assets/logo.png" alt="logo" class="img-fluid" style="max-height: 15vh; filter: brightness(0) invert(1);">
+    <nav id="sidebar" class="sidebar d-flex flex-column p-3" style="min-height: 100vh;">
+        <div class="flex-grow-1">
+            <!-- 🔸 Logo -->
+            <div class="text-center mb-3">
+                <div class="mx-auto d-inline-block p-2 rounded-circle border border-white" style="background-color: #152259;">
+                    <img src="/assets/logo.png" alt="logo" class="img-fluid" style="max-height: 15vh; filter: brightness(0) invert(1);">
+                </div>
             </div>
+
+            <p class="text-white fw-semibold text-center">Bem-vindo!</p>
+            <hr class="border-secondary" />
+
+            <!-- 🔹 Atalhos Rápidos -->
+            <small class="text-uppercase text-muted fw-bold mb-2">Atalhos</small>
+            <ul class="nav nav-pills flex-column gap-1 mb-3">
+                <li>
+                    <NavLink class="nav-link d-flex align-items-center" href="/" Match="NavLinkMatch.All">
+                        <i class="bi bi-house me-2"></i>
+                        <span>Painel inicial</span>
+                    </NavLink>
+                </li>
+            </ul>
+
+            <!-- 🔹 Acadêmico -->
+            <small class="text-uppercase text-muted fw-bold mb-2">Acadêmico</small>
+            <ul class="nav nav-pills flex-column gap-1 mb-3">
+                <li>
+                    <NavLink class="nav-link d-flex align-items-center" href="/diarios">
+                        <i class="bi bi-journal-text me-2"></i>
+                        <span>Diários</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink class="nav-link d-flex align-items-center" href="/professores">
+                        <i class="bi bi-person-badge me-2"></i>
+                        <span>Professores</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink class="nav-link d-flex align-items-center" href="/estudantes">
+                        <i class="bi bi-people me-2"></i>
+                        <span>Estudantes</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink class="nav-link d-flex align-items-center" href="/turmas">
+                        <i class="bi bi-building me-2"></i>
+                        <span>Turmas</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink class="nav-link d-flex align-items-center" href="/matricula">
+                        <i class="bi bi-card-list me-2"></i>
+                        <span>Matrículas</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink class="nav-link d-flex align-items-center" href="/calendario">
+                        <i class="bi bi-calendar-event me-2"></i>
+                        <span>Calendário</span>
+                    </NavLink>
+                </li>
+            </ul>
+
+            <!-- 🔹 Gestão/Administração -->
+            <small class="text-uppercase text-muted fw-bold mb-2">Gestão</small>
+            <ul class="nav nav-pills flex-column gap-1 mb-3">
+                <li>
+                    <NavLink class="nav-link d-flex align-items-center" href="/relatorios">
+                        <i class="bi bi-graph-up me-2"></i>
+                        <span>Relatórios</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink class="nav-link d-flex align-items-center" href="/documentos">
+                        <i class="bi bi-file-earmark-text me-2"></i>
+                        <span>Documentos</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink class="nav-link d-flex align-items-center" href="/usuarios">
+                        <i class="bi bi-shield-lock me-2"></i>
+                        <span>Usuários/Admins</span>
+                    </NavLink>
+                </li>
+            </ul>
         </div>
-
-        <p class="text-white fw-semibold text-center">Bem-vindo!</p>
-        <hr class="border-secondary" />
-
-        <!-- 🔹 Atalhos Rápidos -->
-        <small class="text-uppercase text-muted fw-bold mb-2">Atalhos</small>
-        <ul class="nav nav-pills flex-column gap-1 mb-3">
-            <li>
-                <NavLink class="nav-link d-flex align-items-center" href="/" Match="NavLinkMatch.All">
-                    <i class="bi bi-house me-2"></i>
-                    <span>Painel inicial</span>
-                </NavLink>
-            </li>
-        </ul>
-
-        <!-- 🔹 Acadêmico -->
-        <small class="text-uppercase text-muted fw-bold mb-2">Acadêmico</small>
-        <ul class="nav nav-pills flex-column gap-1 mb-3">
-            <li>
-                <NavLink class="nav-link d-flex align-items-center" href="/diarios">
-                    <i class="bi bi-journal-text me-2"></i>
-                    <span>Diários</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink class="nav-link d-flex align-items-center" href="/professores">
-                    <i class="bi bi-person-badge me-2"></i>
-                    <span>Professores</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink class="nav-link d-flex align-items-center" href="/estudantes">
-                    <i class="bi bi-people me-2"></i>
-                    <span>Estudantes</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink class="nav-link d-flex align-items-center" href="/turmas">
-                    <i class="bi bi-building me-2"></i>
-                    <span>Turmas</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink class="nav-link d-flex align-items-center" href="/matricula">
-                    <i class="bi bi-card-list me-2"></i>
-                    <span>Matrículas</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink class="nav-link d-flex align-items-center" href="/calendario">
-                    <i class="bi bi-calendar-event me-2"></i>
-                    <span>Calendário</span>
-                </NavLink>
-            </li>
-        </ul>
-
-        <!-- 🔹 Gestão/Administração -->
-        <small class="text-uppercase text-muted fw-bold mb-2">Gestão</small>
-        <ul class="nav nav-pills flex-column gap-1 mb-3">
-            <li>
-                <NavLink class="nav-link d-flex align-items-center" href="/relatorios">
-                    <i class="bi bi-graph-up me-2"></i>
-                    <span>Relatórios</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink class="nav-link d-flex align-items-center" href="/documentos">
-                    <i class="bi bi-file-earmark-text me-2"></i>
-                    <span>Documentos</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink class="nav-link d-flex align-items-center" href="/usuarios">
-                    <i class="bi bi-shield-lock me-2"></i>
-                    <span>Usuários/Admins</span>
-                </NavLink>
-            </li>
-        </ul>
+      
 
         <!-- 🔹 Rodapé -->
         <div class="mt-auto">

@@ -31,9 +31,11 @@ namespace SigaApp.Models.Turma
                         {
                             Id = leitor.GetInt32("id_tur"),
                             Nome = leitor.GetString("nome_tur"),
-                            Ano = leitor.GetString("ano_tur"),                            
+                            Ano = leitor.GetString("ano_tur"),
+                            PeriodoLetivo = leitor.GetString("periodo_letivo_tur"),
+                            Status = leitor.GetString("status_tur").ToLower(),
                             Turno = leitor.GetString("turno_tur"),
-                            Capacidade =leitor.GetInt32("capacidade_maxima_tur")
+                            Capacidade = leitor.GetInt32("capacidade_maxima_tur")
 
                         };
 
