@@ -7,14 +7,20 @@
 
 /* Sidebar */
 .menubar {
-    width: 300px;
+  
     background-color: #152259;
     color: white;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    padding-bottom: 2rem;
-    position: relative;
+    padding-bottom: 2rem;   
+
+    position: fixed; /* Fixa no canto */
+    top: 0;
+    left: 0;
+    width: 300px; /* ajuste para o seu layout */
+    height: 100vh; /* altura total da janela */      
+    z-index: 9999;
 }
 
     /* Faz o fundo do sidebar cobrir tudo, mesmo que o conteúdo seja menor */
