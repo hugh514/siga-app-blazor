@@ -13,8 +13,6 @@ create table professor (
     especialidade_pro varchar(100)
 );
 
-
-
 create table turma (
     id_tur int auto_increment primary key,
     nome_tur varchar(100),
@@ -28,11 +26,11 @@ create table turma (
 
 create table professor_turma(
 	id_ptu int auto_increment primary key,
-    id_pro_fk int not null,
-    id_tur_fk int not null,
+    id_pro_fk int null,
+    id_tur_fk int null,
     
-    foreign key (id_pro_fk) references professor(id_pro),
-    foreign key (id_tur_fk) references turma(id_tur)
+    foreign key (id_pro_fk) references professor(id_pro) on delete set null,
+    foreign key (id_tur_fk) references turma(id_tur) on delete set null
 );
 
 
@@ -52,8 +50,8 @@ create table estudante(
     rua_est varchar(200),
     numero_est varchar(20),
     bairro_est varchar(50),
-    id_tur_fk int,
-	foreign key (id_tur_fk) references turma(id_tur)
+    id_tur_fk int null,
+	foreign key (id_tur_fk) references turma(id_tur) on delete set null
 );
 
 # inserts
@@ -96,3 +94,6 @@ insert into estudante
 (nome_est, idade_est, sexo_est, data_nasc_est, telefone_est, nome_resp_1_est, nome_resp_2_est, situacao_est, cidade_est, uf_est, rua_est, numero_est, bairro_est, id_tur_fk)
 values 
 ('juliana santos', 14, 'feminino', '2011-08-20', '69999990004', 'paulo santos', 'marta santos', 'cursando', 'ji-paraná', 'ro', 'avenida brasil', '456', 'bairro novo', 2);
+
+select * from turma;
+select * from estudante;

@@ -1,0 +1,94 @@
+﻿@page "/turmas/vincular_professor"
+
+@using SigaApp.Models.Turma
+@inject TurmaDAO turmaDAO
+@rendermode InteractiveServer
+
+@code {
+    private string pesquisaNome = "";
+    private string filtroStatus = "";
+    private string filtroAno = "";
+    private string filtroPeriodoLetivo = "";
+    private string filtroTurno = "";
+
+    private List<string> listaPeriodoLetivo = new List<string>();
+
+    protected override void OnInitialized()
+    {
+        var turmas = turmaDAO.ListarTodos();
+
+        // Pegar apenas os anos distintos
+        listaPeriodoLetivo = turmas
+            .Select(t => t.Ano.ToString()) // transforma em string se quiser
+            .Distinct()
+            .ToList();
+    }
+
+    private void Filtrar()
+    {
+        // Aqui você chama seu serviço/DAO
+        // Exemplo:
+        // Turmas = await TurmaDAO.Filtrar(pesquisaNome, filtroStatus, filtroAno, filtroPeriodoLetivo, filtroTurno);
+    }
+}
+
+<div class="card mb-4 shadow-sm">
+    <div class="card-body">
+        <form class="row g-2 align-items-center" @onsubmit="Filtrar">
+
+            <!-- Nome -->
+            <div class="col-md-3">
+                <input class="form-control"
+                       placeholder="Nome da turma..."
+                       @bind="pesquisaNome" />
+            </div>
+
+            <!-- Status -->
+            <div class="col-md-2">
+                <select class="form-select" @bind="filtroStatus">
+                    <option value="">Status</option>
+                    <option value="ativo">Ativo</option>
+                    <option value="inativo">Inativo</option>
+                </select>
+            </div>
+
+            <!-- Ano/Série (ano_tur) -->
+            <div class="col-md-2">
+                <select class="form-select" @bind="filtroAno">
+                    <option value="">Ano/Série</option>
+                    <option value="">Selecione...</option>
+                    <option value="1° ano">1º Ano</option>
+                    <option value="2° ano">2º Ano</option>
+                    <option value="3° ano">3º Ano</option>
+                    <option value="4° ano">4º Ano</option>
+                    <option value="5° ano">5º Ano</option>
+                </select>
+            </div>
+
+            <!-- Período letivo (periodo_letivo_tur) -->
+            <div class="col-md-2">
+                <select class="form-select" @bind="filtroPeriodoLetivo">
+                    <option value="">Período letivo</option>
+                    @foreach (var periodo in listaPeriodoLetivo)
+                    {
+                        <option value="@periodo">@periodo</option>
+                    }
+                </select>
+            </div>
+
+            <!-- Turno -->
+            <div class="col-md-2">
+                <select class="form-select" @bind="filtroTurno">
+                    <option value="">Turno</option>
+                    <option value="matutino">Matutino</option>
+                    <option value="vespertino">Vespertino</option>
+                </select>
+            </div>
+
+            <!-- Botão -->
+            <div class="col-md-1 d-grid">
+                <button type="submit" class="btn btn-outline-primary">Filtrar</button>
+            </div>
+        </form>
+    </div>
+</div>

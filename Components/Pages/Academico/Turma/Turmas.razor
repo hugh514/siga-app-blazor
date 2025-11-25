@@ -14,8 +14,9 @@
 <PageTitle>Turmas</PageTitle>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold">Turmas</h2>
-    <div class="d-flex gap-2">        
+    <h2 class="fw-bold">Turmas</h2>   
+    <div class="d-flex gap-2">
+        <a class="btn btn-primary" href="/turmas/vincular_professor"><i class="bi bi-person-fill-add"></i> Vincular professor</a>
         <a class="btn btn-primary" href="/turmas/cadastrar_turma">+ Nova turma</a>
     </div>
 </div>
@@ -32,10 +33,10 @@
 
             <div class="col-md-3">
                 <select class="form-select">
-                    <option value="">Todas as disciplinas</option>
-                    <option>Informática</option>
-                    <option>Administração</option>
-                    <option>Eletrotécnica</option>
+                    <option value="">Status</option>
+                    <option>Ativo</option>
+                    <option>Inativo</option>
+                    
                 </select>
             </div>
 
@@ -107,8 +108,8 @@
 
                             <!-- Ações -->
                             <div class="mt-3 d-flex gap-2">
-                                <a class="btn btn-sm btn-outline-success" href="/turmas/editar_turma/@turma.Id">Editar</a>                                
-                                <a class="btn btn-sm btn-outline-danger" href="/turmas/deletar_turma/@turma.Id">Excluir</a>
+                                <a class="btn btn-sm btn-outline-success" href="/turmas/editar_turma/@turma.Id">Editar</a>
+                                <a class="btn btn-sm btn-outline-danger" href="/turmas/excluir_turma/@turma.Id">Excluir</a>
                                 <a class="btn btn-sm btn-outline-primary" href="/detalhes_turma/@turma.Id">Detalhes</a>  
                             </div>
 

@@ -1,21 +1,24 @@
-﻿@page "/professores/excluir_professor/{id:int}"
-@using SigaApp.Models
-@using SigaApp.Models.Professor
-@inject ProfessorDAO professorDAO
+﻿@page "/turmas/excluir_turma/{id:int}"
+@using SigaApp.Models.Turma
+@inject TurmaDAO turmaDAO
 @inject NavigationManager navManager
 @rendermode InteractiveServer
 
-<PageTitle>Excluir Professor</PageTitle>
+<PageTitle>Excluir Turma</PageTitle>
 
 <div class="d-flex justify-content-center align-items-center min-vh-75 py-5 bg-light">
     <div class="card border-0 shadow-lg p-4 text-center" style="max-width: 480px; width: 100%; border-radius: 1rem;">
+
+        <!-- Ícone e Título -->
         <div class="mb-3">
-            <div class="rounded-circle bg-danger bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width:70px; height:70px;">
+            <div class="rounded-circle bg-danger bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3"
+                 style="width:70px; height:70px;">
                 <i class="bi bi-exclamation-triangle-fill text-danger fs-2"></i>
             </div>
-            <h4 class="fw-bold text-danger">Excluir Professor</h4>
+            <h4 class="fw-bold text-danger">Excluir Turma</h4>
         </div>
 
+        <!-- Carregando -->
         @if (isLoading)
         {
             <div class="text-muted my-4">
@@ -23,40 +26,45 @@
                 <p class="mt-2">Carregando informações...</p>
             </div>
         }
-        else if (professor == null)
+        else if (turma == null)
         {
-            <p class="text-danger my-4">Professor não encontrado.</p>
-            <a class="btn btn-outline-secondary" href="/professores">Voltar</a>
+            <!-- Erro: turma não encontrada -->
+            <p class="text-danger my-4">Turma não encontrada.</p>
+            <a class="btn btn-outline-secondary" href="/turmas">Voltar</a>
         }
         else
         {
+            <!-- Confirmação -->
             <p class="mb-4 fs-6">
-                Tem certeza que deseja <strong class="text-danger">excluir</strong> o professor
-                <strong>@professor.Nome</strong>?<br />
+                Tem certeza que deseja <strong class="text-danger">excluir</strong> a turma
+                <strong>@turma.Nome</strong>?<br />
                 <span class="text-muted small">Essa ação não poderá ser desfeita.</span>
             </p>
 
             <div class="d-flex justify-content-center gap-3">
+                <!-- Botão excluir -->
                 <button type="button"
                         class="btn btn-danger px-4"
                         style="min-width:120px;"
                         @onclick="Excluir"
                         disabled="@isDeleting">
+
                     @if (isDeleting)
                     {
                         <span class="spinner-border spinner-border-sm me-2" role="status"></span>
                         <p>Excluindo...</p>
-                                }
+                    }
                     else
                     {
                         <i class="bi bi-trash me-2"></i>
-                       <p> Excluir </p>
-                                }
+                        <p>Excluir</p>
+                    }
                 </button>
 
-                <a class="btn btn-outline-secondary px-4" href="/professores">
+                <!-- Cancelar -->
+                <a class="btn btn-outline-secondary px-4" href="/turmas">
                     <i class="bi bi-x-circle me-1"></i>
-                    <p>Cancelar</p>
+                    Cancelar
                 </a>
             </div>
         }
@@ -67,7 +75,7 @@
     [Parameter]
     public int id { get; set; }
 
-    private Professor? professor;
+    private Turma? turma;
     private bool isLoading = true;
     private bool isDeleting = false;
 
@@ -75,11 +83,11 @@
     {
         try
         {
-            professor = await Task.Run(() => professorDAO.ListarTodos().FirstOrDefault(p => p.Id == id));
+            turma = await Task.Run(() => turmaDAO.BuscarPorId(id));
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Erro ao carregar professor: {ex.Message}");
+            Console.WriteLine($"Erro ao carregar turma: {ex.Message}");
         }
         finally
         {
@@ -89,18 +97,18 @@
 
     private async Task Excluir()
     {
-        if (professor == null) return;
+        if (turma == null) return;
 
         isDeleting = true;
 
         try
         {
-            await Task.Run(() => professorDAO.Excluir(professor.Id));
-            navManager.NavigateTo("/professores");
+            await Task.Run(() => turmaDAO.Excluir(turma.Id));
+            navManager.NavigateTo("/turmas");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Erro ao excluir professor: {ex.Message}");
+            Console.WriteLine($"Erro ao excluir turma: {ex.Message}");
             isDeleting = false;
         }
     }

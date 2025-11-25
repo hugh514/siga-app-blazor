@@ -1,56 +1,155 @@
-﻿@page "/editar_turma"
+﻿@page "/turmas/editar_turma/{id:int}"
+@rendermode InteractiveServer
+
+@using SigaApp.ViewModels
+@using SigaApp.Models.Turma
+@inject TurmaDAO turmaDAO
+@inject NavigationManager Navigation
+
 <PageTitle>Editar Turma</PageTitle>
 
-<div class="container py-5">
-    <h3 class="mb-4 fw-normal text-dark text-center">Editar Turma</h3>
+@if (_turmaCarregada == false)
+{
+<p>Carregando...</p>
+@code { }
+}
+else
+{
+    <h2 class="fw-bold mb-4">Editar Turma</h2>
 
-    <div class="card shadow-sm border-0 p-4">
-        <form class="row g-3">
+    <EditForm Model="_turmaEdicao" OnValidSubmit="SalvarEdicao">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="row g-3">
+
             <div class="col-md-6">
                 <label class="form-label">Nome da Turma</label>
-                <input type="text" class="form-control" value="Turma A">
+                <InputText @bind-Value="_turmaEdicao.Nome" class="form-control" />
+                <ValidationMessage For="@(() => _turmaEdicao.Nome)" />
             </div>
 
             <div class="col-md-3">
                 <label class="form-label">Ano/Série</label>
-                <select class="form-select">
-                    <option selected>1º Ano</option>
-                    <option>2º Ano</option>
-                    <option>3º Ano</option>
-                </select>
+                <InputSelect @bind-Value="_turmaEdicao.Ano" class="form-select">
+                    <option value="">Selecione...</option>
+                    <option value="1° ano">1º Ano</option>
+                    <option value="2° ano">2º Ano</option>
+                    <option value="3° ano">3º Ano</option>
+                    <option value="4° ano">4º Ano</option>
+                    <option value="5° ano">5º Ano</option>
+                </InputSelect>
+                <ValidationMessage For="@(() => _turmaEdicao.Ano)" />
             </div>
 
             <div class="col-md-3">
+                <label class="form-label">Período Letivo</label>
+                <InputText @bind-Value="_turmaEdicao.PeriodoLetivo" maxlength="5" class="form-control" />
+                <ValidationMessage For="@(() => _turmaEdicao.PeriodoLetivo)" />
+            </div>
+
+            <div class="col-md-4">
                 <label class="form-label">Turno</label>
-                <select class="form-select" multiple>
-                    <option selected>Matutino</option>
-                    <option>Vespertino</option>
-                    <option>Noturno</option>
-                </select>
+                <InputSelect @bind-Value="_turmaEdicao.Turno" class="form-select">
+                    <option value="">Selecione...</option>
+                    <option value="matutino">Matutino</option>
+                    <option value="vespertino">Vespertino</option>
+                </InputSelect>
+                <ValidationMessage For="@(() => _turmaEdicao.Turno)" />
             </div>
 
-            <div class="col-md-6">
-                <label class="form-label">Professor(es) Responsável(is)</label>
-                <select class="form-select" multiple>
-                    <option selected>Prof. João</option>
-                    <option>Prof. Maria</option>
-                    <option>Prof. Carla</option>
-                </select>
+            <div class="col-md-4">
+                <label class="form-label">Status</label>
+                <InputSelect @bind-Value="_turmaEdicao.Status" class="form-select">
+                    <option value="">Selecione...</option>
+                    <option value="ativo">Ativo</option>
+                    <option value="inativo">Inativo</option>
+                </InputSelect>
+                <ValidationMessage For="@(() => _turmaEdicao.Status)" />
             </div>
 
-            <div class="col-md-6">
-                <label class="form-label">Disciplina(s)</label>
-                <select class="form-select" multiple>
-                    <option selected>Matemática</option>
-                    <option>História</option>
-                    <option>Física</option>
-                </select>
+            <div class="col-md-4">
+                <label class="form-label">Capacidade Máxima</label>
+                <InputNumber @bind-Value="_turmaEdicao.Capacidade" class="form-control" />
+                <ValidationMessage For="@(() => _turmaEdicao.Capacidade)" />
             </div>
 
-            <div class="col-12 text-center mt-4">
-                <a href="turmas" class="btn btn-secondary me-2">Cancelar</a>
-                <a href="turmas" class="btn btn-success">Salvar Alterações</a>
-            </div>
-        </form>
-    </div>
-</div>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-end gap-2">
+            <a class="btn btn-outline-secondary" href="/turmas">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        </div>
+    </EditForm>
+
+    @if (!string.IsNullOrEmpty(erro))
+    {
+        <div class="alert alert-danger mt-3">@erro</div>
+    }
+}
+
+@code {
+    private string? erro;
+    private bool _turmaCarregada = false;
+    private TurmaViewModel _turmaEdicao = new();
+
+    [Parameter]
+    public int id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            var turma = turmaDAO.BuscarPorId(id);
+
+            if (turma == null)
+            {
+                erro = "Turma não encontrada.";
+                return;
+            }
+
+            _turmaEdicao = new TurmaViewModel
+            {
+                Nome = turma.Nome,
+                Ano = turma.Ano,
+                PeriodoLetivo = turma.PeriodoLetivo,
+                Turno = turma.Turno,
+                Status = turma.Status.ToLower(),
+                Capacidade = turma.Capacidade
+            };
+        }
+        catch (Exception ex)
+        {
+            erro = $"Erro ao carregar dados: {ex.Message}";
+        }
+        finally
+        {
+            _turmaCarregada = true;
+        }
+    }
+
+    private void SalvarEdicao()
+    {
+        try
+        {
+            var turmaAtualizada = new Turma
+            {
+                Id = id,
+                Nome = _turmaEdicao.Nome,
+                Ano = _turmaEdicao.Ano,
+                PeriodoLetivo = _turmaEdicao.PeriodoLetivo ?? DateTime.Now.Year.ToString(),
+                Turno = _turmaEdicao.Turno,
+                Status = _turmaEdicao.Status ?? "ativo",
+                Capacidade = _turmaEdicao.Capacidade
+            };
+
+            turmaDAO.Atualizar(turmaAtualizada);
+
+            Navigation.NavigateTo("/turmas");
+        }
+        catch (Exception ex)
+        {
+            erro = $"Erro ao salvar alterações: {ex.Message}";
+        }
+    }
+}

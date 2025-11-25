@@ -38,8 +38,13 @@
             <ValidationMessage For="@(() => _novaTurma.Ano)" />
         </div>
 
-        <!-- Turno -->
+        <!-- Período Letivo -->
         <div class="col-md-3">
+            <label class="form-label">Período Letivo</label>
+            <InputText @bind-Value="_novaTurma.PeriodoLetivo" class="form-control" placeholder="Ex: 2025" />
+        </div>
+        <!-- Turno -->
+        <div class="col-md-4">
             <label class="form-label">Turno</label>
             <InputSelect @bind-Value="_novaTurma.Turno" class="form-select">
                 <option value="">Selecione...</option>
@@ -49,14 +54,19 @@
             <ValidationMessage For="@(() => _novaTurma.Turno)" />
         </div>
 
-        <!-- Período Letivo -->
-        <div class="col-md-3">
-            <label class="form-label">Período Letivo</label>
-            <InputText @bind-Value="_novaTurma.PeriodoLetivo" class="form-control" placeholder="Ex: 2025" />
+       
+        @* Status *@
+        <div class="col-md-4">
+            <label class="form-label">Status</label>
+            <InputSelect @bind-Value="_novaTurma.Status" class="form-select">
+                <option value="">Selecione...</option>
+                <option value="ativo">Ativo</option>
+                <option value="inativo">Inativo</option>
+            </InputSelect>
+            <ValidationMessage For="@(() => _novaTurma.Status)" />
         </div>
-
         <!-- Capacidade Máxima -->
-        <div class="col-md-3">
+        <div class="col-md-4">
             <label class="form-label">Capacidade Máxima</label>
             <InputNumber @bind-Value="_novaTurma.Capacidade" class="form-control" min="1" />
             <ValidationMessage For="@(() => _novaTurma.Capacidade)" />
@@ -81,6 +91,7 @@
     protected override void OnInitialized()
     {
         _novaTurma.PeriodoLetivo = DateTime.Now.Year.ToString();
+        _novaTurma.Status = "ativo";
     }
 
     private void Salvar()
