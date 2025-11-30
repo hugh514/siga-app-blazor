@@ -34,4 +34,21 @@
 
 * Em cadastro de matricula deve retira status, cpf e observações.
 
-*
+*    private void FiltrarCargos()
+    {
+        var todos = cargoDAO.ListarTodos();
+
+        if (string.IsNullOrWhiteSpace(nomeBusca))
+        {
+            cargos = todos;
+        }
+        else
+        {
+            var termo = nomeBusca;
+            cargos = todos
+                .Where(c => c.Nome != null && c.Nome.Contains(termo, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+
+        StateHasChanged();
+    }

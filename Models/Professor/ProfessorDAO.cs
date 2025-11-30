@@ -48,38 +48,48 @@ namespace SigaApp.Models.Professor
         {
             var lista = new List<Professor>();
 
-            using (var conn = _conexao.GetConnection())
+            try
             {
-                conn.Open();
-
-                string sql = "SELECT * FROM professor";
-
-                using (var comando = new MySqlCommand(sql, conn))
-                using (var leitor = comando.ExecuteReader())
+                using (var conn = _conexao.GetConnection())
                 {
-                    while (leitor.Read())
+                    conn.Open();
+
+                    string sql = "SELECT * FROM professor";
+
+                    using (var comando = new MySqlCommand(sql, conn))
+                    using (var leitor = comando.ExecuteReader())
                     {
-                        var professor = new Professor
+                        while (leitor.Read())
                         {
-                            Id = leitor.GetInt32("id_pro"),
-                            Nome = leitor.GetString("nome_pro"),
-                            Cpf = leitor.GetString("cpf_pro"),
-                            Email = leitor.IsDBNull(leitor.GetOrdinal("email_pro")) ? "" : leitor.GetString("email_pro"),
-                            Telefone = leitor.IsDBNull(leitor.GetOrdinal("telefone_pro")) ? "" : leitor.GetString("telefone_pro"),
-                            Disciplina = leitor.IsDBNull(leitor.GetOrdinal("disciplina_pro")) ? "" : leitor.GetString("disciplina_pro"),
-                            Status = leitor.IsDBNull(leitor.GetOrdinal("status_pro")) ? "ativo" : leitor.GetString("status_pro"),
-                            DataCadastro = leitor.IsDBNull(leitor.GetOrdinal("data_cadastro_pro"))
-                                            ? DateTime.MinValue
-                                            : leitor.GetDateTime("data_cadastro_pro"),
-                            Especialidade = leitor.IsDBNull(leitor.GetOrdinal("especialidade_pro")) ? "" : leitor.GetString("especialidade_pro")
-                        };
+                            var professor = new Professor
+                            {
+                                Id = leitor.GetInt32("id_pro"),
+                                Nome = leitor.GetString("nome_pro"),
+                                Cpf = leitor.GetString("cpf_pro"),
+                                Email = leitor.IsDBNull(leitor.GetOrdinal("email_pro")) ? "" : leitor.GetString("email_pro"),
+                                Telefone = leitor.IsDBNull(leitor.GetOrdinal("telefone_pro")) ? "" : leitor.GetString("telefone_pro"),
+                                Disciplina = leitor.IsDBNull(leitor.GetOrdinal("disciplina_pro")) ? "" : leitor.GetString("disciplina_pro"),
+                                Status = leitor.IsDBNull(leitor.GetOrdinal("status_pro")) ? "ativo" : leitor.GetString("status_pro"),
+                                DataCadastro = leitor.IsDBNull(leitor.GetOrdinal("data_cadastro_pro"))
+                                                ? DateTime.MinValue
+                                                : leitor.GetDateTime("data_cadastro_pro"),
+                                Especialidade = leitor.IsDBNull(leitor.GetOrdinal("especialidade_pro")) ? "" : leitor.GetString("especialidade_pro")
+                            };
 
-                        lista.Add(professor);
+                            lista.Add(professor);
+                        }
                     }
-                }
-            }
 
-            return lista;
+                }
+                return lista;
+
+            }
+            catch
+            (Exception ex) {
+                return lista;
+            }
+           
+           
         }
 
         // 🔹 Buscar por ID

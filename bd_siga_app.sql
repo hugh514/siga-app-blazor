@@ -68,12 +68,12 @@ values
 insert into turma 
 (nome_tur, ano_tur, periodo_letivo_tur, turno_tur, capacidade_maxima_tur)
 values 
-('turma alfa', '1º ano', '2025', 'manhã', 30);
+('turma alfa', '1° ano', '2025', 'matutino', 30);
 
 insert into turma 
 (nome_tur, ano_tur, periodo_letivo_tur, turno_tur, capacidade_maxima_tur)
 values 
-('turma beta', '2º ano', '2025', 'tarde', 25);
+('turma beta', '2° ano', '2025', 'vespertino', 25);
 
 insert into professor_turma 
 (id_pro_fk, id_tur_fk)
