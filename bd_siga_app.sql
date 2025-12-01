@@ -58,12 +58,38 @@ create table estudante(
 insert into professor 
 (nome_pro, cpf_pro, email_pro, telefone_pro, disciplina_pro, status_pro, data_cadastro_pro, especialidade_pro)
 values 
-('joão silva', '123.456.789-00', 'joao.silva@email.com', '69999990001', 'matemática', 'ativo', '2025-11-24', 'álgebra');
+('joão silva', '123.456.789-00', 'joao.silva@email.com', '69999990001', 'ensino fun', 'ativo', '2025-11-24', 'álgebra');
 
 insert into professor 
 (nome_pro, cpf_pro, email_pro, telefone_pro, disciplina_pro, status_pro, data_cadastro_pro, especialidade_pro)
 values 
-('maria souza', '987.654.321-00', 'maria.souza@email.com', '69999990002', 'português', 'ativo', '2025-11-24', 'literatura brasileira');
+('maria souza', '987.654.321-00', 'maria.souza@email.com', '69999990002', 'ensino fun', 'ativo', '2025-11-24', 'literatura brasileira');
+
+insert into professor 
+(nome_pro, cpf_pro, email_pro, telefone_pro, disciplina_pro, status_pro, data_cadastro_pro, especialidade_pro)
+values 
+('carla mendes', '321.654.987-11', 'carla.mendes@email.com', '69999990003', 'ensino fun', 'ativo', '2025-11-24', 'biologia');
+
+insert into professor 
+(nome_pro, cpf_pro, email_pro, telefone_pro, disciplina_pro, status_pro, data_cadastro_pro, especialidade_pro)
+values 
+('roberto ferreira', '159.753.486-22', 'roberto.ferreira@email.com', '69999990004', 'ed fisica', 'ativo', '2025-11-24', 'história do brasil');
+
+insert into professor 
+(nome_pro, cpf_pro, email_pro, telefone_pro, disciplina_pro, status_pro, data_cadastro_pro, especialidade_pro)
+values 
+('ana paula brito', '258.147.369-33', 'ana.brito@email.com', '69999990005', 'ed fisica', 'ativo', '2025-11-24', 'geopolítica');
+
+insert into professor 
+(nome_pro, cpf_pro, email_pro, telefone_pro, disciplina_pro, status_pro, data_cadastro_pro, especialidade_pro)
+values 
+('luiz henrique dias', '741.852.963-44', 'luiz.dias@email.com', '69999990006', 'ed fisica', 'ativo', '2025-11-24', 'conversação e gramática');
+
+insert into professor 
+(nome_pro, cpf_pro, email_pro, telefone_pro, disciplina_pro, status_pro, data_cadastro_pro, especialidade_pro)
+values 
+('fernanda costa', '654.987.321-55', 'fernanda.costa@email.com', '69999990007', 'ed fisica', 'inativo', '2025-11-24', 'desenho e pintura');
+
 
 insert into turma 
 (nome_tur, ano_tur, periodo_letivo_tur, turno_tur, capacidade_maxima_tur)
@@ -74,6 +100,32 @@ insert into turma
 (nome_tur, ano_tur, periodo_letivo_tur, turno_tur, capacidade_maxima_tur)
 values 
 ('turma beta', '2° ano', '2025', 'vespertino', 25);
+
+insert into turma 
+(nome_tur, ano_tur, periodo_letivo_tur, turno_tur, capacidade_maxima_tur)
+values 
+('turma gama', '3° ano', '2025', 'noturno', 28);
+
+insert into turma 
+(nome_tur, ano_tur, periodo_letivo_tur, turno_tur, capacidade_maxima_tur)
+values 
+('turma delta', '4° ano', '2025', 'matutino', 32);
+
+insert into turma 
+(nome_tur, ano_tur, periodo_letivo_tur, turno_tur, capacidade_maxima_tur)
+values 
+('turma épsilon', '5° ano', '2025', 'vespertino', 27);
+
+insert into turma 
+(nome_tur, ano_tur, periodo_letivo_tur, turno_tur, capacidade_maxima_tur)
+values 
+('turma ômega', '1° ano', '2025', 'noturno', 30);
+
+insert into turma 
+(nome_tur, ano_tur, periodo_letivo_tur, turno_tur, capacidade_maxima_tur)
+values 
+('turma sigma', '2° ano', '2025', 'matutino', 26);
+
 
 insert into professor_turma 
 (id_pro_fk, id_tur_fk)
@@ -96,4 +148,5 @@ values
 ('juliana santos', 14, 'feminino', '2011-08-20', '69999990004', 'paulo santos', 'marta santos', 'cursando', 'ji-paraná', 'ro', 'avenida brasil', '456', 'bairro novo', 2);
 
 select * from turma;
+select * from professor_turma;
 select * from estudante;

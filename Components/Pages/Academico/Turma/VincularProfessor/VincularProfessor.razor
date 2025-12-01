@@ -8,13 +8,26 @@
 
 @rendermode InteractiveServer
 
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">Vincular Professor</h2>   
+</div>
+
+@if (turmaSelecionada == null)
+{
+    <div class="alert alert-warning d-flex align-items-center mb-3">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        Nenhuma turma selecionada!
+    </div>
+}
+
 <div class="card mb-4 shadow-sm">
     <div class="card-body">
-        <form class="row g-2 align-items-center" @onsubmit="Filtrar">
+        <form class="row g-2 align-items-end" @onsubmit="Filtrar">
             <!-- Período letivo -->
             <div class="col-md-3">
+                <label class="form-label">Período Letivo</label>
                 <select class="form-select" @bind="filtroPeriodoLetivo">
-                    <option value="">Período letivo</option>
+                    <option value="todos">Todos os períodos</option>
                     @foreach (var periodo in listaPeriodoLetivo)
                     {
                         <option value="@periodo">@periodo</option>
@@ -23,11 +36,12 @@
             </div>
 
             <!-- Ano/Série -->
-            <div class="col-md-3">
+            <div class="col-md-4">
+                <label class="form-label">Ano / Série</label>
                 <select class="form-select"
                         @bind="filtroAno"
                         disabled="@(string.IsNullOrWhiteSpace(filtroPeriodoLetivo))">
-                    <option value="">Ano/Série</option>
+                    <option value="todos">Todas as séries</option>
                     <option value="1° ano">1º Ano</option>
                     <option value="2° ano">2º Ano</option>
                     <option value="3° ano">3º Ano</option>
@@ -37,7 +51,8 @@
             </div>
 
             <!-- Turma -->
-            <div class="col-md-4">
+            <div class="col-md-5">
+                <label class="form-label">Turma</label>
                 <select class="form-select"
                         @bind="turmaSelecionadaId"
                         disabled="@(string.IsNullOrWhiteSpace(filtroAno))">
@@ -47,12 +62,6 @@
                         <option value="@t.Id">@($"{t.Ano} {t.Nome} {t.Turno} - {t.PeriodoLetivo}")</option>
                     }
                 </select>
-            </div>
-
-
-            <!-- Botão Filtrar (opcional, mantém compatibilidade) -->
-            <div class="col-md-2 d-grid">
-                <button type="submit" class="btn btn-outline-primary">Filtrar</button>
             </div>
         </form>
     </div>
@@ -65,14 +74,14 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div>
-                    <strong>Turma selecionada:</strong>
+                    <strong>Turma selecionada: </strong>
                     @if (turmaSelecionada != null)
                     {
                         <span>@($"{turmaSelecionada.Ano} {turmaSelecionada.Nome} {turmaSelecionada.Turno} - {turmaSelecionada.PeriodoLetivo}")</span>
                     }
                     else
                     {
-                        <span class="text-muted">nenhuma</span>
+                        <span class="text-muted">Nenhuma</span>
                     }
                 </div>
                 <div class="form-check">
@@ -129,7 +138,8 @@
                 </div>
                 <div>
                     <button class="btn btn-outline-success me-2" @onclick="VincularProfessores" disabled="@(turmaSelecionada == null || !professoresSelecionados.Any())">Vincular selecionados</button>
-                    <button class="btn btn-outline-danger" @onclick="LimparSelecao" disabled="@( !professoresSelecionados.Any())">Limpar seleção</button>
+                    <button class="btn btn-outline-danger me-2" @onclick="DesvincularProfessores"disabled="@(turmaSelecionada == null || !professoresSelecionados.Any())">Desvincular selecionados</button>
+                    <button class="btn btn-outline-warning" @onclick="LimparSelecao" disabled="@( !professoresSelecionados.Any())">Limpar seleção</button>
                 </div>
             </div>
         </div>
@@ -142,24 +152,26 @@ else
 
 @code {
     // filtros
-    private string _filtroAno = "";
+    private string _filtroAno = "todos";
     private string filtroAno
     {
         get => _filtroAno;
         set
         {
             _filtroAno = value;
+            turmaSelecionadaId = null;
             CarregarTurmasFiltradas();
         }
     }
 
-    private string _filtroPeriodoLetivo = "";
+    private string _filtroPeriodoLetivo = "todos";
     private string filtroPeriodoLetivo
     {
         get => _filtroPeriodoLetivo;
         set
         {
-            _filtroPeriodoLetivo = value;            
+            _filtroPeriodoLetivo = value;
+            CarregarTurmasFiltradas();
         }
     }
 
@@ -178,12 +190,20 @@ else
     {
         get => _turmaSelecionadaId;
         set
-        {
-            _turmaSelecionadaId = value;            
+        {             
+            _turmaSelecionadaId = value;
+            CarregarTurmasFiltradas();
+            OnTurmaChanged();
+            if(_turmaSelecionadaId == null)
+            {
+                turmaSelecionada = null;
+                return;
+            }
+
         }
     }
 
-    private Turma turmaSelecionada;
+    private Turma? turmaSelecionada;
     private HashSet<int> professoresSelecionados = new();
     private HashSet<int> vinculosAtuais = new(); // ids de professores já vinculados à turma selecionada
 
@@ -200,6 +220,8 @@ else
             .Distinct()
             .ToList();
 
+            //aplica o filtro desde o inicio
+            CarregarTurmasFiltradas();
         }
         catch
         {
@@ -215,42 +237,63 @@ else
     private void Filtrar()
     {
         // método chamado no submit, reusa a mesma lógica de carregamento das turmas filtradas
-         CarregarTurmasFiltradas();
+        CarregarTurmasFiltradas();
     }
 
 
 
 
-
+    // metodo que aplica o filtro
     private void CarregarTurmasFiltradas()
     {
         listaTurmaFiltrada.Clear();
-        if (!string.IsNullOrWhiteSpace(filtroPeriodoLetivo) && !string.IsNullOrWhiteSpace(filtroAno))
+        turmaSelecionada = null;
+
+        var todas = turmaDAO.ListarTodos();
+
+        // inicia com todas
+        var query = todas.AsEnumerable();
+
+        // se período foi selecionado e não é "todos", filtra
+        if (!string.IsNullOrWhiteSpace(filtroPeriodoLetivo) &&
+            filtroPeriodoLetivo.ToLower() != "todos")
         {
-            // buscar turmas e aplicar filtro
-            var todas = turmaDAO.ListarTodos();
-            listaTurmaFiltrada = todas
-                .Where(t => string.Equals(t.PeriodoLetivo, filtroPeriodoLetivo, StringComparison.OrdinalIgnoreCase)
-                         && string.Equals(t.Ano, filtroAno, StringComparison.OrdinalIgnoreCase))
-                .OrderBy(t => t.Nome)
-                .ToList();
+            query = query.Where(t =>
+                t.PeriodoLetivo.Equals(filtroPeriodoLetivo, StringComparison.OrdinalIgnoreCase));
+        }
+
+        // se ano foi selecionado e não é "todos", filtra
+        if (!string.IsNullOrWhiteSpace(filtroAno) &&
+            filtroAno.ToLower() != "todos")
+        {
+            query = query.Where(t =>
+                t.Ano.Equals(filtroAno, StringComparison.OrdinalIgnoreCase));
+        }
+
+        listaTurmaFiltrada = query.OrderBy(t => t.Nome).ToList();
+
+        // atualizar turma selecionada se ainda existir na lista filtrada
+        if (turmaSelecionadaId.HasValue && turmaSelecionadaId.Value != 0)
+        {
+            turmaSelecionada = listaTurmaFiltrada
+                .FirstOrDefault(t => t.Id == turmaSelecionadaId.Value);
         }
     }
 
-    private void OnTurmaChanged(ChangeEventArgs e)
+    //faz o carregamento dos professores já vinculados com a turma selecionada
+    private void OnTurmaChanged()
     {
         professoresSelecionados.Clear();
         vinculosAtuais.Clear();
 
+
         if (turmaSelecionadaId.HasValue)
         {
-            turmaSelecionada = listaTurmaFiltrada.FirstOrDefault(t => t.Id == turmaSelecionadaId.Value);
-
             // carregar vínculos atuais para essa turma (ids de professores já vinculados)
-            var vinculos = professorTurmaDAO.ListarPorTurma(turmaSelecionadaId.Value);
+            var vinculos = professorTurmaDAO.ListarPorTurma(turmaSelecionadaId ?? 0);
 
-
-            vinculosAtuais = vinculos.Select(v => v.Id_Professor_fk).ToHashSet();
+           
+            vinculosAtuais = vinculos.Select(v => v.Id_Professor_fk ?? 0).ToHashSet();
             // opcional: pré-marcar os vinculados como selecionados? (não foi solicitado, por isso não pré-marcamos)
         }
         else
@@ -259,6 +302,7 @@ else
         }
     }
 
+    //metodo que lota a lista de professores selecionados
     private void ToggleSelecionarProfessor(int professorId)
     {
         if (professoresSelecionados.Contains(professorId))
@@ -267,67 +311,67 @@ else
             professoresSelecionados.Add(professorId);
     }
 
+    //limpa a lista de professores selecionados
     private void LimparSelecao()
     {
         professoresSelecionados.Clear();
     }
 
 
+    //vincula professor com a turma
     private void VincularProfessores()
     {
         if (turmaSelecionada == null || !professoresSelecionados.Any())
             return;
 
-        // preparar lista de vínculos a inserir (somente os que ainda não existem)
-        var aInserir = professoresSelecionados.Where(id => !vinculosAtuais.Contains(id)).ToList();
-
-        if (!aInserir.Any())
-        {
-            // nada novo para inserir
+        // Filtra professores que ainda NAO estavam vinculados
+        var novos = professoresSelecionados.Where(id => !vinculosAtuais.Contains(id)).ToList();
+        if (!novos.Any())
             return;
-        }
 
-        // Exemplo do objeto que seria inserido (ajuste nomes conforme sua entidade DAO)
-        /*
-        foreach (var profId in aInserir)
+        // INSERE VÍNCULOS NO BANCO
+        foreach (var idProf in novos)
         {
-            var novo = new ProfessorTurma {
-                IdProfessor = profId,
-                IdTurma = turmaSelecionada.Id
+            var vinculo = new ProfessorTurma
+            {
+                Id_Professor_fk = idProf,
+                Id_Turma_fk = turmaSelecionada.Id
             };
 
-            // chamada real ao DAO (comentada por solicitação)
-            // await professorTurmaDAO.InserirAsync(novo);
+            professorTurmaDAO.Inserir(vinculo);
         }
-        */
 
-        // --- Trecho comentado que chama o DAO para inserir os vínculos ---
-        // OBS: conforme solicitado, o trecho que faz o INSERT foi deixado comentado.
-        // Descomente e ajuste conforme sua DAO:
-        /*
-        try
-        {
-            foreach (var profId in aInserir)
-            {
-                var novo = new ProfessorTurma { IdProfessor = profId, IdTurma = turmaSelecionada.Id };
-                await professorTurmaDAO.InserirAsync(novo);
-            }
-        }
-        catch (Exception ex)
-        {
-            // tratar erro
-        }
-        */
-
-        // Atualizar a lista de vínculos locais simulando que foram inseridos (para efeito de UI)
-        foreach (var id in aInserir)
+        // Atualizar lista de vínculos locais (UI)
+        foreach (var id in novos)
             vinculosAtuais.Add(id);
 
-        // limpar seleção dos que já foram vinculados
-        foreach (var id in aInserir)
+        // Limpa seleção após vincular
+        foreach (var id in novos)
             professoresSelecionados.Remove(id);
-
-        // feedback visual/alerta simples (pode substituir por toast)
-        // Ex: mostrar mensagem, etc. Aqui apenas um re-render.
     }
+
+    private void DesvincularProfessores()
+    {
+        if (turmaSelecionada == null || !professoresSelecionados.Any())
+            return;
+
+        // Professores que realmente ESTÃO vinculados
+        var paraRemover = professoresSelecionados
+            .Where(id => vinculosAtuais.Contains(id))
+            .ToList();
+
+        if (!paraRemover.Any())
+            return;
+
+        foreach (var idProf in paraRemover)
+        {
+            professorTurmaDAO.Excluir(idProf, turmaSelecionada.Id);
+            vinculosAtuais.Remove(idProf);
+        }
+
+        // limpa seleção após remover
+        foreach (var id in paraRemover)
+            professoresSelecionados.Remove(id);
+    }
+
 }
