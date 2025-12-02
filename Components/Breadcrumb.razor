@@ -33,41 +33,74 @@
         BuildBreadcrumb();
         StateHasChanged();
     }
+
     private void BuildBreadcrumb()
     {
         BreadcrumbItems.Clear();
 
-        var uri = NavigationManager.Uri.Replace(NavigationManager.BaseUri, "");
-        var segments = uri.Split('/', StringSplitOptions.RemoveEmptyEntries);
+        var fullPath = NavigationManager.Uri
+            .Replace(NavigationManager.BaseUri, "")
+            .Trim('/');
+
+        var segments = fullPath.Split('/', StringSplitOptions.RemoveEmptyEntries);
 
         string currentPath = NavigationManager.BaseUri;
+        string? lastNumeric = null;
 
-        // 🔥 Lista auxiliar somente com segmentos válidos (não numéricos)
-        var validSegments = segments
-            .Where(s => !int.TryParse(s, out _)) // ignora números
-            .ToList();
-
-        for (int i = 0; i < validSegments.Count; i++)
+        for (int i = 0; i < segments.Length; i++)
         {
-            string segment = validSegments[i];
-            currentPath += segment + "/";
+            string segment = segments[i];
+            bool isNumeric = int.TryParse(segment, out _);
+            bool isLast = (i == segments.Length - 1);
 
-            bool isLast = (i == validSegments.Count - 1);
+            if (isNumeric)
+            {
+                lastNumeric = segment; // salva o ID para link anterior
+                currentPath += segment + "/";
+                continue; // não exibe número no breadcrumb
+            }
+
+            // título bonitinho
+            string title = Capitalize(segment.Replace("_", " "));
+
+            // Se o próximo segmento for um ID, adicionamos ao link
+            string finalPath = currentPath + segment + "/";
+
+            if (i + 1 < segments.Length && int.TryParse(segments[i + 1], out _))
+            {
+                finalPath += segments[i + 1] + "/";
+            }
+
+            // Descobrindo se este item representa realmente a página atual
+            // Identifica se os próximos segmentos são ONLY IDs
+            bool nextSegmentsAreOnlyIds = true;
+
+            for (int j = i + 1; j < segments.Length; j++)
+            {
+                if (!int.TryParse(segments[j], out _))
+                {
+                    nextSegmentsAreOnlyIds = false;
+                    break;
+                }
+            }
+
+            // A regra: página atual = último segmento textual antes dos IDs
+            bool isCurrentPage = nextSegmentsAreOnlyIds;
 
             BreadcrumbItems.Add(new BreadcrumbItem(
-                Title: Capitalize(segment),
-                Url: isLast ? "#" : currentPath,
-                IsActive: isLast
+                Title: title,
+                Url: isCurrentPage ? "#" : finalPath,
+                IsActive: isCurrentPage
             ));
+
+            currentPath = finalPath;
         }
     }
-
 
     private string Capitalize(string text)
     {
         if (string.IsNullOrEmpty(text)) return text;
 
-        // Substitui "_" por espaço e capitaliza a primeira letra de cada palavra
         var clean = text.Replace("_", " ");
         return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(clean);
     }
@@ -78,5 +111,4 @@
     {
         NavigationManager.LocationChanged -= OnLocationChanged;
     }
-
 }

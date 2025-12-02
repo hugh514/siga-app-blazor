@@ -45,8 +45,42 @@ namespace SigaApp.Models
                 }
             }
             return lista;
-        }    
-        
+        }
+
+        public List<ProfessorTurma> ListarPorProfessor(int id)
+        {
+            List<ProfessorTurma> lista = new();
+
+            using (var conn = _conexao.GetConnection())
+            {
+                conn.Open();
+
+                string sql = @"SELECT id_ptu, id_pro_fk, id_tur_fk
+                       FROM professor_turma
+                       WHERE id_pro_fk = @id";
+
+                using (var cmd = new MySqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ProfessorTurma p = new ProfessorTurma
+                            {
+                                Id = reader.GetInt32("id_ptu"),
+                                Id_Professor_fk = reader["id_pro_fk"] == DBNull.Value ? null : reader.GetInt32("id_pro_fk"),
+                                Id_Turma_fk = reader["id_tur_fk"] == DBNull.Value ? null : reader.GetInt32("id_tur_fk")
+                            };
+
+                            lista.Add(p);
+                        }
+                    }
+                }
+            }
+            return lista;
+        }
         // -------------------------------------------------------------
         // INSERIR VÍNCULO PROFESSOR → TURMA
         // -------------------------------------------------------------

@@ -150,3 +150,4 @@ values
 select * from turma;
 select * from professor_turma;
 select * from estudante;
+select * from professor;
