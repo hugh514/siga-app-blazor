@@ -49,10 +49,19 @@ create table estudante(
     uf_est varchar(2),
     rua_est varchar(200),
     numero_est varchar(20),
-    bairro_est varchar(50),
-    id_tur_fk int null,
-	foreign key (id_tur_fk) references turma(id_tur) on delete set null
+    bairro_est varchar(50)
 );
+
+create table matricula(
+	id_mat int primary key auto_increment,
+    data_criaca_mat date,    
+    id_est_fk int null,   
+	id_tur_fk int null,
+	foreign key (id_tur_fk) references turma(id_tur) on delete set null,
+	foreign key (id_est_fk) references estudante(id_est) on delete set null
+);
+
+
 
 # inserts
 insert into professor 
@@ -138,14 +147,14 @@ values
 (2, 2);
 
 insert into estudante 
-(nome_est, idade_est, sexo_est, data_nasc_est, telefone_est, nome_resp_1_est, nome_resp_2_est, situacao_est, cidade_est, uf_est, rua_est, numero_est, bairro_est, id_tur_fk)
+(nome_est, idade_est, sexo_est, data_nasc_est, telefone_est, nome_resp_1_est, nome_resp_2_est, situacao_est, cidade_est, uf_est, rua_est, numero_est, bairro_est)
 values 
-('carlos pereira', 15, 'masculino', '2010-05-12', '69999990003', 'ana pereira', 'joão pereira', 'cursando', 'ouro preto do oeste', 'ro', 'rua das flores', '123', 'centro', 1);
+('carlos pereira', 15, 'masculino', '2010-05-12', '69999990003', 'ana pereira', 'joão pereira', 'cursando', 'ouro preto do oeste', 'ro', 'rua das flores', '123', 'centro');
 
 insert into estudante 
-(nome_est, idade_est, sexo_est, data_nasc_est, telefone_est, nome_resp_1_est, nome_resp_2_est, situacao_est, cidade_est, uf_est, rua_est, numero_est, bairro_est, id_tur_fk)
+(nome_est, idade_est, sexo_est, data_nasc_est, telefone_est, nome_resp_1_est, nome_resp_2_est, situacao_est, cidade_est, uf_est, rua_est, numero_est, bairro_est)
 values 
-('juliana santos', 14, 'feminino', '2011-08-20', '69999990004', 'paulo santos', 'marta santos', 'cursando', 'ji-paraná', 'ro', 'avenida brasil', '456', 'bairro novo', 2);
+('juliana santos', 14, 'feminino', '2011-08-20', '69999990004', 'paulo santos', 'marta santos', 'cursando', 'ji-paraná', 'ro', 'avenida brasil', '456', 'bairro novo');
 
 select * from turma;
 select * from professor_turma;

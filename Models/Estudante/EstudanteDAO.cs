@@ -49,55 +49,12 @@ namespace SigaApp.Models.Estudante
                             Numero = leitor.GetString("numero_est"),
                             Rua = leitor.GetString("rua_est"),
                             Uf = leitor.GetString("uf_est"),
-
-                            Id_Tur = leitor.IsDBNull(leitor.GetOrdinal("id_tur_fk"))
-                                        ? 0
-                                        : leitor.GetInt32("id_tur_fk"),
-
-
                         };
 
                         lista.Add(estudante);
                     }
                 };
-                // -----------------------------------------
-                // 2) BUSCAR TURMA SEPARADAMENTE
-                // -----------------------------------------
-                foreach (var est in lista)
-                {
-                    if (est.Id_Tur == 0)
-                        continue;
-
-                    string sqlTurma = @"
-                SELECT 
-                    id_tur,
-                    nome_tur,
-                    ano_tur,
-                    turno_tur,
-                    capacidade_maxima_tur
-                FROM turma
-                WHERE id_tur = @id";
-
-                    using (var cmdTur = new MySqlCommand(sqlTurma, conn))
-                    {
-                        cmdTur.Parameters.AddWithValue("@id", est.Id_Tur);
-
-                        using (var leitorTur = cmdTur.ExecuteReader())
-                        {
-                            if (leitorTur.Read())
-                            {
-                                est.Turma = new Turma.Turma
-                                {
-                                    Id = leitorTur.GetInt32("id_tur"),
-                                    Nome = leitorTur.GetString("nome_tur"),
-                                    Ano = leitorTur.GetString("ano_tur"),
-                                    Turno =  leitorTur.GetString("turno_tur"),
-                                    Capacidade = leitorTur.GetInt32("capacidade_maxima_tur")
-                                };
-                            }
-                        }
-                    }
-                }
+            
             }
 
             return lista;
@@ -133,11 +90,11 @@ namespace SigaApp.Models.Estudante
                         INSERT INTO estudante
                         (nome_est, idade_est, sexo_est, data_nasc_est, telefone_est, 
                         nome_resp_1_est, nome_resp_2_est, situacao_est, 
-                        cidade_est, uf_est, rua_est, numero_est, bairro_est, id_tur_fk)
+                        cidade_est, uf_est, rua_est, numero_est, bairro_est)
                         VALUES
                         (@_nome, @_idade, @_sexo, @_dataNasc, @_telefone,
                         @_resp1, @_resp2, @_situacao,
-                        @_cidade, @_uf, @_rua, @_numero, @_bairro, null);
+                        @_cidade, @_uf, @_rua, @_numero, @_bairro);
 ";
 
                     using (var comando = new MySqlCommand(sql, conn))

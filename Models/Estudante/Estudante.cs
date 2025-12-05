@@ -17,8 +17,5 @@
         public string Numero { get; set; }
         public string Bairro { get; set; }
 
-        public int Id_Tur { get; set; }
-        public Turma.Turma Turma { get; set; }
-
     }
 }

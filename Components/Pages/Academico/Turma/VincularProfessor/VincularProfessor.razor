@@ -9,7 +9,7 @@
 @rendermode InteractiveServer
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold">Vincular Professor</h2>   
+    <h2 class="fw-bold">Vincular Professor</h2>
 </div>
 
 @if (turmaSelecionada == null)
@@ -109,20 +109,20 @@
                     {
                         var isSelected = professoresSelecionados.Contains(prof.Id);
                         var isAlreadyLinked = vinculosAtuais.Contains(prof.Id);
-                        string rowStyle = isSelected ? "background-color:#f3f6f9;" : "";
+
+                        // Cores personalizadas
+                        string blueSelected = "rgba(13,110,253,0.20)";   // Azul claro
+                        string greenLinked = "rgba(25,135,84,0.20)";    // Verde claro
+
+                        string rowStyle = "";
+
+                        if (isSelected)
+                            rowStyle = $"background-color:{blueSelected};";
+                        else if (isAlreadyLinked)
+                            rowStyle = $"background-color:{greenLinked};";
 
                         <tr style="@rowStyle; cursor:pointer" @onclick="() => ToggleSelecionarProfessor(prof.Id)">
-                            <td>
-                                @prof.Nome
-                                @if (isSelected)
-                                {
-                                    <span class="badge bg-secondary ms-2">Selecionado</span>
-                                }
-                                @if (isAlreadyLinked)
-                                {
-                                    <span class="badge bg-light text-dark border ms-2" title="Já vinculado">Vinculado</span>
-                                }
-                            </td>
+                            <td>@prof.Nome</td>
                             <td>@prof.Disciplina</td>
                             <td>
                                 <small class="text-muted">@prof.Status</small>
@@ -138,7 +138,7 @@
                 </div>
                 <div>
                     <button class="btn btn-outline-success me-2" @onclick="VincularProfessores" disabled="@(turmaSelecionada == null || !professoresSelecionados.Any())">Vincular selecionados</button>
-                    <button class="btn btn-outline-danger me-2" @onclick="DesvincularProfessores"disabled="@(turmaSelecionada == null || !professoresSelecionados.Any())">Desvincular selecionados</button>
+                    <button class="btn btn-outline-danger me-2" @onclick="DesvincularProfessores" disabled="@(turmaSelecionada == null || !professoresSelecionados.Any())">Desvincular selecionados</button>
                     <button class="btn btn-outline-warning" @onclick="LimparSelecao" disabled="@( !professoresSelecionados.Any())">Limpar seleção</button>
                 </div>
             </div>
@@ -190,16 +190,15 @@ else
     {
         get => _turmaSelecionadaId;
         set
-        {             
+        {
             _turmaSelecionadaId = value;
             CarregarTurmasFiltradas();
             OnTurmaChanged();
-            if(_turmaSelecionadaId == null)
+            if (_turmaSelecionadaId == null)
             {
                 turmaSelecionada = null;
                 return;
             }
-
         }
     }
 
@@ -212,49 +211,36 @@ else
 
     protected override void OnInitialized()
     {
-        // carregar períodos disponíveis (exemplo: pegar distinct PeriodoLetivo das turmas)
-        // supondo que turmaDAO possua um método para retornar períodos distintos
         try
         {
             listaPeriodoLetivo = turmaDAO.ListarTodos().Select(t => t.PeriodoLetivo.ToString())
             .Distinct()
             .ToList();
 
-            //aplica o filtro desde o inicio
             CarregarTurmasFiltradas();
         }
         catch
         {
-            // fallback caso o método não exista
             var todas = turmaDAO.ListarTodos();
             listaPeriodoLetivo = todas.Select(t => t.PeriodoLetivo).Distinct().OrderBy(x => x).ToList();
         }
 
-        // carregar todos professores (filtragem de status será aplicada dinamicamente)
         listaProfessor = professorDAO.ListarTodos();
     }
 
     private void Filtrar()
     {
-        // método chamado no submit, reusa a mesma lógica de carregamento das turmas filtradas
         CarregarTurmasFiltradas();
     }
 
-
-
-
-    // metodo que aplica o filtro
     private void CarregarTurmasFiltradas()
     {
         listaTurmaFiltrada.Clear();
         turmaSelecionada = null;
 
         var todas = turmaDAO.ListarTodos();
-
-        // inicia com todas
         var query = todas.AsEnumerable();
 
-        // se período foi selecionado e não é "todos", filtra
         if (!string.IsNullOrWhiteSpace(filtroPeriodoLetivo) &&
             filtroPeriodoLetivo.ToLower() != "todos")
         {
@@ -262,7 +248,6 @@ else
                 t.PeriodoLetivo.Equals(filtroPeriodoLetivo, StringComparison.OrdinalIgnoreCase));
         }
 
-        // se ano foi selecionado e não é "todos", filtra
         if (!string.IsNullOrWhiteSpace(filtroAno) &&
             filtroAno.ToLower() != "todos")
         {
@@ -272,7 +257,6 @@ else
 
         listaTurmaFiltrada = query.OrderBy(t => t.Nome).ToList();
 
-        // atualizar turma selecionada se ainda existir na lista filtrada
         if (turmaSelecionadaId.HasValue && turmaSelecionadaId.Value != 0)
         {
             turmaSelecionada = listaTurmaFiltrada
@@ -280,21 +264,15 @@ else
         }
     }
 
-    //faz o carregamento dos professores já vinculados com a turma selecionada
     private void OnTurmaChanged()
     {
         professoresSelecionados.Clear();
         vinculosAtuais.Clear();
 
-
         if (turmaSelecionadaId.HasValue)
         {
-            // carregar vínculos atuais para essa turma (ids de professores já vinculados)
             var vinculos = professorTurmaDAO.ListarPorTurma(turmaSelecionadaId ?? 0);
-
-           
             vinculosAtuais = vinculos.Select(v => v.Id_Professor_fk ?? 0).ToHashSet();
-            // opcional: pré-marcar os vinculados como selecionados? (não foi solicitado, por isso não pré-marcamos)
         }
         else
         {
@@ -302,7 +280,6 @@ else
         }
     }
 
-    //metodo que lota a lista de professores selecionados
     private void ToggleSelecionarProfessor(int professorId)
     {
         if (professoresSelecionados.Contains(professorId))
@@ -311,25 +288,20 @@ else
             professoresSelecionados.Add(professorId);
     }
 
-    //limpa a lista de professores selecionados
     private void LimparSelecao()
     {
         professoresSelecionados.Clear();
     }
 
-
-    //vincula professor com a turma
     private void VincularProfessores()
     {
         if (turmaSelecionada == null || !professoresSelecionados.Any())
             return;
 
-        // Filtra professores que ainda NAO estavam vinculados
         var novos = professoresSelecionados.Where(id => !vinculosAtuais.Contains(id)).ToList();
         if (!novos.Any())
             return;
 
-        // INSERE VÍNCULOS NO BANCO
         foreach (var idProf in novos)
         {
             var vinculo = new ProfessorTurma
@@ -341,11 +313,9 @@ else
             professorTurmaDAO.Inserir(vinculo);
         }
 
-        // Atualizar lista de vínculos locais (UI)
         foreach (var id in novos)
             vinculosAtuais.Add(id);
 
-        // Limpa seleção após vincular
         foreach (var id in novos)
             professoresSelecionados.Remove(id);
     }
@@ -355,7 +325,6 @@ else
         if (turmaSelecionada == null || !professoresSelecionados.Any())
             return;
 
-        // Professores que realmente ESTÃO vinculados
         var paraRemover = professoresSelecionados
             .Where(id => vinculosAtuais.Contains(id))
             .ToList();
@@ -369,7 +338,6 @@ else
             vinculosAtuais.Remove(idProf);
         }
 
-        // limpa seleção após remover
         foreach (var id in paraRemover)
             professoresSelecionados.Remove(id);
     }
